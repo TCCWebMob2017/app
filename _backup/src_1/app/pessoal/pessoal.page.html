@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Pessoal
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <ion-item>
+    <ion-label floating>Nome</ion-label>  
+    <ion-input type="text" name="Name" [(ngModel)]="pessoal.nome"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Telefone</ion-label>
+    <ion-input type="text" name="telefone" [(ngModel)]="pessoal.telefone" disabled="{{text_disabled}}"></ion-input>
+  </ion-item>
+
+  <tr></tr>
+  
+  <ion-button expand="full" (click)="pessoaGet()">GET - Receber pessoa</ion-button>
+  <ion-button expand="full" (click)="pessoaPost()">POST - Cadastrar pessoa</ion-button>
+  <ion-button expand="full" (click)="pessoaPut()">PUT - Atulizar pessoa</ion-button>
+  <ion-button expand="full" (click)="pessoaDelete()">DELETE - Eliminar pessoa</ion-button>
+  <tr>
+  
+  <ion-button expand="full" (click)="gotoPessoalDependentes()">Dependentes</ion-button>
+  <ion-button size="large" expand="full" (click)="gotoPessoalDoencas()">Doencas</ion-button>
+  <ion-button size="large" (click)="openPessoalPage()" expand="block">Pessoal</ion-button>
+
+  <!--
+    
+  <h4>Resposta do servidor</h4>
+  -->
+  <!--
+  <ion-item>
+    <ion-label floating>E-mail</ion-label>
+    <ion-input type="text" name="email" [(ngModel)]="model.email" disabled="{{text_disabled}}"></ion-input>
+  </ion-item>
+
+    id: string;
+    created: string;
+    tipoPerfil: string;
+    contatos: string;
+    privacidade: string;
+  -->
+
+  <!--
+    {{result}}
+  -->
+
+
+</ion-content>
