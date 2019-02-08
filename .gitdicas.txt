@@ -1,0 +1,20 @@
+# Dicas git:
+
+Enviar projeto:
+$ git init
+$ git remote add origin https://github.com/alcenirfelix/Q-Life.git
+$ git status
+$ git add .
+$ git status
+$ git commit -m "Initial commit"
+$ git push -u origin master
+
+Atualizar (upload)
+$ git status
+$ git add [nome_do_arquivo]
+$ git commit -m "Descricao do commit"
+$ git push origin master
+
+Atualizar (download)
+git remote add origin https://github.com/alcenirfelix/Q-Life.git
+git push -u origin master
