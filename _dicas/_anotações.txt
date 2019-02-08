@@ -1,0 +1,24 @@
+
+{
+  "email": "afelix@softquim.com.br",
+  "password": "123456"
+}
+Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZmVsaXhAc29mdHF1aW0uY29tLmJyIiwiZXhwIjoxNTUwNTE2MTQ5fQ.g-PaJMuN07jYPIatenHNmspx55-BKbg1b3uKXipgfdm5_sY1Ikmkstx-xhymYk9seZ_NeNhYVTADpihDB-IrTw
+
+{
+    "id": "21e78c4d-34aa-4816-859d-98a7a3ea6f29",
+    "created": "08/02/2019 19:52:48",
+    "nome": "Alcenir Felix de Carvalho Toledo",
+    "email": "afelix@softquim.com.br",
+    "password": "$2a$10$NPz9Go0P5RjTVrb95Lr1ze/kRVCY/2bmG3f9Wxywl155TmUF7NX82",
+    "tefefone": "12997792854",
+    "cpf": "19915457898",
+    "rg": "255212963",
+    "enabled": false,
+    "tipos": [
+        "PACIENTE"
+    ],
+    "perfilPessoal": null,
+    "perfilProfissional": null,
+    "perfisInstituicoes": null
+}
