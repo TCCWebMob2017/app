@@ -5,6 +5,8 @@ import { API_CONFIG } from 'src/config/api.config';
 import { map } from 'rxjs/operators';
 import { Observable, ReplaySubject } from 'rxjs';
 import {tap} from 'rxjs/operators';
+import { LocalUser } from '../models/local_users';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +16,19 @@ export class AuthService {
   private readonly jwtTokenName = 'jwt_token';
   private authUser = new ReplaySubject<any>(1);
 
-  constructor(private http : HttpClient) { }
+  constructor(private http : HttpClient, public storage : StorageService) { }
 
+  
   authenticate(creds : CredenciaisDTO) {
     let url = `${API_CONFIG.baseUr}/login`;
     
     console.log('authservice.ts -> ' + url);
-
     if((creds.email + "" == "") || (creds.password+"" == "")) {
       creds.email = "afelix@softquim.com.br";
       creds.password = "123456";
     }
     console.log(creds);
-
-
     var headers = new Headers();
-
-
-    //var result = await this.http.post<any>(url, creds).toPromise();
-    //var result = this.http.post<any>(url, creds).toPromise();
-    //console.log(result);
-
     return this.http.post(
       url,
       creds, 
@@ -42,18 +36,18 @@ export class AuthService {
         observe: 'response',
         responseType: 'text'
       });
-    
+  }
 
-    //this.http.get(url,{}).pipe(map((res: Response) =>{
-    //  var data = res.json();    
+  sucessfullLogin(authorizationValue : string) {
+    let _token = authorizationValue.substring(7);
+    let _user : LocalUser = {
+      token: _token
+    };
+    this.storage.setLocalUser(_user);
+  }
 
-
-
-      //login(values: any): Observable<string> {
-      //  return this.httpClient.post(`${environment.serverURL}/login`, values, 
-      //{responseType: 'text'})
-      //    .pipe(tap(jwt => this.handleJwtResponse(jwt)));
-      //}
+  logout() {
+    this.storage.setLocalUser(null);
   }
 
 
