@@ -36,7 +36,7 @@
     <ion-list>     
       <ion-item>
         <ion-label position="stacked">E-mail</ion-label>
-        <ion-input type="text" name="email" value="marinakamillysuelimoreira-86@alemponte.com.br" ngModel required #email="ngModel"
+        <ion-input [(ngModel)]="creds.email" type="text" name="email" value="afelix@softquim.com.br" ngModel required #email="ngModel"
                    [class.invalid]="email.errors && email.dirty"></ion-input>
       </ion-item>
       <!--
@@ -49,7 +49,7 @@
 
       <ion-item>
         <ion-label position="stacked">Password</ion-label>
-        <ion-input type="password" name="password" value="iZEtE2llMC" ngModel required #password="ngModel"
+        <ion-input [(ngModel)]="creds.password" type="password" name="password" value="123456" ngModel required #password="ngModel"
                    [class.invalid]="password.errors && password.dirty"></ion-input>
       </ion-item>
       <!--

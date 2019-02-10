@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
+import { CredenciaisDTO } from '../models/credenciais.dto';
+import { AuthService } from '../services/auth.service';
+
+import { first } from 'rxjs/operators';
+import {finalize} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +13,15 @@ import { NavController, MenuController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  constructor(public navCtrl : NavController, public menu : MenuController) { }
+  creds : CredenciaisDTO = {
+    email: "",
+    password: ""
+  };
+
+  constructor(
+    public navCtrl : NavController, 
+    public menu : MenuController,
+    public auth : AuthService) { }
 
   ngOnInit() {
     
@@ -23,9 +36,29 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    this.navCtrl.navigateRoot('pessoal');
-    //this.navCtrl.navigateForward('pessoal');
-  }
+
+    this.auth.authenticate(this.creds)
+      .subscribe(Response => {
+        console.log(Response);
+        console.log(Response.headers.get('Authorization'));
+        //alert(Response.headers.get('Authorization'));
+        //this.navCtrl.navigateRoot('pessoal-todos');
+      },
+      error => {}
+      )
+
+    /*
+    this.auth.userAuthentication(this.creds);
+    console.log(Response);
+    */
+
+  };
+
+  
+  
+    // //this.navCtrl.navigateRoot('pessoal');
+    // //this.navCtrl.navigateForward('pessoal');
+  
 
   signup() { };
 

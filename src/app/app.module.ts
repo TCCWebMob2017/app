@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PessoalService } from './services/pessoal.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,9 @@ import { PessoalService } from './services/pessoal.service';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    PessoalService
+    PessoalService,
+    //ErrorInterceptorProvider.
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

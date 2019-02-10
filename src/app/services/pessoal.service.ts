@@ -13,7 +13,7 @@ export class PessoalService {
 
   findAll() : Observable<PessoaDTO[]> {
     //let url =  `${API_CONFIG.baseUr}` + 'usuario/pessoal'; 
-    let url =  `${API_CONFIG.baseUr}` + 'pessoal/all'; 
+    let url =  `${API_CONFIG.baseUr}` + 'pessoalx/all'; 
 
     console.log(url);
     return this.http.get<PessoaDTO[]>(url);
