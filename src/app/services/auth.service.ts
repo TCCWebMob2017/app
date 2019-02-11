@@ -13,6 +13,9 @@ import { StorageService } from './storage.service';
 })
 export class AuthService {
 
+  //jwtHelper: JwtHelper = new JwtHelper();
+  //jwtHelper: JwtHelper;
+  
   private readonly jwtTokenName = 'jwt_token';
   private authUser = new ReplaySubject<any>(1);
 
@@ -20,15 +23,12 @@ export class AuthService {
 
   
   authenticate(creds : CredenciaisDTO) {
-    let url = `${API_CONFIG.baseUr}/login`;
-    
-    console.log('authservice.ts -> ' + url);
+    let url = API_CONFIG.loginUrl;    
     if((creds.email + "" == "") || (creds.password+"" == "")) {
       creds.email = "afelix@softquim.com.br";
       creds.password = "123456";
-    }
-    console.log(creds);
-    var headers = new Headers();
+    }    
+    //var headers = new Headers();
     return this.http.post(
       url,
       creds, 
@@ -41,7 +41,10 @@ export class AuthService {
   sucessfullLogin(authorizationValue : string) {
     let _token = authorizationValue.substring(7);
     let _user : LocalUser = {
-      token: _token
+      token: _token,
+      id: "edaa50c1-8301-4f71-b0d2-8ed35dfc3dbf",
+      email: 'afelix@softquim.com.br'
+      //https://api-qlife.herokuapp.com/api/v1/usuario
     };
     this.storage.setLocalUser(_user);
   }
@@ -53,7 +56,7 @@ export class AuthService {
 
   authenticat2(values: any): Observable<string> {
 
-    let url = `${API_CONFIG.baseUr}/login`;
+    let url = API_CONFIG.loginUrl;
     console.log('authenticat2...: ' + url);
     values.email = "afelix@softquim.com.br";
     values.password = "123456";
@@ -78,7 +81,7 @@ export class AuthService {
 
   userAuthentication(creds : CredenciaisDTO) {
 
-    let url = `${API_CONFIG.baseUr}/login`;
+    let url = API_CONFIG.loginUrl;
     creds.email = "afelix@softquim.com.br";
     creds.password = "123456";    
 
@@ -111,7 +114,7 @@ export class AuthService {
 
 
     //postPessoal(any : any){
-      let url = `${API_CONFIG.baseUr}/login`;
+      let url = API_CONFIG.loginUrl;
       let headers = new HttpHeaders ({'Content-Type':'application/json'});
 
 
@@ -122,7 +125,7 @@ export class AuthService {
 
 
 
-    return this.http.post<any>(`${API_CONFIG.baseUr}/login`, { email, password })
+    return this.http.post<any>(API_CONFIG.loginUrl, { email, password })
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
 

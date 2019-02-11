@@ -28,4 +28,8 @@ export class StorageService {
     }
   }
 
+  clearLocalUser() {
+    localStorage.removeItem(STORAGE_KEY.localUser);
+  }
+
 }

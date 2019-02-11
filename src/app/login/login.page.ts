@@ -5,6 +5,7 @@ import { AuthService } from '../services/auth.service';
 
 import { first } from 'rxjs/operators';
 import {finalize} from 'rxjs/operators';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +22,11 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl : NavController, 
     public menu : MenuController,
-    public auth : AuthService) { }
+    public auth : AuthService,
+    private storage : StorageService) { }
 
   ngOnInit() {
-    
+    this.storage.clearLocalUser();
   }
 
   ionViewWillEnter(){
@@ -40,9 +42,11 @@ export class LoginPage implements OnInit {
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
         this.auth.sucessfullLogin(Response.headers.get('Authorization'));
-        //this.navCtrl.navigateRoot('pessoal-todos');
+        this.navCtrl.navigateRoot('pessoal');
       },
-      error => {}
+      error => {
+        console.log(error);
+      }
       )
 
     /*

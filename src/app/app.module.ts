@@ -12,6 +12,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { PessoalService } from './services/pessoal.service';
 import { AuthService } from './services/auth.service';
 import { StorageService } from './services/storage.service';
+import { AuthInterceptorProvider } from './interceptors/auth-interceptor';
+import { ErrorInterceptorProvider } from './interceptors/error-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +29,8 @@ import { StorageService } from './services/storage.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     PessoalService,
-    //ErrorInterceptorProvider.
+    AuthInterceptorProvider,
+    ErrorInterceptorProvider,
     AuthService,
     StorageService
   ],

@@ -1,4 +1,4 @@
-export interface PessoaDTO {
+export interface UsuarioDTO {
     id: string;
     created: string;
     nome: string;
@@ -11,6 +11,5 @@ export interface PessoaDTO {
     tipos: string;
     perfilPessoal: string;
     perfilProfissional: string;
-    perfisInstituicoes: string;
-    imageUrl: string;
+    perfisInstituicoes: string;    
 }
