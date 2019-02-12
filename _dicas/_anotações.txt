@@ -1,4 +1,9 @@
 
+GIT : erros upload
+git fetch origin master
+git merge origin master
+
+
 {
   "email": "afelix@softquim.com.br",
   "password": "123456"

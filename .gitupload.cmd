@@ -3,7 +3,7 @@ set _my_datetime=%date%_%time%
 git status
 git add .
 IF "%1%"=="" (
-    git commit -m %_my_datetime%
+    git commit -m "Commit"
     GOTO FIM
 )
 git commit -m %1
