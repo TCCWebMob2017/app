@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Ficha médica</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+<!--
+    <ion-avatar item-left>
+      <img class="circle" [src]="usuario?.perfilPessoal?.imageUrl || 'assets/img/avatar-blank.png'">
+    </ion-avatar>
+    <h2 text-center>{{pessoal?.nome}}</h2>
+    <p text-center>{{pessoal?.email}}</p>
+    <p text-center>{{pessoal?.telefone}}</p>
+-->
+      
+
+
+  <ion-item>
+    <ion-avatar slot="start">
+      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+    </ion-avatar>
+    <ion-label>{{ pessoal.nome }}</ion-label>
+  </ion-item>
+
+  <br>
+  <ion-item>
+    <ion-label position="stacked">Telefone:</ion-label>
+    <ion-input value="{{ pessoal.telefone }}" readonly></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Grupo sanguíneo:</ion-label>
+    <ion-input [(ngModel)]="pessoal.email"  readonly></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Peso:</ion-label>
+    <ion-input value="73 Kg" readonly></ion-input>
+  </ion-item>    
+    
+
+  <ion-card>
+    <ion-item class="activated">
+      <!-- <ion-icon name="pin" slot="start"></ion-icon> -->
+      <ion-icon name="notifications" slot="start"></ion-icon>
+      <ion-label>ALERGIAS</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Nome: <strong>outras rinites alergicas</strong></ion-label>
+      <ion-label position="stacked">Categoria: <b>rinite alergica</b></ion-label>
+      <ion-label position="stacked">Descrição: <b>x</b> </ion-label>
+      <ion-label position="stacked">Agente causador: <b>x</b> </ion-label> 
+      <ion-label position="stacked">Reações adversas: <b>x</b> </ion-label> 
+      <ion-label position="stacked"><b> Observação:</b> </ion-label>
+          Keep close to Nature's heart... and break clear away, once in awhile,
+          and climb a mountain or spend a week in the woods. Wash your spirit clean.
+      </ion-item>
+      <br>
+  </ion-card>
+
+   
+    
+    
+</ion-content>

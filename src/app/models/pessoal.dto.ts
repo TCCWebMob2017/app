@@ -1,4 +1,4 @@
-export interface PessoaDTO {
+export interface PessoalDTO {
     id: string;
     created: string;
     nome: string;

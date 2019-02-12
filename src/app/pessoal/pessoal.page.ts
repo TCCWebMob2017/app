@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
-import { PessoaDTO } from '../models/pessoal.dto';
+import { PessoalDTO } from '../models/pessoal.dto';
 import { NavController } from '@ionic/angular';
 
 @Component({
@@ -11,7 +11,7 @@ import { NavController } from '@ionic/angular';
 })
 export class PessoalPage implements OnInit {
 
-  pessoal: PessoaDTO;
+  pessoal: PessoalDTO;
 
   constructor(public navCtrl : NavController,
               private pessoalService : PessoalService,
@@ -62,6 +62,13 @@ export class PessoalPage implements OnInit {
 
       }
       );
+  }
+
+  showFichaMedica() {
+
+    this.navCtrl.navigateRoot('ficha-medica'); //, this.pessoal );
+    //this.router.navigateByUrl(path);
+
   }
 
   
