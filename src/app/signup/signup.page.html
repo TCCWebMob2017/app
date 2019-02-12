@@ -5,45 +5,62 @@
 </ion-header>
 
 <ion-content padding>
+<!-- ---------------------------------------------------------------------- -->
+  
 
-  <ion-item-divider>
-    <ion-label>
-      Basic Item Divider
-    </ion-label>
-  </ion-item-divider>
-        
+<!-- Default Label -->
+<ion-label>Label</ion-label>
 
+<!-- Label Colors -->
+<ion-label color="primary">Primary Label</ion-label>
+<ion-label color="secondary">Secondary Label</ion-label>
+<ion-label color="danger">Danger Label</ion-label>
+<ion-label color="light">Light Label</ion-label>
+<ion-label color="dark">Dark Label</ion-label>
 
+<!-- Item Labels -->
+<ion-item>
+  <ion-label>Default Item</ion-label>
+</ion-item>
 
-  <ion-text color="secondary">
-      <h1>H1: The quick brown fox jumps over the lazy dog</h1>
-    </ion-text>
-    
-    <ion-text color="primary">
-      <h2>H2: The quick brown fox jumps over the lazy dog</h2>
-    </ion-text>
-    
-    <ion-text color="light">
-      <h3>H3: The quick brown fox jumps over the lazy dog</h3>
-    </ion-text>
-    
-    <ion-text color="danger">
-      <h4 >H4: The quick brown fox jumps over the lazy dog</h4>
-    </ion-text>
-    
-    <ion-text color="dark">
-      <h5>H5: The quick brown fox jumps over the lazy dog</h5>
-    </ion-text>
-    
-    <p>
-      I saw a werewolf with a Chinese menu in his hand.
-      Walking through the <ion-text color="danger"><sub>streets</sub></ion-text> of Soho in the rain.
-      He <ion-text color="primary"><i>was</i></ion-text> looking for a place called Lee Ho Fook's.
-      Gonna get a <ion-text color="secondary"><a>big dish of beef chow mein.</a></ion-text>
-      <ion-text color="danger"><ion-icon name="cut"></ion-icon></ion-text>
-    </p>
+<ion-item text-wrap>
+  <ion-label>
+    Multi-line text that should wrap when it is too long
+    to fit on one line in the item.
+  </ion-label>
+</ion-item>
 
+<!-- Input Labels -->
+<ion-item>
+  <ion-label>Default Input</ion-label>
+  <ion-input></ion-input>
+</ion-item>
 
+<ion-item>
+  <ion-label position="fixed">Fixed</ion-label>
+  <ion-input></ion-input>
+</ion-item>
 
+<ion-item>
+  <ion-label position="floating">Floating</ion-label>
+  <ion-input></ion-input>
+</ion-item>
 
+<ion-item>
+  <ion-label position="stacked">Stacked</ion-label>
+  <ion-input></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label>Toggle</ion-label>
+  <ion-toggle slot="end" checked></ion-toggle>
+</ion-item>
+
+<ion-item>
+  <ion-checkbox slot="start" checked></ion-checkbox>
+  <ion-label>Checkbox</ion-label>
+</ion-item>
+      
+
+<!-- ---------------------------------------------------------------------- -->
 </ion-content>

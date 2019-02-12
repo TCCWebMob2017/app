@@ -13,6 +13,7 @@ export class PessoalPage implements OnInit {
 
   //pessoal: PessoalDTO;
   prontuario: any;
+  medicamentos: any;
 
   constructor(public navCtrl : NavController,
               private pessoalService : PessoalService,
@@ -38,7 +39,14 @@ export class PessoalPage implements OnInit {
       this.pessoalService.getLoggedInUser()
         .subscribe(Response => {
         this.prontuario = Response;       
-        console.log(this.prontuario);
+        //console.log(this.prontuario);
+
+        this.storage.setLocalProfile(this.prontuario);
+        
+        this.medicamentos = this.prontuario.perfilPessoal.medicamentos;
+        console .log(this.medicamentos);
+        //const parsed = JSON.parse(this.prontuario.perfilPessoal); 
+        
         },
       error => {
         if (error.status == 403) {
@@ -73,10 +81,13 @@ export class PessoalPage implements OnInit {
   }
 
   showFichaMedica() {
-
-    this.navCtrl.navigateRoot('ficha-medica'); //, this.pessoal );
+    //this.navCtrl.navigateRoot('ficha-medica'); //, this.pessoal );
+    this.navCtrl.navigateForward('ficha-medica');
     //this.router.navigateByUrl(path);
+  }
 
+  showFichaMedicaForward() {
+    this.navCtrl.navigateForward('ficha-medica');
   }
 
   

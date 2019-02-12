@@ -1,11 +1,25 @@
 <ion-header>
+  
+  <!--
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Ficha médica</ion-title>
   </ion-toolbar>
+  -->
+
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Ficha médica</ion-title>
+    </ion-toolbar>
+  
 </ion-header>
+
+
+
 
 <ion-content padding>
 
@@ -24,25 +38,32 @@
     <ion-avatar slot="start">
       <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
     </ion-avatar>
-    <ion-label>{{ pessoal.nome }}</ion-label>
+    <ion-label>{{ fichaMedica?.nome }}</ion-label>
   </ion-item>
 
   <br>
+  
+  
+  <ion-item>
+    <ion-label position="stacked">Data de nascimento:</ion-label>
+    <ion-input value="{{ fichaMedica?.perfilPessoal?.nascimento }} (42 anos)" readonly></ion-input>
+  </ion-item>
   <ion-item>
     <ion-label position="stacked">Telefone:</ion-label>
-    <ion-input value="{{ pessoal.telefone }}" readonly></ion-input>
+    <ion-input value="{{ fichaMedica?.tefefone }}" readonly></ion-input>
   </ion-item>
-
   <ion-item>
     <ion-label position="stacked">Grupo sanguíneo:</ion-label>
-    <ion-input [(ngModel)]="pessoal.email"  readonly></ion-input>
+    <ion-input value="{{ fichaMedica?.perfilPessoal?.tipoSangue }}" readonly></ion-input>
   </ion-item>
-
   <ion-item>
     <ion-label position="stacked">Peso:</ion-label>
-    <ion-input value="73 Kg" readonly></ion-input>
-  </ion-item>    
-    
+    <ion-input value="{{ fichaMedica?.perfilPessoal?.peso }} Kg" readonly></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">Altura:</ion-label>
+    <ion-input value="{{ fichaMedica?.perfilPessoal?.altura }} m" readonly></ion-input>
+  </ion-item>
 
   <ion-card>
     <ion-item class="activated">
@@ -63,7 +84,14 @@
       <br>
   </ion-card>
 
-   <!-- x -->
+  <ion-content>
+      <ion-list inset>
+        <ion-item *ngFor="let medic of fichaMedica?.perfilPessoal?.medicamentos">
+          <h2> {{medic?.nome}}</h2>
+          <p>{{medic?.nome}}</p>
+        </ion-item>
+      </ion-list>
+    </ion-content>
     
     
 </ion-content>

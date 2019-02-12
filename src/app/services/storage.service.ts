@@ -32,4 +32,13 @@ export class StorageService {
     localStorage.removeItem(STORAGE_KEY.localUser);
   }
 
+  setLocalProfile(obj : any) {
+    if(obj == null) {
+      localStorage.removeItem(STORAGE_KEY.localProfile);
+    }
+    else {
+      localStorage.setItem(STORAGE_KEY.localProfile, JSON.stringify(obj));
+    }
+  }
+
 }

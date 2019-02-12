@@ -3,6 +3,11 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button (click)="showFichaMedicaForward()">
+        <ion-icon slot="icon-only" name="medical"></ion-icon>
+        </ion-button>
+      </ion-buttons>   
     <ion-title>Pessoal</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,11 +17,22 @@
   <ion-avatar>
     <img class="circle" [src]="prontuario?.perfilPessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
   </ion-avatar>
-  <h2 text-center>{{ prontuario?.perfilPessoal?.nome }}</h2>
-  <h2 text-center>{{ prontuario?.perfilPessoal?.telefone }}</h2>
-  
-  <br>
 
-  <ion-button color="primary" (click)="showFichaMedica()">Primary</ion-button>
+  <h2 text-center>{{ prontuario?.nome }}</h2>
+  <p text-center>{{ prontuario?.email }}</p>
+
+  <ion-item>
+    <ion-label position="stacked">Telefone</ion-label>
+    <ion-input readonly>{{ prontuario?.perfilPessoal?.telefone }}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">RG</ion-label>
+    <ion-input readonly>{{ prontuario?.rg }}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">CPF:</ion-label>
+    <ion-input readonly>{{ prontuario?.cpf }}</ion-input>
+  </ion-item>    
+
 
 </ion-content>
