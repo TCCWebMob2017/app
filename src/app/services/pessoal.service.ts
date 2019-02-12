@@ -1,4 +1,4 @@
-import { PessoaDTO } from './../models/pessoal.dto';
+import { PessoalDTO } from './../models/pessoal.dto';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { API_CONFIG } from 'src/config/api.config';
@@ -12,19 +12,25 @@ export class PessoalService {
 
   constructor(private http : HttpClient, private storage : StorageService) { }
 
-  findAll() : Observable<PessoaDTO[]> {
+  findAll() : Observable<PessoalDTO[]> {
     //let url =  `${API_CONFIG.baseUr}` + 'usuario/pessoal'; 
     let url =  `${API_CONFIG.baseUrl}` + 'pessoal/all';
 
     console.log(url);
-    return this.http.get<PessoaDTO[]>(url);
+    return this.http.get<PessoalDTO[]>(url);
 
     //https://bioup.herokuapp.com/api/v1/pessoal/all
     //https://api-qlife.herokuapp.com/api/v1/usuario/pessoal
 
   }
 
-  findById(id : string) : Observable<PessoaDTO> {
+
+  getLoggedInUser() {
+    let url =  `${API_CONFIG.baseUrl}` + '/api/v1/usuario';
+    return this.http.get<any>(url); 
+  }
+
+  findById(id : string) : Observable<PessoalDTO> {
     let url =  `${API_CONFIG.baseUrl}/api/v1/pessoal/${id}`;
     /*
     let token = this.storage.getLocalUser().token;
@@ -32,7 +38,7 @@ export class PessoalService {
     */
 
     /* return this.http.get<PessoaDTO>(url, {'headers': authHeader});  */
-    return this.http.get<PessoaDTO>(url); 
+    return this.http.get<PessoalDTO>(url); 
   }
 
   findByEmail() {

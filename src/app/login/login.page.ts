@@ -19,11 +19,14 @@ export class LoginPage implements OnInit {
     password: ""
   };
 
+  public userOnLine: any;
+
   constructor(
     public navCtrl : NavController, 
     public menu : MenuController,
     public auth : AuthService,
     private storage : StorageService) { }
+
 
   ngOnInit() {
     this.storage.clearLocalUser();
@@ -38,13 +41,25 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
-        this.auth.sucessfullLogin(Response.headers.get('Authorization'));
+        this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
 
-        console.log('this.auth.authenticate(this.creds)');
-        console.log(Response);
+        /*
+        // public userOnLine: any;
+        console.log('this.auth.authenticate(this.creds) ------------>');
+        this.auth.getByUserLogin()
+          .subscribe(Response => {
+          this.userOnLine = Response;
+
+          console.log('this.userOnLine?');
+          console.log(this.userOnLine);
+          console.log(Response);
+  
+        },
+        error => {  }
+        );      
+        */
 
         this.navCtrl.navigateRoot('pessoal');
       },

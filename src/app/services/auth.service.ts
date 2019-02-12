@@ -42,22 +42,33 @@ export class AuthService {
       });
   }
 
-  sucessfullLogin(authorizationValue : string) {
+  sucessfullLogin(email : string, authorizationValue : string) {
 
-    console.log(authorizationValue);
+    console.log(authorizationValue) ;
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+    console.log(email);
+
+
     let _token = authorizationValue.substring(7);
     let _user : LocalUser = {
       token: _token,
       id: "edaa50c1-8301-4f71-b0d2-8ed35dfc3dbf",
-      email: 'afelix@softquim.com.br'
+      email: email
       //https://api-qlife.herokuapp.com/api/v1/usuario
+
+//https://api-qlife.herokuapp.com/api/v1/usuario/
+
     };
     this.storage.setLocalUser(_user);
   }
 
+
   logout() {
     this.storage.setLocalUser(null);
   }
+
+
+
 
 
   authenticat2(values: any): Observable<string> {

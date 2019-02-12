@@ -14,7 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
         let localUser = this.storage.getLocalUser();
         let requestToApi = req.url.substring(0, (API_CONFIG.baseUrl.length)) == API_CONFIG.baseUrl;
 
-        console.log(req.url);
+        console.log('AuthInterceptor URL: ' + req.url);
 
         if (localUser && requestToApi) {
             const authReq = req.clone({headers: req.headers.set('Authorization', 'Bearer ' + localUser.token)});

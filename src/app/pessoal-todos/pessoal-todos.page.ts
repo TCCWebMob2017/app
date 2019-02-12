@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
-import { PessoaDTO } from '../models/pessoal.dto';
+import { PessoalDTO } from '../models/pessoal.dto';
 
 @Component({
   selector: 'app-pessoal-todos',
@@ -8,7 +8,7 @@ import { PessoaDTO } from '../models/pessoal.dto';
   styleUrls: ['./pessoal-todos.page.scss'],
 })
 export class PessoalTodosPage implements OnInit {
-  items: PessoaDTO[];
+  items: PessoalDTO[];
 
   constructor(private pessoalService : PessoalService) { 
     this.pessoalGetAll();

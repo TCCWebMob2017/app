@@ -10,13 +10,13 @@
 <ion-content padding>
   
   <ion-avatar>
-    <img class="circle" [src]="pessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
+    <img class="circle" [src]="prontuario?.perfilPessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
   </ion-avatar>
-  <h2 text-center>{{ pessoal?.nome }}</h2>
-  <h2 text-center>{{ pessoal?.telefone }}</h2>
+  <h2 text-center>{{ prontuario?.perfilPessoal?.nome }}</h2>
+  <h2 text-center>{{ prontuario?.perfilPessoal?.telefone }}</h2>
   
   <br>
-  <ion-button color="secondary" expand="block" type="button" (click)="pessoalAll()">Pessoal All</ion-button>
+
   <ion-button color="primary" (click)="showFichaMedica()">Primary</ion-button>
 
 </ion-content>

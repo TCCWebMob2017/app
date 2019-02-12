@@ -11,7 +11,8 @@ import { NavController } from '@ionic/angular';
 })
 export class PessoalPage implements OnInit {
 
-  pessoal: PessoalDTO;
+  //pessoal: PessoalDTO;
+  prontuario: any;
 
   constructor(public navCtrl : NavController,
               private pessoalService : PessoalService,
@@ -20,23 +21,26 @@ export class PessoalPage implements OnInit {
   ngOnInit() {
    //this.pessoalService.findAll
    //console.log();
-    let localUser = this.storage.getLocalUser();
+    
+   let localUser = this.storage.getLocalUser();
     if(localUser && localUser.email) {
 
+      /*
       this.pessoalService.findById(localUser.id)
       .subscribe(Response => {
         this.pessoal = Response;
         //this.getImageIfExist();
-
         console.log('pessoa:ngOnInit');
         console.log(Response);
-
       },
+      */
+
+      this.pessoalService.getLoggedInUser()
+        .subscribe(Response => {
+        this.prontuario = Response;       
+        console.log(this.prontuario);
+        },
       error => {
-        console.log('deu erro 1');
-        console.log(error);
-        console.log('deu erro 2');
-        console.log(error.status);
         if (error.status == 403) {
           this.navCtrl.navigateRoot('login');
         }
@@ -48,9 +52,9 @@ export class PessoalPage implements OnInit {
   }
 
   getImageIfExist() {
-    this.pessoalService.getImageFromBucket(this.pessoal.id)
+    this.pessoalService.getImageFromBucket(this.prontuario.pessoal.id)
     .subscribe(Response => {
-      this.pessoal.imageUrl = "";
+      this.prontuario.pessoal.imageUrl = "";
     },
     error => {});
     //https://api-qlife.herokuapp.com/api/v1/pessoal/000/avatar
