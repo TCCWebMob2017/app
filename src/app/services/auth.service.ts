@@ -25,8 +25,12 @@ export class AuthService {
   authenticate(creds : CredenciaisDTO) {
     let url = API_CONFIG.loginUrl;    
     if((creds.email + "" == "") || (creds.password+"" == "")) {
-      creds.email = "afelix@softquim.com.br";
-      creds.password = "123456";
+      
+      //creds.email = "afelix@softquim.com.br";
+      creds.email = "marinakamillysuelimoreira-86@alemponte.com.br";
+      //creds.password = "123456";
+      creds.password = "iZEtE2llMC";
+      
     }    
     //var headers = new Headers();
     return this.http.post(
@@ -39,6 +43,8 @@ export class AuthService {
   }
 
   sucessfullLogin(authorizationValue : string) {
+
+    console.log(authorizationValue);
     let _token = authorizationValue.substring(7);
     let _user : LocalUser = {
       token: _token,

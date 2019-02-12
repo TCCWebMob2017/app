@@ -9,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FichaMedicaPage implements OnInit {
 
-  pessoal: PessoalDTO = {
+  //pessoal: PessoalDTO = {
+  pessoal: any = {
 
     id: "21e78c4d-34aa-4816-859d-98a7a3ea6f29",
     nome:  "Alcenir Felix de Carvalho Toledo",

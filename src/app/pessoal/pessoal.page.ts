@@ -27,6 +27,10 @@ export class PessoalPage implements OnInit {
       .subscribe(Response => {
         this.pessoal = Response;
         //this.getImageIfExist();
+
+        console.log('pessoa:ngOnInit');
+        console.log(Response);
+
       },
       error => {
         console.log('deu erro 1');
