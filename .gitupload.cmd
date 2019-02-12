@@ -1,4 +1,3 @@
-@ECHO OFF
 git status
 git add .
 IF "%1%"=="" (
