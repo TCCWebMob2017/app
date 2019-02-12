@@ -1,3 +1,4 @@
+@ECHO OFF
 set _my_datetime=%date%_%time%
 git status
 git add .
