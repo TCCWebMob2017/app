@@ -17,13 +17,14 @@
         <ion-input type="text" name="nome" ngModel required #nome="ngModel"
                    [class.invalid]="nome.errors && nome.dirty"></ion-input>
       </ion-item>
-      <!--
-      <ion-item class="error-message" *ngIf="name.errors?.required && name.dirty">
+      <!-- 
+      <ion-item class="error-message" *ngIf="nome.errors?.required && nome.dirty">
         <ion-label>
           Name is required
         </ion-label>
       </ion-item>
       -->
+      
 
       <ion-item>
         <ion-label position="stacked">E-mail</ion-label>
