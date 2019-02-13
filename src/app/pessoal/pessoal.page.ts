@@ -13,15 +13,12 @@ export class PessoalPage implements OnInit {
 
   //pessoal: PessoalDTO;
   prontuario: any;
-  medicamentos: any;
 
   constructor(public navCtrl : NavController,
               private pessoalService : PessoalService,
               private storage  : StorageService) { }
 
   ngOnInit() {
-   //this.pessoalService.findAll
-   //console.log();
     
    let localUser = this.storage.getLocalUser();
     if(localUser && localUser.email) {
@@ -35,18 +32,11 @@ export class PessoalPage implements OnInit {
         console.log(Response);
       },
       */
-
       this.pessoalService.getLoggedInUser()
         .subscribe(Response => {
         this.prontuario = Response;       
         //console.log(this.prontuario);
-
         this.storage.setLocalProfile(this.prontuario);
-        
-        this.medicamentos = this.prontuario.perfilPessoal.medicamentos;
-        console .log(this.medicamentos);
-        //const parsed = JSON.parse(this.prontuario.perfilPessoal); 
-        
         },
       error => {
         if (error.status == 403) {

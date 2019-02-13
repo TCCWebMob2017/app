@@ -41,4 +41,14 @@ export class StorageService {
     }
   }
 
+  getLocalProfile() : any {
+    let profile = localStorage.getItem(STORAGE_KEY.localProfile);
+    if(profile == null) {
+      return null;
+    }
+    else {
+      return JSON.parse(profile);
+    }
+  }
+
 }

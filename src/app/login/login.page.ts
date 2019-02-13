@@ -2,9 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
 import { CredenciaisDTO } from '../models/credenciais.dto';
 import { AuthService } from '../services/auth.service';
-
-import { first } from 'rxjs/operators';
-import {finalize} from 'rxjs/operators';
+//import { first } from 'rxjs/operators';
+//import {finalize} from 'rxjs/operators';
 import { StorageService } from '../services/storage.service';
 
 @Component({
@@ -41,6 +40,7 @@ export class LoginPage implements OnInit {
   }
 
   login() {
+    
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
         this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
@@ -82,7 +82,8 @@ export class LoginPage implements OnInit {
   
 
   signup() { 
-    this.navCtrl.navigateRoot('signup');
+    //this.navCtrl.navigateRoot('signup');
+    this.navCtrl.navigateForward('signup');
   };
 
 }

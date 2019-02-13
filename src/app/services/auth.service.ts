@@ -32,6 +32,13 @@ export class AuthService {
     this.storage.setLocalUser(_user);
   }
 
+  signup(value: any) {
+    let url = API_CONFIG.baseUrl + "/api/v1/usuario";
+    console.log('url ------------> ' + url);
+    console.log(value);
+    return this.http.post(url, value, { observe: 'response', responseType: 'text' });
+  }
+
   logout() {
     this.storage.setLocalUser(null);
   }
