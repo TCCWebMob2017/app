@@ -86,4 +86,8 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateForward('signup');
   };
 
+  sobre() {
+    this.navCtrl.navigateForward('sobre');
+  }
+
 }

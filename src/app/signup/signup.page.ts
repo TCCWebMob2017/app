@@ -1,6 +1,6 @@
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { NgModel } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 
@@ -12,13 +12,16 @@ import { AuthService } from '../services/auth.service';
 export class SignupPage implements OnInit {
 
   usernameModel: NgModel;
+
   constructor(public navCtrl: NavController,
               public auth : AuthService,
               //private readonly authService: AuthService,
               //private readonly loadingCtrl: LoadingController,
               //private readonly toastCtrl: ToastController,
+              //public formBuilder: FormBuilder,
               public alertCtrl: AlertController
               ) { 
+
   }
 
 
@@ -28,7 +31,7 @@ export class SignupPage implements OnInit {
       .subscribe(Response => {
         //this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
         this.navCtrl.navigateRoot('login');
-        console.log(Response);
+        //console.log(Response);
       },
       error => {
         console.log(error);

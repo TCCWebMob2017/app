@@ -1,60 +1,102 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button (click)="showFichaMedicaForward()">
-        <ion-icon slot="icon-only" name="medical"></ion-icon>
-        </ion-button>
-      </ion-buttons>   
-    <ion-title>Pessoal</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button (click)="showFichaMedicaForward()">
+          <ion-icon slot="icon-only" name="medical"></ion-icon>
+          </ion-button>
+        </ion-buttons>   
+      <ion-title>Pessoal</ion-title>
+    </ion-toolbar>
+  </ion-header>
   
-  <ion-avatar>
-    <img class="circle" [src]="prontuario?.perfilPessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
-  </ion-avatar>
+  <ion-content padding>
+  
+    <ion-button size="small" fill="outline">Editar</ion-button>
+  
+    <ion-avatar>
+      <img class="circle" [src]="prontuario?.perfilPessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
+    </ion-avatar>
+  
+    <h2 text-center>{{ prontuario?.nome }}</h2>
+    <p text-center>{{ prontuario?.email }}</p>
+  
+    <ion-item>
+      <ion-label position="stacked">Telefone</ion-label>
+      <ion-input readonly>{{ prontuario?.tefefone }}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">RG</ion-label>
+      <ion-input readonly>{{ prontuario?.rg }}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">CPF:</ion-label>
+      <ion-input readonly>{{ prontuario?.cpf }}</ion-input>
+    </ion-item>    
+  
+  
+    
+    <div *ngIf="prontuario?.perfilPessoal == null">
+      <!-- <ion-button shape="round">Perfil Pessoal</ion-button> -->
+      <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button>
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-list side="bottom">
+          <ion-fab-button color="primary" (click)=addPerfilPessoal()><ion-icon name="finger-print"></ion-icon></ion-fab-button>
+          <ion-fab-button color="danger"><ion-icon name="business"></ion-icon></ion-fab-button>
+          <ion-fab-button color="dark"><ion-icon name="medkit"></ion-icon></ion-fab-button>
+          <!-- <ion-fab-button color="secondary"><ion-icon name="person"></ion-icon></ion-fab-button> -->
+          <ion-fab-button color="secondary"><ion-icon name="contacts"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+        <ion-fab-list side="start">
+          <ion-fab-button color="light"><ion-icon name="medical"></ion-icon></ion-fab-button>
+        </ion-fab-list>
+      </ion-fab>
+    </div>
+  
+  
+    
+  
+  
+  
+    <ion-card>
+    <!-- <ion-list lines="none"> -->
+      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="medkit" slot="start"></ion-icon>
+        <ion-label>Medicamentos</ion-label>
+      </ion-item>   
 
-  <h2 text-center>{{ prontuario?.nome }}</h2>
-  <p text-center>{{ prontuario?.email }}</p>
-
-  <ion-item>
-    <ion-label position="stacked">Telefone</ion-label>
-    <ion-input readonly>{{ prontuario?.perfilPessoal?.telefone }}</ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">RG</ion-label>
-    <ion-input readonly>{{ prontuario?.rg }}</ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">CPF:</ion-label>
-    <ion-input readonly>{{ prontuario?.cpf }}</ion-input>
-  </ion-item>    
-
-
-  <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Resources</ion-label>
-      </ion-list-header>
-      <ion-item href="https://ionicframework.com/docs/">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>Ionic Documentation</ion-label>
+      <ion-item (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="nuclear" slot="start"></ion-icon>
+        <ion-label>Doenças</ion-label>
       </ion-item>
-      <ion-item href="https://ionicframework.com/docs/building/scaffolding">
-        <ion-icon slot="start" color="medium" name="build"></ion-icon>
-        <ion-label>Scaffold Out Your App</ion-label>
+    
+      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="snow" slot="start"></ion-icon>
+        <ion-label>Alergias</ion-label>
+      </ion-item>   
+    
+      <ion-item (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label>Dependentes</ion-label>
       </ion-item>
-      <ion-item href="https://ionicframework.com/docs/layout/structure">
-        <ion-icon slot="start" color="medium" name="grid"></ion-icon>
-        <ion-label>Change Your App Layout</ion-label>
-      </ion-item>
-      <ion-item href="https://ionicframework.com/docs/theming/basics">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>Theme Your App</ion-label>
-      </ion-item>
-    </ion-list>
 
-</ion-content>
+      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="pulse" slot="start"></ion-icon>
+        <ion-label>Cirurgias</ion-label>
+      </ion-item>   
+    
+      <ion-item (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="lock" slot="start"></ion-icon>
+        <ion-label>Permissões</ion-label>
+      </ion-item>
+  
+    </ion-card>
+    <!-- </ion-list> -->
+  
+  
+  </ion-content>
+  

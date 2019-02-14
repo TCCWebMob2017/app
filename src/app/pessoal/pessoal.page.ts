@@ -38,6 +38,8 @@ export class PessoalPage implements OnInit {
         //console.log(this.prontuario);
         this.storage.setLocalProfile(this.prontuario);
 
+
+
 // ////////////////////////////////////////////
 //var jsonData = [{"person":"me","age":"30"}, {"person":"you","age":"25"}];
 var jsonData = this.prontuario;
@@ -53,6 +55,7 @@ for(var i in jsonData){
 }
 */
 
+/*
 console.log(jsonData);
 var keys = [];
 for(var i = 0;i<jsonData.length;i++)
@@ -65,7 +68,10 @@ for(var i = 0;i<jsonData.length;i++)
     });
 }
 console.log(keys);
+*/
 
+
+/*
 for(var obj in jsonData){
   if(jsonData.hasOwnProperty(obj)){
     console.log('obj:::::::::::::: ' + obj);
@@ -79,9 +85,14 @@ for(var obj in jsonData){
   }
 }
 }
+*/
 
-console.log(Object.keys(jsonData));
-console.log(Object.keys(jsonData).length)
+
+//console.log(Object.keys(jsonData.perfilPessoal));
+
+if (jsonData.perfilPessoal == null) {
+  console.log('jsonData.perfilPessoal  / Vaziooooooooooooooo');
+}
 
 // ////////////////////////////////////////////
 
@@ -127,6 +138,14 @@ console.log(Object.keys(jsonData).length)
 
   showFichaMedicaForward() {
     this.navCtrl.navigateForward('ficha-medica');
+  }
+
+  addPerfilPessoal() {
+    alert('addPerfilPessoal');
+  }
+
+  exibirPessoalMedicamentos() {
+    this.navCtrl.navigateForward('pessoal-medicamentos');
   }
 
   

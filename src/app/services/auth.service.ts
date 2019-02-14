@@ -17,10 +17,18 @@ export class AuthService {
   authenticate(creds : CredenciaisDTO) {
     let url = API_CONFIG.loginUrl;    
     
+    console.log('credsssssssssssssssssss');
+    console.log(creds);
+    if((creds.email + "" == "a") && (creds.password+"" == "")) { 
+      creds.email = "afelix@softquim.com.br";
+      creds.password = "123456";
+    }
     if((creds.email + "" == "") || (creds.password+"" == "")) { 
       creds.email = "marinakamillysuelimoreira-86@alemponte.com.br";
       creds.password = "iZEtE2llMC";
     }
+
+
     return this.http.post(url, creds, { observe: 'response', responseType: 'text' });
   }
 
