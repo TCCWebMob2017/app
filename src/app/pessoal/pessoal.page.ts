@@ -34,9 +34,56 @@ export class PessoalPage implements OnInit {
       */
       this.pessoalService.getLoggedInUser()
         .subscribe(Response => {
-        this.prontuario = Response;       
+        this.prontuario = Response;
         //console.log(this.prontuario);
         this.storage.setLocalProfile(this.prontuario);
+
+// ////////////////////////////////////////////
+//var jsonData = [{"person":"me","age":"30"}, {"person":"you","age":"25"}];
+var jsonData = this.prontuario;
+/*
+for(var i in jsonData){
+  var key = i;
+  var val = jsonData[i];
+  for(var j in val){
+    var sub_key = j;
+    var sub_val = val[j];
+    console.log(sub_key + ': ' + sub_val);
+  }
+}
+*/
+
+console.log(jsonData);
+var keys = [];
+for(var i = 0;i<jsonData.length;i++)
+{
+    Object.keys(jsonData[i]).forEach(function(key){
+        if(keys.indexOf(key) == -1)
+        {
+            keys.push(key);
+        }
+    });
+}
+console.log(keys);
+
+for(var obj in jsonData){
+  if(jsonData.hasOwnProperty(obj)){
+  for(var prop in jsonData[obj]){
+      if(jsonData[obj].hasOwnProperty(prop)){
+         console.log( prop + 
+                      '/ ' + jsonData[obj][prop] + 
+                      '/ ' + prop.length + 
+                      '/ ' + obj.length);
+      }
+  }
+}
+}
+
+console.log(Object.keys(jsonData));
+console.log(Object.keys(jsonData).length)
+
+// ////////////////////////////////////////////
+
         },
       error => {
         if (error.status == 403) {
@@ -47,6 +94,7 @@ export class PessoalPage implements OnInit {
     else {
       this.navCtrl.navigateRoot('login');
     }
+
   }
 
   getImageIfExist() {
