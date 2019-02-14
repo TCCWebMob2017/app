@@ -68,6 +68,7 @@ console.log(keys);
 
 for(var obj in jsonData){
   if(jsonData.hasOwnProperty(obj)){
+    console.log('obj:::::::::::::: ' + obj);
   for(var prop in jsonData[obj]){
       if(jsonData[obj].hasOwnProperty(prop)){
          console.log( prop + 
