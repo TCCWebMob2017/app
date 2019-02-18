@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SobrePage implements OnInit {
 
-  constructor() { }
+  position: string
+
+  constructor() { 
+    //this.position = "stacked";
+    this.position = "floating";
+  }
 
   ngOnInit() {
   }

@@ -12,11 +12,15 @@ export class PessoalMedicamentosPage implements OnInit {
   //registerForm: FormGroup;
   loginForm: FormGroup;
   submitted = false;
+  position: string
 
   constructor(
     private formBuilder: FormBuilder,
     private modalController: ModalController,
-  ) { }
+  ) { 
+      this.position = "floating";
+      //this.position = "fixed";
+  }
 
   //https://ionicthemes.com/tutorials/about/forms-and-validation-in-ionic
   //http://jasonwatmore.com/post/2018/11/07/angular-7-reactive-forms-validation-example
@@ -27,10 +31,12 @@ export class PessoalMedicamentosPage implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       //username: new FormControl(''),
-      firstName: ['Alcenir Felix', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required, Validators.minLength(10)]],
-      password: new FormControl(''),
+      nome:       ['Alcenir Felix C', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      peso:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      tipoSangue: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]]
+      //email:      ['', [Validators.required, Validators.email]],
+      //username:   ['', [Validators.required, Validators.minLength(10)]],
+      //password: new FormControl(''),
     }); 
 
     /* 
@@ -48,6 +54,21 @@ export class PessoalMedicamentosPage implements OnInit {
 
   }
 
+  validation_messages = {
+    'nome': [
+      { type: 'required', message: 'Name is required.' },
+      { type: 'pattern', message: 'Please enter a valid name.' }
+    ],
+    'peso': [
+      { type: 'required', message: 'Peso é obrigatório.' },
+      { type: 'pattern', message: 'Informe um peso válido.' }
+    ],
+    'email': [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'minlength', message: 'Email must be at least 5 characters long.' }
+    ]
+  };  
+
   onClickLogIn(credentials) {
     alert('Onnnnnnnnnnnnnn');
     console.log('form submitted', credentials);
@@ -63,7 +84,7 @@ export class PessoalMedicamentosPage implements OnInit {
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-        return;
+      return;
     }
 
     console.log('submit --------->');

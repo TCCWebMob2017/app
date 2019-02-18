@@ -11,9 +11,10 @@
   <!-- ---------------------------------------------------------------------------------------------------- -->
   <!-- ---------------------------------------------------------------------------------------------------- -->
 
-
+  <!--
   The world is your oyster.
   <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
+  -->
 
     <!--
     <ion-button (click)="showModal()">
@@ -27,25 +28,47 @@
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-    <div class="form-group">
-        <label>First Name</label>
-        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-        <!--
-        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+
+    <ion-item>
+      <ion-label position="{{ position }}">Nome:</ion-label>
+      <ion-input formControlName="nome" type="text" placeholder="Nome"></ion-input>
+    </ion-item> 
+    
+    <!--
+    <ion-label>
+        <p *ngIf="loginForm.get('nome').hasError('required')  && loginForm.get('nome').touched" class="error">Nome é obrigatório</p>
+        <p *ngIf="loginForm.get('nome').hasError('minlength') && loginForm.get('nome').touched" class="error">Username must have at least 4 characters</p>
+        <p *ngIf="loginForm.get('nome').hasError('maxlength') && loginForm.get('nome').touched" class="error">Username must have maximum 20 characters</p>      
+    </ion-label>
+    -->
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.nome">
+        <div class="error-message" *ngIf="loginForm.get('nome').hasError(validation.type) && (loginForm.get('nome').dirty || loginForm.get('nome').touched)">
+          {{ validation.message }}
         </div>
-        -->
+      </ng-container>
     </div>
 
-    <div class="form-group">
-        <label>Email</label>
-        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
-        </div>
-    </div>      
+    <ion-item>
+      <ion-label position="{{ position }}">Peso:</ion-label>
+      <ion-input formControlName="peso" type="text" placeholder="Peso"></ion-input>
+    </ion-item> 
+    <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.peso">
+          <div class="error-message" *ngIf="loginForm.get('peso').hasError(validation.type) && (loginForm.get('peso').dirty || loginForm.get('peso').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>    
 
+    <ion-item>
+      <ion-label position="{{ position }}">Tipo sanguíneo:</ion-label>
+      <ion-input formControlName="tipoSangue" type="text" placeholder="Tipo sanguíneo"></ion-input>
+    </ion-item> 
+
+
+
+    <!--
     <ion-item>
       <ion-input (keyup.enter)="onClickLogIn()" type="text" name="username" placeholder="Enter username"
         formControlName="username"></ion-input>
@@ -54,6 +77,9 @@
       <ion-input (keyup.enter)="onClickLogIn()" type="password" name="password" placeholder="Enter password"
         formControlName="password"></ion-input>
     </ion-item>
+    -->
+
+
 
     <ion-button type="submit">Registrar</ion-button>
   </form>
