@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-pessoal-base',
   templateUrl: './pessoal-base.page.html',
-  styleUrls: ['./pessoal-base.page.scss'],
+  styleUrls: ['./pessoal-base.page.scss']
 })
 export class PessoalBasePage implements OnInit {
 
   formGroup: FormGroup;
-  submitted = false;
-  position: string
+  submitted: boolean;
+  position:  string;
 
   customAlertOptions: any = {
     header: 'Tipo sanguíneo',
@@ -21,7 +23,7 @@ export class PessoalBasePage implements OnInit {
   };
 
   customPopoverOptions: any = {
-    header: 'Tipo sanguíneo',
+    header: 'Tipo sanguíneo'
     //subHeader: 'Tipo sanguíneo',
     //message: 'Selecione o seu tipo sanguíneo'
   };  
@@ -29,18 +31,24 @@ export class PessoalBasePage implements OnInit {
 
   minSelectableDate = '1900-01-01';
   maxSelectableDate;
-  myDate;  
+  myDate;
+  
+  perfilUsuario: any;
 
   constructor(
+    private navCtrl: NavController,
+    private storage: StorageService,
+    //private pessoalService : PessoalService,
     private formBuilder: FormBuilder,
-    private modalController: ModalController,
-  ) { 
-    this.position = "floating";
-    //this.position = "fixed";
+    private modalController: ModalController) { 
+      
+      this.position = "floating";
+      //this.position = "fixed";
 
-    this.myDate = new Date();
-    this.maxSelectableDate = this.formatDate(this.myDate);
-  }
+      this.myDate = new Date();
+      this.maxSelectableDate = this.formatDate(this.myDate);
+
+    }
 
 
 
@@ -57,17 +65,24 @@ export class PessoalBasePage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.perfilUsuario = this.storage.getLocalProfile();
+    console.log(this.perfilUsuario);
+
     this.formGroup = this.formBuilder.group({
+
+
       //username: new FormControl(''),
-      nome:       ['Alcenir Felix de Carvalho Toledo', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      peso:       ['', [Validators.required, Validators.min(10)]],
+      nome:       [this.perfilUsuario.nome  + ' .X', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      //peso:       [(this.perfilUsuario.perfilPessoal.peso) , [Validators.required, Validators.min(10)]],
+      peso:       ['' , [Validators.required, Validators.min(10)]],
       altura:     ['', [Validators.required, Validators.min(10)]],
       nascimento: ['', [Validators.required]],
       tipoSangue: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]]
       //email:      ['', [Validators.required, Validators.email]],
       //username:   ['', [Validators.required, Validators.minLength(10)]],
       //password: new FormControl(''),
-    });     
+    });
   }
 
   onSubmit() {
@@ -78,7 +93,8 @@ export class PessoalBasePage implements OnInit {
     //}
     console.log('submit --------->');
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formGroup.value))
-  }  
+  } 
+
   validation_messages = {
     'nome': [
       { type: 'required', message: 'Name is required.' },
@@ -98,7 +114,16 @@ export class PessoalBasePage implements OnInit {
       { type: 'required', message: 'Email is required.' },
       { type: 'minlength', message: 'Email must be at least 5 characters long.' }
     ]
-  };  
+  }
+
+
+  irParaTelaAnterior() {
+    //this.navCtrl.navigateBack('pessoal');
+  }
+
+  irParaProximaTela() {
+    this.navCtrl.navigateForward('pessoal-doencas');
+  }
 
 
 }

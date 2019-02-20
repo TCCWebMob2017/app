@@ -20,8 +20,9 @@ export class FichaMedicaPage implements OnInit {
     if ( this.fichaMedica == null) {
       this.buscaFichaMedica();
     }
-    console.log(this.fichaMedica);
 
+
+    console.log(this.fichaMedica);
     if (this.fichaMedica.perfilPessoal == null) {
       console.log('Nullll xxxxxxxxxxxx');
     }

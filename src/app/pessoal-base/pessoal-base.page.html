@@ -59,9 +59,15 @@
       </ion-item>     
     </ion-list>
   
+    <!--
     <ion-item>
       <ion-label position="{{ position }}">Data de nascimento:</ion-label>
       <ion-datetime formControlName="nascimento" displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"></ion-datetime>
+    </ion-item>
+    -->
+    <ion-item>
+      <ion-label position="{{ position }}">Data de nascimento:</ion-label>
+      <ion-input formControlName="nascimento" type="text" placeholder=""></ion-input>
     </ion-item>
 
   </form>
@@ -88,20 +94,60 @@
 -->
 
 
+
+
+
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <!-- <ion-back-button defaultHref="/pessoal"></ion-back-button> -->
       <ion-button size="small" fill="outline">Anterior</ion-button>
     </ion-buttons>
     <ion-title>Criar perfil</ion-title>
     <ion-buttons slot="primary">
-      <!--
-      <ion-button color="secondary">
-        <ion-icon slot="icon-only" name="more"></ion-icon>
-      </ion-button>
-      -->
-      <ion-button size="small" fill="outline">Próximo</ion-button>
+      <ion-button size="small" fill="outline" (click)="irParaProximaTela()">Próximo</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+
+
+<!--
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="pessoal-base">
+      <ion-icon name="arrow-dropleft-circle"></ion-icon>
+      <ion-label>Anterior</ion-label>
+    </ion-tab-button>
+  
+    <ion-tab-button tab="p_home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="p_home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="p_home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="p_home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="p_home">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+          
+    <ion-tab-button tab="pessoal-base-doencas">
+      <ion-icon name="arrow-dropright-circle"></ion-icon>
+      <ion-label>Próximo</ion-label>
+    </ion-tab-button>
+  
+  </ion-tab-bar>   
+</ion-tabs>
+-->

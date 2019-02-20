@@ -89,7 +89,7 @@ for(var obj in jsonData){
 
 
 
-
+console.log(Object.keys(jsonData));
 if (jsonData.perfilPessoal == null) {
   console.log('jsonData.perfilPessoal  / Vaziooooooooooooooo');
 }
