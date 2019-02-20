@@ -60,42 +60,48 @@
   
     
   
-  
-  
-    <ion-card>
-    <!-- <ion-list lines="none"> -->
-      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="medkit" slot="start"></ion-icon>
-        <ion-label>Medicamentos</ion-label>
-      </ion-item>   
+    <div *ngIf="prontuario?.perfilPessoal != null">
+      <ion-card>
+      <!-- <ion-list lines="none"> -->
+        <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+          <ion-icon name="medkit" slot="start"></ion-icon>
+          <ion-label>Medicamentos</ion-label>
+        </ion-item>   
 
-      <ion-item (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="nuclear" slot="start"></ion-icon>
-        <ion-label>Doenças</ion-label>
-      </ion-item>
-    
-      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="snow" slot="start"></ion-icon>
-        <ion-label>Alergias</ion-label>
-      </ion-item>   
-    
-      <ion-item (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="people" slot="start"></ion-icon>
-        <ion-label>Dependentes</ion-label>
-      </ion-item>
+        <ion-item (click)="exibirPessoalMedicamentos()">
+          <ion-icon name="nuclear" slot="start"></ion-icon>
+          <ion-label>Doenças</ion-label>
+        </ion-item>
+      
+        <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+          <ion-icon name="snow" slot="start"></ion-icon>
+          <ion-label>Alergias</ion-label>
+        </ion-item>   
+      
+        <ion-item (click)="exibirPessoalMedicamentos()">
+          <ion-icon name="people" slot="start"></ion-icon>
+          <ion-label>Dependentes</ion-label>
+        </ion-item>
 
-      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="pulse" slot="start"></ion-icon>
-        <ion-label>Cirurgias</ion-label>
-      </ion-item>   
+        <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+          <ion-icon name="pulse" slot="start"></ion-icon>
+          <ion-label>Cirurgias</ion-label>
+        </ion-item>   
+      
+        <ion-item (click)="exibirPessoalMedicamentos()">
+          <ion-icon name="lock" slot="start"></ion-icon>
+          <ion-label>Permissões</ion-label>
+        </ion-item>
     
-      <ion-item (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="lock" slot="start"></ion-icon>
-        <ion-label>Permissões</ion-label>
-      </ion-item>
-  
-    </ion-card>
+      </ion-card>
+    </div>
     <!-- </ion-list> -->
+
+
+    <br>
+    <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>
+
+    
   
   
   </ion-content>

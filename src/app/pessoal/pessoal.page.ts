@@ -88,10 +88,13 @@ for(var obj in jsonData){
 */
 
 
-//console.log(Object.keys(jsonData.perfilPessoal));
+
 
 if (jsonData.perfilPessoal == null) {
   console.log('jsonData.perfilPessoal  / Vaziooooooooooooooo');
+}
+else {
+  console.log(Object.keys(jsonData.perfilPessoal));
 }
 
 // ////////////////////////////////////////////
@@ -141,7 +144,7 @@ if (jsonData.perfilPessoal == null) {
   }
 
   addPerfilPessoal() {
-    alert('addPerfilPessoal');
+    this.navCtrl.navigateForward('pessoal-base');
   }
 
   exibirPessoalMedicamentos() {

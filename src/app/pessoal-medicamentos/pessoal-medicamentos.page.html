@@ -50,21 +50,58 @@
     </div>
 
     <ion-item>
-      <ion-label position="{{ position }}">Peso:</ion-label>
-      <ion-input formControlName="peso" type="text" placeholder="Peso"></ion-input>
-    </ion-item> 
-    <div class="validation-errors">
+      <ion-label position="{{ position }}">Peso (Kg):</ion-label>
+      <ion-input formControlName="peso" type="number" placeholder="Peso (Kg)"></ion-input>
+      <div class="validation-errors">
         <ng-container *ngFor="let validation of validation_messages.peso">
           <div class="error-message" *ngIf="loginForm.get('peso').hasError(validation.type) && (loginForm.get('peso').dirty || loginForm.get('peso').touched)">
             {{ validation.message }}
           </div>
         </ng-container>
-      </div>    
+      </div>
+    </ion-item>
+    
 
     <ion-item>
-      <ion-label position="{{ position }}">Tipo sanguíneo:</ion-label>
-      <ion-input formControlName="tipoSangue" type="text" placeholder="Tipo sanguíneo"></ion-input>
+      <ion-label position="{{ position }}">Altura (m):</ion-label>
+      <ion-input formControlName="altura" type="number" placeholder="Altura (m)"></ion-input>
     </ion-item> 
+
+    
+    <ion-list>
+      <ion-item>
+        <ion-label>Tipo sanguíneo</ion-label>
+        <ion-select formControlName="tipoSangue" [interfaceOptions]="customPopoverOptions" interface="popover" multiple="false" placeholder="Selecione">
+          <ion-select-option value="A+">A+</ion-select-option>
+          <ion-select-option value="A-">A-</ion-select-option>
+          <ion-select-option value="B+">B+</ion-select-option>
+          <ion-select-option value="B-">B-</ion-select-option>
+          <ion-select-option value="AB+">AB+</ion-select-option>
+          <ion-select-option value="AB-">AB-</ion-select-option>
+          <ion-select-option value="O+">O+</ion-select-option>
+          <ion-select-option value="O-">O-</ion-select-option>
+        </ion-select>
+      </ion-item>     
+    </ion-list>
+  
+    <!--
+    <input class="myClasses" (change)='update($event)' [(ngModel)]="input" type="number" name="input" min="0" max="10" (blur)='blur($event)' value="input">
+    -->
+
+    <ion-item>
+      <ion-label position="{{ position }}">Data de nascimento:</ion-label>
+      <!-- <ion-datetime displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"max="{{ maxSelectableDate }}"></ion-datetime> -->
+      <ion-datetime formControlName="nascimento" displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"></ion-datetime>
+    </ion-item>
+
+    
+
+    <!--
+    <ion-item>
+      <ion-label floating>Date</ion-label>
+      <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="userData.date" [min]="today()"></ion-datetime>
+    </ion-item>
+    -->
 
 
 
