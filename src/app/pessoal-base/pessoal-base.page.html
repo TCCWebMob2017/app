@@ -9,4 +9,99 @@
 
 <ion-content padding>
 
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+    <ion-item>
+      <ion-label position="{{ position }}">Nome:</ion-label>
+      <ion-input formControlName="nome" type="text" placeholder="Nome"></ion-input>
+    </ion-item> 
+    
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.nome">
+        <div class="error-message" *ngIf="formGroup.get('nome').hasError(validation.type) && (formGroup.get('nome').dirty || formGroup.get('nome').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="{{ position }}">Peso (Kg):</ion-label>
+      <ion-input formControlName="peso" type="number" placeholder=""></ion-input>
+      <div class="validation-errors">
+        <ng-container *ngFor="let validation of validation_messages.peso">
+          <div class="error-message" *ngIf="formGroup.get('peso').hasError(validation.type) && (formGroup.get('peso').dirty || formGroup.get('peso').touched)">
+            {{ validation.message }}
+          </div>
+        </ng-container>
+      </div>
+    </ion-item>
+    
+
+    <ion-item>
+      <ion-label position="{{ position }}">Altura (m):</ion-label>
+      <ion-input formControlName="altura" type="number" placeholder=""></ion-input>
+    </ion-item> 
+
+    
+    <ion-list>
+      <ion-item>
+        <ion-label>Tipo sanguíneo</ion-label>
+        <ion-select formControlName="tipoSangue" [interfaceOptions]="customPopoverOptions" interface="popover" multiple="false" placeholder="Selecione">
+          <ion-select-option value="A+">A+</ion-select-option>
+          <ion-select-option value="A-">A-</ion-select-option>
+          <ion-select-option value="B+">B+</ion-select-option>
+          <ion-select-option value="B-">B-</ion-select-option>
+          <ion-select-option value="AB+">AB+</ion-select-option>
+          <ion-select-option value="AB-">AB-</ion-select-option>
+          <ion-select-option value="O+">O+</ion-select-option>
+          <ion-select-option value="O-">O-</ion-select-option>
+        </ion-select>
+      </ion-item>     
+    </ion-list>
+  
+    <ion-item>
+      <ion-label position="{{ position }}">Data de nascimento:</ion-label>
+      <ion-datetime formControlName="nascimento" displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"></ion-datetime>
+    </ion-item>
+
+  </form>
+
+
+
+
+
+  <!-- ---------------------------------------------------------------------------------------------------- -->
+  <!-- ---------------------------------------------------------------------------------------------------- -->
 </ion-content>
+
+<!--
+<ion-footer>
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pessoal"></ion-back-button>
+    </ion-buttons>
+
+-->
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <!-- <ion-back-button defaultHref="/pessoal"></ion-back-button> -->
+      <ion-button size="small" fill="outline">Anterior</ion-button>
+    </ion-buttons>
+    <ion-title>Criar perfil</ion-title>
+    <ion-buttons slot="primary">
+      <!--
+      <ion-button color="secondary">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+      -->
+      <ion-button size="small" fill="outline">Próximo</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

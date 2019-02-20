@@ -9,7 +9,6 @@ import { ModalController } from '@ionic/angular';
 })
 export class PessoalMedicamentosPage implements OnInit {
 
-  //registerForm: FormGroup;
   loginForm: FormGroup;
   submitted = false;
   position: string
@@ -126,7 +125,7 @@ export class PessoalMedicamentosPage implements OnInit {
 
     console.log('submit --------->');
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value))
-}  
+  }  
   
 }
 
