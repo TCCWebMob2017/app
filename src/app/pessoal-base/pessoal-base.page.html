@@ -8,94 +8,110 @@
 </ion-header>
 
 <ion-content padding>
-
-  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-
-    <ion-item>
-      <ion-label position="{{ position }}">Nome:</ion-label>
-      <ion-input formControlName="nome" type="text" placeholder="Nome" value="{{ perfilUsuario?.perfilPessoal?.nome }}"> </ion-input>
-    </ion-item>
-    
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of validation_messages.nome">
-        <div class="error-message" *ngIf="formGroup.get('nome').hasError(validation.type) && (formGroup.get('nome').dirty || formGroup.get('nome').touched)">
-          {{ validation.message }}
-        </div>
-      </ng-container>
-    </div>
-
-    <ion-item>
-      <ion-label position="{{ position }}">Peso (Kg):</ion-label>
-      <ion-input formControlName="peso" type="number" placeholder=""></ion-input>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.peso">
-          <div class="error-message" *ngIf="formGroup.get('peso').hasError(validation.type) && (formGroup.get('peso').dirty || formGroup.get('peso').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-    </ion-item>
-    
-
-    <ion-item>
-      <ion-label position="{{ position }}">Altura (m):</ion-label>
-      <ion-input formControlName="altura" type="number" placeholder=""></ion-input>
-    </ion-item> 
-
+  
+  <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" novalidate>
     
     <ion-list>
+
       <ion-item>
-        <ion-label>Tipo sanguíneo</ion-label>
-        <ion-select formControlName="tipoSangue" [interfaceOptions]="customPopoverOptions" interface="popover" multiple="false" placeholder="Selecione">
-          <ion-select-option value="A+">A+</ion-select-option>
-          <ion-select-option value="A-">A-</ion-select-option>
-          <ion-select-option value="B+">B+</ion-select-option>
-          <ion-select-option value="B-">B-</ion-select-option>
-          <ion-select-option value="AB+">AB+</ion-select-option>
-          <ion-select-option value="AB-">AB-</ion-select-option>
-          <ion-select-option value="O+">O+</ion-select-option>
-          <ion-select-option value="O-">O-</ion-select-option>
-        </ion-select>
-      </ion-item>     
-    </ion-list>
+        <ion-label  position="stacked">Nome</ion-label>
+        <ion-input  type="text" 
+                    name="nome" 
+                    required
+                    [ngModel]="perfilUsuario?.nome"
+                    ngModel required #nome="ngModel"
+                    [class.invalid]="nome.errors && nome.dirty"
+                    >
+        </ion-input>
+      </ion-item>
+
+      <!--
+      <ion-item>
+        <ion-label  position="stacked">E-mail</ion-label>
+        <ion-input  type="email" name="email"
+                    [ngModel]="perfilUsuario?.email"
+                    ngModel required email #email="ngModel"></ion-input>
+      </ion-item>
+      -->
+
+      <ion-item>
+        <ion-label  position="stacked">Telefone</ion-label>
+        <ion-input  type="text" name="telefone" 
+                    [ngModel]="perfilUsuario?.tefefone" 
+                    ngModel required #telefone="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label  position="stacked">CPF</ion-label>
+        <ion-input  type="text" name="cpf" 
+                    [ngModel]="perfilUsuario?.cpf" 
+                    ngModel required #cpf="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label  position="stacked">RG</ion-label>
+        <ion-input  type="text" name="rg" 
+                    [ngModel]="perfilUsuario?.rg" 
+                    ngModel required #cpf="ngModel"></ion-input>
+      </ion-item>      
+   
+      <ion-item>
+        <ion-label  position="stacked">Sexo</ion-label>
+        <ion-input  type="text" name="sexo"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.sexo"
+                    ngModel required #sexo="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label  position="stacked">Data de nascimento</ion-label>
+        <ion-input  type="text" name="nascimento"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.nascimento"
+                    ngModel required #nascimento="ngModel"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label  position="stacked">Altura</ion-label>
+        <ion-input  type="number" name="altura"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.altura"
+                    ngModel required #altura="ngModel"></ion-input>
+      </ion-item>      
+
+      <ion-item>
+        <ion-label  position="stacked">Peso</ion-label>
+        <ion-input  type="number" name="peso"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.peso"
+                    ngModel required #peso="ngModel"></ion-input>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label  position="stacked">Doador de órgãos</ion-label>
+        <ion-input  type="text" name="doadorOrgao"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.doadorOrgao"
+                    ngModel #doadorOrgao="ngModel"></ion-input>
+      </ion-item>
+
+
+      <!--
+      tipoSangue: "AB-"
+      doadorSangue: true
+      praticaEsporte
+      -->
+
+
+
   
-    <!--
-    <ion-item>
-      <ion-label position="{{ position }}">Data de nascimento:</ion-label>
-      <ion-datetime formControlName="nascimento" displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"></ion-datetime>
-    </ion-item>
-    -->
-    <ion-item>
-      <ion-label position="{{ position }}">Data de nascimento:</ion-label>
-      <ion-input formControlName="nascimento" type="text" placeholder=""></ion-input>
-    </ion-item>
+      <div padding>
+        <ion-button color="primary" expand="block" type="submit" 
+        [disabled]="!form.valid">Registrar</ion-button>
+      </div>
+  
+    </ion-list>
+
 
   </form>
-
-
-
-
-
-  <!-- ---------------------------------------------------------------------------------------------------- -->
-  <!-- ---------------------------------------------------------------------------------------------------- -->
 </ion-content>
-
-<!--
-<ion-footer>
-  <ion-toolbar>
-    <ion-title>Footer</ion-title>
-  </ion-toolbar>
-</ion-footer>
-
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pessoal"></ion-back-button>
-    </ion-buttons>
-
--->
-
-
-
-
+  
 
 <ion-footer>
   <ion-toolbar>
@@ -108,46 +124,3 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
-
-
-<!--
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="pessoal-base">
-      <ion-icon name="arrow-dropleft-circle"></ion-icon>
-      <ion-label>Anterior</ion-label>
-    </ion-tab-button>
-  
-    <ion-tab-button tab="p_home">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Início</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="p_home">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Início</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="p_home">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Início</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="p_home">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Início</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="p_home">
-      <ion-icon name="home"></ion-icon>
-      <ion-label>Início</ion-label>
-    </ion-tab-button>
-          
-    <ion-tab-button tab="pessoal-base-doencas">
-      <ion-icon name="arrow-dropright-circle"></ion-icon>
-      <ion-label>Próximo</ion-label>
-    </ion-tab-button>
-  
-  </ion-tab-bar>   
-</ion-tabs>
--->

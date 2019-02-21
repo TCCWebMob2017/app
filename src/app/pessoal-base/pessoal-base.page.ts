@@ -76,8 +76,6 @@ export class PessoalBasePage implements OnInit {
     //console.log(_nome);
 
     this.formGroup = this.formBuilder.group({
-
-
       //username: new FormControl(''),
       nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       //peso:       [this.perfilUsuario.perfilPessoal.peso , [Validators.required, Validators.min(10)]],
@@ -100,14 +98,16 @@ export class PessoalBasePage implements OnInit {
     return t;
   }
 
-  onSubmit() {
+  onSubmit(value: any) {
     this.submitted = true;
     // stop here if form is invalid
     //if (this.loginForm.invalid) {
     //  return;
     //}
     console.log('submit --------->');
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formGroup.value))
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formGroup.value))
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(value))
+    console.log(JSON.stringify(value));
   } 
 
   validation_messages = {
