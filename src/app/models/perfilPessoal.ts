@@ -1,0 +1,33 @@
+export interface perfilPessoal {
+    id: string;
+    created: string;
+    nome: string;
+    tipoPerfil: string;
+    contatos: string;
+    privacidade: string;
+    telefone: string;
+    residencia: string;
+    trabalho: string;
+    nascimento: string;
+    sexo: string;
+    praticaEsporte: string;
+    doadorOrgao: string;
+    doadorSangue: string;
+    tipoSangue: string;
+    altura: string;
+    peso: string;
+    dependentes: string;
+    doencas: string;
+    alergias: string;
+    medicamentos: string;
+    cirurgias: string;
+    contatoEmergencia: string;
+    protocolosEmergencias: string;
+    profissionais: string;
+    convenios: string;
+    drogas: string;
+    acidentes: string;
+    condicoesEspeciais: string;
+    rg: string;
+    cpf: string;
+}

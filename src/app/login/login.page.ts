@@ -43,6 +43,7 @@ export class LoginPage implements OnInit {
     
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
+        
         this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
 
         /*

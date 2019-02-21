@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalController, NavController } from '@ionic/angular';
+import { perfilUsuario } from '../models/perfilUsuario';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class PessoalBasePage implements OnInit {
   maxSelectableDate;
   myDate;
   
-  perfilUsuario: any;
+  //public perfilUsuario: any;
+  public perfilUsuario: perfilUsuario;
 
   constructor(
     private navCtrl: NavController,
@@ -50,10 +52,6 @@ export class PessoalBasePage implements OnInit {
 
     }
 
-
-
-
-
   formatDate(date) {
     let d = new Date(date),
       day = '' + d.getDate(),
@@ -69,12 +67,20 @@ export class PessoalBasePage implements OnInit {
     this.perfilUsuario = this.storage.getLocalProfile();
     console.log(this.perfilUsuario);
 
+    let _nome: string;
+    
+    //_nome = this.perfilUsuario.perfilPessoal.nome + " _0";
+    //_nome = this.perfilUsuario.JSON().nome;
+
+    //console.log(this.test(this.perfilUsuario.perfilPessoal.nome))
+    //console.log(_nome);
+
     this.formGroup = this.formBuilder.group({
 
 
       //username: new FormControl(''),
-      nome:       [this.perfilUsuario.nome  + ' .X', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      //peso:       [(this.perfilUsuario.perfilPessoal.peso) , [Validators.required, Validators.min(10)]],
+      nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      //peso:       [this.perfilUsuario.perfilPessoal.peso , [Validators.required, Validators.min(10)]],
       peso:       ['' , [Validators.required, Validators.min(10)]],
       altura:     ['', [Validators.required, Validators.min(10)]],
       nascimento: ['', [Validators.required]],
@@ -83,6 +89,15 @@ export class PessoalBasePage implements OnInit {
       //username:   ['', [Validators.required, Validators.minLength(10)]],
       //password: new FormControl(''),
     });
+  }
+
+
+ 
+  test(t) {
+    if (t === undefined) {
+      console.log(t.tt);
+    }
+    return t;
   }
 
   onSubmit() {

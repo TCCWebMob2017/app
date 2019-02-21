@@ -3,6 +3,8 @@ import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { PessoalDTO } from '../models/pessoal.dto';
 import { NavController } from '@ionic/angular';
+import { perfilUsuario } from '../models/perfilUsuario';
+import { perfilPessoal } from '../models/perfilPessoal';
 
 @Component({
   selector: 'app-pessoal',
@@ -13,6 +15,9 @@ export class PessoalPage implements OnInit {
 
   //pessoal: PessoalDTO;
   prontuario: any;
+  //_perfilUsuario: perfilUsuario;
+  //_perfilPessoal: perfilPessoal;
+
 
   constructor(public navCtrl : NavController,
               private pessoalService : PessoalService,
@@ -34,6 +39,7 @@ export class PessoalPage implements OnInit {
       */
       this.pessoalService.getLoggedInUser()
         .subscribe(Response => {
+        console.log('Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         this.prontuario = Response;
         //console.log(this.prontuario);
         this.storage.setLocalProfile(this.prontuario);

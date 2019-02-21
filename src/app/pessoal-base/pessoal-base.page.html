@@ -13,8 +13,8 @@
 
     <ion-item>
       <ion-label position="{{ position }}">Nome:</ion-label>
-      <ion-input formControlName="nome" type="text" placeholder="Nome"></ion-input>
-    </ion-item> 
+      <ion-input formControlName="nome" type="text" placeholder="Nome" value="{{ perfilUsuario?.perfilPessoal?.nome }}"> </ion-input>
+    </ion-item>
     
     <div class="validation-errors">
       <ng-container *ngFor="let validation of validation_messages.nome">

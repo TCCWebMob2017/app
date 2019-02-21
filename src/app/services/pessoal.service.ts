@@ -27,7 +27,7 @@ export class PessoalService {
 
   getLoggedInUser() {
     let url =  `${API_CONFIG.baseUrl}` + '/api/v1/usuario';
-    return this.http.get<any>(url); 
+    return this.http.get<any>(url);
   }
 
   findById(id : string) : Observable<PessoalDTO> {
