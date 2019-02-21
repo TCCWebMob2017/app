@@ -30,6 +30,12 @@ export class PessoalService {
     return this.http.get<any>(url);
   }
 
+  adicionarPerfilPessoal(id: string, body: any) {
+    let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
+    console.log('pessoal.service ---------> ' + url);
+    return this.http.post(url, body, { observe: 'response', responseType: 'text' });
+  }
+
   findById(id : string) : Observable<PessoalDTO> {
     let url =  `${API_CONFIG.baseUrl}/api/v1/pessoal/${id}`;
     /*

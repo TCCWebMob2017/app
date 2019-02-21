@@ -3,6 +3,8 @@ import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalController, NavController } from '@ionic/angular';
 import { perfilUsuario } from '../models/perfilUsuario';
+import { perfilPessoal } from '../models/perfilPessoal';
+import { PessoalService } from './../services/pessoal.service';
 
 
 @Component({
@@ -40,7 +42,7 @@ export class PessoalBasePage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private storage: StorageService,
-    //private pessoalService : PessoalService,
+    public pessoalService: PessoalService,
     private formBuilder: FormBuilder,
     private modalController: ModalController) { 
       
@@ -90,24 +92,141 @@ export class PessoalBasePage implements OnInit {
   }
 
 
- 
-  test(t) {
-    if (t === undefined) {
-      console.log(t.tt);
-    }
-    return t;
-  }
 
   onSubmit(value: any) {
+
+
     this.submitted = true;
     // stop here if form is invalid
     //if (this.loginForm.invalid) {
     //  return;
     //}
-    console.log('submit --------->');
+    //console.log('submit --------->');
     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formGroup.value))
     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(value))
-    console.log(JSON.stringify(value));
+    
+    //console.log('value ------------->');
+    //console.log(value);
+    //console.log(JSON.stringify(value)); 
+    //console.log(this.perfilUsuario);
+
+    let _idUsuario = this.perfilUsuario['id'];
+    
+    var _perfilPessoal: perfilPessoal;
+    _perfilPessoal = this.perfilUsuario['perfilPessoal'];
+    
+    
+    if ( _perfilPessoal == null) {
+
+      //console.log('id: ' + _idUsuario);
+      //console.log(value);
+
+    }
+    else {
+
+      //console.log(_perfilPessoal);
+      //console.log(Object.keys(_perfilPessoal));
+
+      for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
+
+        let field_name = Object.keys(_perfilPessoal)[i];
+        let field_value = _perfilPessoal[field_name];
+
+        //console.log('_perfilPessoal[i]' + i);
+        let resultt = i +  ' campo: ' +  field_name + ' / valor: ' + field_value;
+        //console.log(resultt);
+        //console.log(_perfilPessoal[resultt]);
+
+      }
+    }
+
+    let _body = this.perfilUsuario;
+
+    _body['perfilPessoal'] = value;
+
+    console.log('_body:::::::::');
+    console.log(_body);
+
+    if (_idUsuario != null &&  _body != null) {
+      this.pessoalService.adicionarPerfilPessoal(_idUsuario, _body )
+      .subscribe(Response => {
+        console.log(Response);
+        // this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
+      },
+      error => {
+        console.log(error); 
+      });
+    }
+
+    // https://api-qlife.herokuapp.com/api/v1/usuario/21e78c4d-34aa-4816-859d-98a7a3ea6f29/perfil/pessoal
+    // https://api-qlife.herokuapp.com/api/v1/usuario/21e78c4d-34aa-4816-859d-98a7a3ea6f29/perfil/pessoal
+
+
+
+    /* 
+    
+    {
+    "id": "21e78c4d-34aa-4816-859d-98a7a3ea6f29",
+    "created": "08/02/2019 19:52:48",
+    "nome": "Alcenir Felix de Carvalho Toledo",
+    "email": "afelix@softquim.com.br",
+    "password": "$2a$10$NPz9Go0P5RjTVrb95Lr1ze/kRVCY/2bmG3f9Wxywl155TmUF7NX82",
+    "tefefone": "12997792854",
+    "cpf": "19915457898",
+    "rg": "255212963",
+    "enabled": false,
+    "tipos": [
+        "PACIENTE"
+    ],
+    "perfilPessoal": {
+        "id": "960e0242-6426-4413-a559-d815821c17fc",
+        "created": "20/02/2019 20:59:09",
+        "nome": "Alcenir Felix de Carvalho Toledo",
+        "tipoPerfil": "PESSOAL",
+        "contatos": null,
+        "privacidade": null,
+        "telefone": "12997792854",
+        "residencia": {
+            "nomeLocal": null,
+            "logradouro": "Avenida Godoy Neto",
+            "bairro": "Olaria",
+            "cidade": "Lorena",
+            "estado": "SP",
+            "numero": "278",
+            "cep": "12607-060"
+        },
+        "trabalho": null,
+        "nascimento": "04/12/1989",
+        "sexo": "M",
+        "praticaEsporte": false,
+        "doadorOrgao": true,
+        "doadorSangue": false,
+        "tipoSangue": "A-",
+        "altura": 1.89,
+        "peso": 83,
+        "dependentes": [],
+        "doencas": null,
+        "alergias": null,
+        "medicamentos": null,
+        "cirurgias": null,
+        "contatoEmergencia": null,
+        "protocolosEmergencias": null,
+        "profissionais": null,
+        "convenios": null,
+        "drogas": null,
+        "acidentes": null,
+        "condicoesEspeciais": null,
+        "rg": "255212963",
+        "cpf": "19915457898"
+    },
+    "perfilProfissional": null,
+    "perfisInstituicoes": null
+}
+
+    
+    */
+
+
   } 
 
   validation_messages = {
