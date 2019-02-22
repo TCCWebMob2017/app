@@ -1,8 +1,9 @@
+import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { PessoalDTO } from '../models/pessoal.dto';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { perfilUsuario } from '../models/perfilUsuario';
 import { perfilPessoal } from '../models/perfilPessoal';
 
@@ -20,8 +21,11 @@ export class PessoalPage implements OnInit {
 
 
   constructor(public navCtrl : NavController,
-              private pessoalService : PessoalService,
-              private storage  : StorageService) { }
+              public pessoalService: PessoalService,
+              private storage: StorageService,
+              public toastController: ToastController,
+              public alertController: AlertController
+              ) { }
 
   ngOnInit() {
     
@@ -151,6 +155,51 @@ else {
 
   addPerfilPessoal() {
     this.navCtrl.navigateForward('pessoal-base');
+  }
+
+  async deletePerfilPessoal() {
+    const alert = await this.alertController.create({
+      header: 'Excluir registro',
+      message: 'O Perfil Pessoal do paciente será excuído.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          //console.log('Confirm Cancel');
+          }          
+        }, 
+        {
+          text: 'Ok',
+          handler: () => {
+            let _idUsuario = this.prontuario['id'];
+            console.log(_idUsuario);
+            if (_idUsuario != null) {
+              this.pessoalService.excluirPerfilPessoal(_idUsuario)
+              .subscribe(Response => {
+                console.log(Response);
+                this.deletePresentToast();
+              },
+              error => {
+                console.log(error);
+              });
+            }
+            //console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+    
+    await alert.present();
+  }
+
+  async deletePresentToast() {
+    const toast = await this.toastController.create({
+      message: 'Perfil excluido.',
+      duration: 2000
+    });
+    toast.present();
   }
 
   exibirPessoalMedicamentos() {

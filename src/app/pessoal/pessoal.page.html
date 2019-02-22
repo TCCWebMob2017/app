@@ -14,7 +14,9 @@
   
   <ion-content padding>
   
-    <ion-button size="small" fill="outline">Editar</ion-button>
+    <ion-button type="button" size="small" fill="outline"(click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
+    <ion-button type="button" size="small" fill="outline" color="danger" (click)="deletePerfilPessoal()">Exluir Perfil Pessoal</ion-button>
+
   
     <ion-avatar>
       <img class="circle" [src]="prontuario?.perfilPessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
@@ -96,13 +98,6 @@
       </ion-card>
     </div>
     <!-- </ion-list> -->
-
-
-    <br>
-    <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>
-
-    
-  
   
   </ion-content>
   

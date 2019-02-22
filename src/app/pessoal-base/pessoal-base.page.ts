@@ -141,14 +141,18 @@ export class PessoalBasePage implements OnInit {
     }
 
     let _body = this.perfilUsuario;
+    _body['perfilPessoal'] = value; 
 
-    _body['perfilPessoal'] = value;
+
+    // //////////////////////////////////////////////
+    _body = this.getPerfilPessoal();  
+    // //////////////////////////////////////////////    
 
     console.log('_body:::::::::');
     console.log(_body);
-
+    
     if (_idUsuario != null &&  _body != null) {
-      this.pessoalService.adicionarPerfilPessoal(_idUsuario, _body )
+      this.pessoalService.adicionarPerfilPessoal(_idUsuario,  JSON.stringify(_body))
       .subscribe(Response => {
         console.log(Response);
         // this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
@@ -158,76 +162,72 @@ export class PessoalBasePage implements OnInit {
       });
     }
 
-    // https://api-qlife.herokuapp.com/api/v1/usuario/21e78c4d-34aa-4816-859d-98a7a3ea6f29/perfil/pessoal
-    // https://api-qlife.herokuapp.com/api/v1/usuario/21e78c4d-34aa-4816-859d-98a7a3ea6f29/perfil/pessoal
-
-
-
-    /* 
-    
-    {
-    "id": "21e78c4d-34aa-4816-859d-98a7a3ea6f29",
-    "created": "08/02/2019 19:52:48",
-    "nome": "Alcenir Felix de Carvalho Toledo",
-    "email": "afelix@softquim.com.br",
-    "password": "$2a$10$NPz9Go0P5RjTVrb95Lr1ze/kRVCY/2bmG3f9Wxywl155TmUF7NX82",
-    "tefefone": "12997792854",
-    "cpf": "19915457898",
-    "rg": "255212963",
-    "enabled": false,
-    "tipos": [
-        "PACIENTE"
-    ],
-    "perfilPessoal": {
-        "id": "960e0242-6426-4413-a559-d815821c17fc",
-        "created": "20/02/2019 20:59:09",
-        "nome": "Alcenir Felix de Carvalho Toledo",
-        "tipoPerfil": "PESSOAL",
-        "contatos": null,
-        "privacidade": null,
-        "telefone": "12997792854",
-        "residencia": {
-            "nomeLocal": null,
-            "logradouro": "Avenida Godoy Neto",
-            "bairro": "Olaria",
-            "cidade": "Lorena",
-            "estado": "SP",
-            "numero": "278",
-            "cep": "12607-060"
-        },
-        "trabalho": null,
-        "nascimento": "04/12/1989",
-        "sexo": "M",
-        "praticaEsporte": false,
-        "doadorOrgao": true,
-        "doadorSangue": false,
-        "tipoSangue": "A-",
-        "altura": 1.89,
-        "peso": 83,
-        "dependentes": [],
-        "doencas": null,
-        "alergias": null,
-        "medicamentos": null,
-        "cirurgias": null,
-        "contatoEmergencia": null,
-        "protocolosEmergencias": null,
-        "profissionais": null,
-        "convenios": null,
-        "drogas": null,
-        "acidentes": null,
-        "condicoesEspeciais": null,
-        "rg": "255212963",
-        "cpf": "19915457898"
-    },
-    "perfilProfissional": null,
-    "perfisInstituicoes": null
-}
-
-    
-    */
-
-
   } 
+
+  getPerfilPessoal() : any {
+
+    let _value = 
+    {
+      "id": "21e78c4d-34aa-4816-859d-98a7a3ea6f29",
+      "created": "08/02/2019 19:52:48",
+      "nome": "Alcenir Felix de Carvalho Toledo",
+      "email": "afelix@softquim.com.br",
+      "password": "$2a$10$NPz9Go0P5RjTVrb95Lr1ze/kRVCY/2bmG3f9Wxywl155TmUF7NX82",
+      "tefefone": "12997792854",
+      "cpf": "19915457898",
+      "rg": "255212963",
+      "enabled": false,
+      "tipos": [
+          "PACIENTE"
+      ],
+      "perfilPessoal": {
+          //"id": "593b9d56-6453-4c6f-9f2d-9bdf6922c2a4",
+          //"created": "22/02/2019 21:51:52",
+          "nome": "Alcenir Felix de Carvalho Toledo",
+          "tipoPerfil": "PESSOAL",
+          "contatos": null,
+          "privacidade": null,
+          "telefone": "12997792854",
+          "residencia": {
+              "nomeLocal": "Rua",
+              "logradouro": "Avenida Godoy Neto",
+              "bairro": "Olaria",
+              "cidade": "Lorena",
+              "estado": "SP",
+              "numero": "278",
+              "cep": "12607-060"
+          },
+          "trabalho": null,
+          "nascimento": "04/12/1989",
+          "sexo": "M",
+          "praticaEsporte": false,
+          "doadorOrgao": true,
+          "doadorSangue": false,
+          "tipoSangue": "A-",
+          "altura": 1.89,
+          "peso": 83,
+          //"dependentes": [],
+          //"doencas": null,
+          //"alergias": null,
+          //"medicamentos": null,
+          //"cirurgias": null,
+          //"contatoEmergencia": null,
+          //"protocolosEmergencias": null,
+          //"profissionais": null,
+          //"convenios": null,
+          //"drogas": null,
+          //"acidentes": null,
+          //"condicoesEspeciais": null,
+          "rg": "255212963X",
+          "cpf": "19915457898"
+      } //,
+      //"perfilProfissional": null,
+      //"perfisInstituicoes": null
+    }    
+
+    return _value;
+
+  }
 
   validation_messages = {
     'nome': [

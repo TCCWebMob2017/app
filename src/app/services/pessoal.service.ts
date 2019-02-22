@@ -32,9 +32,22 @@ export class PessoalService {
 
   adicionarPerfilPessoal(id: string, body: any) {
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
-    console.log('pessoal.service ---------> ' + url);
-    return this.http.post(url, body, { observe: 'response', responseType: 'text' });
+    //console.log('pessoal.service ---------> [adicionarPerfilPessoal]' + url);
+    return this.http.post(
+      url, 
+      body, { 
+        observe: 'response', 
+        responseType: 'text' 
+      }
+    );
   }
+
+  excluirPerfilPessoal(id: string) {
+    let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
+    //console.log('pessoal.service ---------> [excluirPerfilPessoal]' + url);
+    return this.http.delete(url);
+  }
+
 
   findById(id : string) : Observable<PessoalDTO> {
     let url =  `${API_CONFIG.baseUrl}/api/v1/pessoal/${id}`;
