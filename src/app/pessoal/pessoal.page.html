@@ -2,22 +2,18 @@
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
+      </ion-buttons>      
+      <ion-buttons slot="primary" *ngIf="prontuario?.perfilPessoal?.id != null">
+        <ion-button fill="outline" (click)="addPerfilPessoal()">Editar
+          <!-- <ion-icon slot="icon-only" name="medical"></ion-icon> -->
+        </ion-button>
       </ion-buttons>
-      <ion-buttons slot="primary">
-        <ion-button (click)="showFichaMedicaForward()">
-          <ion-icon slot="icon-only" name="medical"></ion-icon>
-          </ion-button>
-        </ion-buttons>   
       <ion-title>Pessoal</ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content padding>
-  
-    <ion-button type="button" size="small" fill="outline"(click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
-    <ion-button type="button" size="small" fill="outline" color="danger" (click)="deletePerfilPessoal()">Exluir Perfil Pessoal</ion-button>
 
-  
     <ion-avatar>
       <img class="circle" [src]="prontuario?.perfilPessoal?.imageUrl || '../../assets/img/avatar-blank.png'">
     </ion-avatar>
@@ -98,6 +94,11 @@
       </ion-card>
     </div>
     <!-- </ion-list> -->
+
+    <div *ngIf="prontuario?.perfilPessoal == null">
+      <br>
+      <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
+    </div>
   
   </ion-content>
   

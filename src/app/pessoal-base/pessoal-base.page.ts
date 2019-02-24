@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, ToastController, AlertController } from '@ionic/angular';
 import { perfilUsuario } from '../models/perfilUsuario';
-import { perfilPessoal } from '../models/perfilPessoal';
 import { PessoalService } from './../services/pessoal.service';
 
 
@@ -38,13 +37,17 @@ export class PessoalBasePage implements OnInit {
   
   //public perfilUsuario: any;
   public perfilUsuario: perfilUsuario;
+  public cmb_genero: string;
 
   constructor(
     private navCtrl: NavController,
     private storage: StorageService,
     public pessoalService: PessoalService,
     private formBuilder: FormBuilder,
-    private modalController: ModalController) { 
+    private modalController: ModalController,
+    public toastController: ToastController,
+    public alertController: AlertController   
+    ) { 
       
       this.position = "floating";
       //this.position = "fixed";
@@ -67,10 +70,17 @@ export class PessoalBasePage implements OnInit {
   ngOnInit() {
 
     this.perfilUsuario = this.storage.getLocalProfile();
-    console.log(this.perfilUsuario);
+    //console.log(this.perfilUsuario);
 
-    let _nome: string;
     
+    if (this.perfilUsuario['perfilPessoal'] != null) {
+      this.cmb_genero = this.perfilUsuario['perfilPessoal'].sexo;
+    }
+    else {
+      this.cmb_genero = "";
+    }
+
+    //let _nome: string;
     //_nome = this.perfilUsuario.perfilPessoal.nome + " _0";
     //_nome = this.perfilUsuario.JSON().nome;
 
@@ -95,7 +105,6 @@ export class PessoalBasePage implements OnInit {
 
   onSubmit(value: any) {
 
-
     this.submitted = true;
     // stop here if form is invalid
     //if (this.loginForm.invalid) {
@@ -111,123 +120,293 @@ export class PessoalBasePage implements OnInit {
     //console.log(this.perfilUsuario);
 
     let _idUsuario = this.perfilUsuario['id'];
-    
-    var _perfilPessoal: perfilPessoal;
-    _perfilPessoal = this.perfilUsuario['perfilPessoal'];
-    
-    
-    if ( _perfilPessoal == null) {
 
+    /*
+    let _perfilPessoal: perfilPessoal;
+    _perfilPessoal = this.perfilUsuario['perfilPessoal'];
+    if ( _perfilPessoal == null) {
       //console.log('id: ' + _idUsuario);
       //console.log(value);
-
     }
     else {
-
       //console.log(_perfilPessoal);
       //console.log(Object.keys(_perfilPessoal));
-
       for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
-
         let field_name = Object.keys(_perfilPessoal)[i];
         let field_value = _perfilPessoal[field_name];
-
         //console.log('_perfilPessoal[i]' + i);
         let resultt = i +  ' campo: ' +  field_name + ' / valor: ' + field_value;
-        //console.log(resultt);
-        //console.log(_perfilPessoal[resultt]);
-
       }
     }
-
-    let _body = this.perfilUsuario;
-    _body['perfilPessoal'] = value; 
+    */
 
 
-    // //////////////////////////////////////////////
-    _body = this.getPerfilPessoal();  
-    // //////////////////////////////////////////////    
+    let _body = this.montarBodyPerfilPessoal(value);
+    if ((_idUsuario != null) && (_body != null)) {
+      if(this.perfilUsuario['perfilPessoal'] != null ) {
+        this.pessoalService.modificarPerfilPessoal(_idUsuario,  _body)
+        .subscribe(Response => {
+          this.gravaDadosPresentToast();
+          this.irParaTelaAnterior();
+        },
+        error => {
+          //console.log(error); 
+        });
+      }
+      else {
+        this.pessoalService.adicionarPerfilPessoal(_idUsuario,  _body)
+        .subscribe(Response => {
+          this.gravaDadosPresentToast();
+          this.irParaTelaAnterior();
+        },
+        error => {
+          //console.log(error); 
+        });
+      }
 
-    console.log('_body:::::::::');
-    console.log(_body);
-    
-    if (_idUsuario != null &&  _body != null) {
-      this.pessoalService.adicionarPerfilPessoal(_idUsuario,  JSON.stringify(_body))
-      .subscribe(Response => {
-        console.log(Response);
-        // this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
-      },
-      error => {
-        console.log(error); 
-      });
     }
-
-  } 
-
-  getPerfilPessoal() : any {
-
-    let _value = 
-    {
-      "id": "21e78c4d-34aa-4816-859d-98a7a3ea6f29",
-      "created": "08/02/2019 19:52:48",
-      "nome": "Alcenir Felix de Carvalho Toledo",
-      "email": "afelix@softquim.com.br",
-      "password": "$2a$10$NPz9Go0P5RjTVrb95Lr1ze/kRVCY/2bmG3f9Wxywl155TmUF7NX82",
-      "tefefone": "12997792854",
-      "cpf": "19915457898",
-      "rg": "255212963",
-      "enabled": false,
-      "tipos": [
-          "PACIENTE"
-      ],
-      "perfilPessoal": {
-          //"id": "593b9d56-6453-4c6f-9f2d-9bdf6922c2a4",
-          //"created": "22/02/2019 21:51:52",
-          "nome": "Alcenir Felix de Carvalho Toledo",
-          "tipoPerfil": "PESSOAL",
-          "contatos": null,
-          "privacidade": null,
-          "telefone": "12997792854",
-          "residencia": {
-              "nomeLocal": "Rua",
-              "logradouro": "Avenida Godoy Neto",
-              "bairro": "Olaria",
-              "cidade": "Lorena",
-              "estado": "SP",
-              "numero": "278",
-              "cep": "12607-060"
-          },
-          "trabalho": null,
-          "nascimento": "04/12/1989",
-          "sexo": "M",
-          "praticaEsporte": false,
-          "doadorOrgao": true,
-          "doadorSangue": false,
-          "tipoSangue": "A-",
-          "altura": 1.89,
-          "peso": 83,
-          //"dependentes": [],
-          //"doencas": null,
-          //"alergias": null,
-          //"medicamentos": null,
-          //"cirurgias": null,
-          //"contatoEmergencia": null,
-          //"protocolosEmergencias": null,
-          //"profissionais": null,
-          //"convenios": null,
-          //"drogas": null,
-          //"acidentes": null,
-          //"condicoesEspeciais": null,
-          "rg": "255212963X",
-          "cpf": "19915457898"
-      } //,
-      //"perfilProfissional": null,
-      //"perfisInstituicoes": null
-    }    
-
-    return _value;
-
   }
+
+  async gravaDadosPresentToast() {
+    const toast = await this.toastController.create({
+      message: 'Dados gravados com sucesso.',
+      duration: 2000
+    });
+    toast.present();
+  }  
+
+  montarBodyPerfilPessoal(value: any) : any {
+    let _value = { 
+      //"id"
+      //"created"
+      "nome": value.nome,
+      "tipoPerfil": "PESSOAL",
+      //"contatos"
+      //"privacidade"
+      "telefone": value.telefone,
+      //"residencia"
+      //"trabalho"
+      "nascimento": value.nascimento,
+      "sexo": value.sexo,
+      "praticaEsporte": value.praticaEsporte,
+      "doadorOrgao": value.doadorOrgao,
+      "doadorSangue": value.doadorSangue,
+      "tipoSangue": value.tipoSangue,
+      "altura": value.altura,
+      "peso": value.peso,
+      //"dependentes"
+      //"doencas"
+      //"alergias"
+      //"medicamentos"
+      //"cirurgias"
+      //"contatoEmergencia"
+      //"protocolosEmergencias"
+      //"profissionais"
+      //"convenios"
+      //"drogas"
+      //"acidentes"
+      //"condicoesEspeciais"
+      "rg": value.rg,
+      "cpf": value.cpf
+    };
+    return _value;
+  }
+  
+  /*
+  {
+    "acidentes": [
+      {
+        "data": "dd/MM/yyyy",
+        "descricao": "string",
+        "gravidade": "string",
+        "implicacoes": "string",
+        "observacao": "string",
+        "privacidade": {}
+      }
+    ],
+    "alergias": [
+      {
+        "alergia": {
+          "agenteCausador": "string",
+          "categoria": "string",
+          "created": "dd/MM/yyyy HH:mm:ss",
+          "descricao": "string",
+          "id": "string",
+          "nome": "string",
+          "reacoesAdversas": "string"
+        },
+        "desde": "dd/MM/yyyy",
+        "observacao": "string",
+        "privacidade": {}
+      }
+    ],
+    "altura": value.altura,
+    "cirurgias": [
+      {
+        "data": "dd/MM/yyyy",
+        "descricao": "string",
+        "observacao": "string",
+        "privacidade": {}
+      }
+    ],
+    "condicoesEspeciais": [
+      {
+        "descricao": "string",
+        "observacao": "string",
+        "privacidade": {}
+      }
+    ],
+    "contatoEmergencia": [
+      {
+        "created": "dd/MM/yyyy HH:mm:ss",
+        "email": "string",
+        "id": "string",
+        "nivelPermissao": {},
+        "nome": "string",
+        "relacao": "string",
+        "telefone": "string"
+      }
+    ],
+    "contatos": [
+      {
+        "created": "dd/MM/yyyy HH:mm:ss",
+        "email": "string",
+        "id": "string",
+        "nivelPermissao": {},
+        "nome": "string",
+        "relacao": "string",
+        "telefone": "string"
+      }
+    ],
+    "convenios": [
+      {
+        "codigousuarioConvenio": "string",
+        "nomeConvenio": "string",
+        "observacao": "string",
+        "privacidade": {}
+      }
+    ],
+    "cpf": '"' + value.cpf + '"',
+    "created": "dd/MM/yyyy HH:mm:ss",
+    "dependentes": [
+      {
+        "observacao": "string",
+        "parentesco": "0",
+        "perfil": {},
+        "privacidade": {}
+      }
+    ],
+    "doadorOrgao": true,
+    "doadorSangue": true,
+    "doencas": [
+      {
+        "desde": "dd/MM/yyyy",
+        "doenca": {
+          "cid": "string",
+          "created": "dd/MM/yyyy HH:mm:ss",
+          "descricao": "string",
+          "id": "string",
+          "nome": "string",
+          "nomesPopulares": [
+            "string"
+          ]
+        },
+        "observacao": "string",
+        "privacidade": {}
+      }
+    ],
+    "drogas": [
+      {
+        "desde": "dd/MM/yyyy",
+        "frequecia": "string",
+        "observacao": "string",
+        "privacidade": {},
+        "quantidade": "string"
+      }
+    ],
+    "id": "string",
+    "medicamentos": [
+      {
+        "dosagem": "string",
+        "frequencia": "string",
+        "medicamento": {
+          "codigoATC": "string",
+          "composicao": "string",
+          "concentracao": "string",
+          "contraindicacao": "string",
+          "contraindicacoes": "string",
+          "created": "dd/MM/yyyy HH:mm:ss",
+          "dosagemAdultos": "string",
+          "dosagemPediatrica": "string",
+          "efeitosColaterais": "string",
+          "formaFarmaceutica": "string",
+          "generico": true,
+          "gravidez": "string",
+          "id": "string",
+          "indicacao": "string",
+          "laboratorio": "string",
+          "lactacao": "string",
+          "nome": "string",
+          "nomeComercial": "string",
+          "principioAtivo": "string",
+          "reacoesAdversas": "string"
+        },
+        "observacao": "string",
+        "privacidade": {},
+        "viaAdministracao": "string"
+      }
+    ],
+    "nascimento": "04/11/1975",
+    "nome": "Alcenir Felix",
+    "peso": 74,
+    "praticaEsporte": true,
+    "privacidade": [
+      "RESTRITO"
+    ],
+    "profissionais": [
+      {
+        "created": "dd/MM/yyyy HH:mm:ss",
+        "email": "string",
+        "id": "string",
+        "nivelPermissao": {},
+        "nome": "string",
+        "relacao": "string",
+        "telefone": "string"
+      }
+    ],
+    "protocolosEmergencias": [
+      {
+        "descricao": "string",
+        "observacao": "string",
+        "privacidade": {},
+        "tipoEmergencia": "string"
+      }
+    ],
+    "residencia": {
+      "bairro": "string",
+      "cep": "string",
+      "cidade": "string",
+      "estado": "string",
+      "logradouro": "string",
+      "nomeLocal": "string",
+      "numero": "string"
+    },
+    "rg": "25532296",
+    "sexo": value.sexo,
+    "telefone": "1231326282",
+    "trabalho": {
+      "bairro": "string",
+      "cep": "string",
+      "cidade": "string",
+      "estado": "string",
+      "logradouro": "string",
+      "nomeLocal": "string",
+      "numero": "string"
+    },
+    "tipoSangue": "O",
+    "tipoPerfil": "PESSOAL"
+  }
+  */
 
   validation_messages = {
     'nome': [
@@ -250,9 +429,52 @@ export class PessoalBasePage implements OnInit {
     ]
   }
 
+  async deletePerfilPessoal() {
+    const alert = await this.alertController.create({
+      header: 'Excluir registro',
+      message: 'O Perfil Pessoal será excuído.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          //console.log('Confirm Cancel');
+          }          
+        }, 
+        {
+          text: 'Ok',
+          handler: () => {
+            let _idUsuario = this.perfilUsuario['id'];
+            console.log(_idUsuario);
+            if (_idUsuario != null) {
+              this.pessoalService.excluirPerfilPessoal(_idUsuario)
+              .subscribe(Response => {
+                this.deletePresentToast();
+                this.irParaTelaAnterior();
+              },
+              error => {
+                console.log(error);
+              });
+            }
+            //console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }  
+
+  async deletePresentToast() {
+    const toast = await this.toastController.create({
+      message: 'Perfil excluido.',
+      duration: 2000
+    });
+    toast.present();
+  }  
 
   irParaTelaAnterior() {
-    //this.navCtrl.navigateBack('pessoal');
+    this.navCtrl.navigateBack('pessoal');
   }
 
   irParaProximaTela() {

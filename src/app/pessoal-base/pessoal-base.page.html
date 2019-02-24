@@ -14,6 +14,12 @@
     <ion-list>
 
       <ion-item>
+        <ion-label  position="stacked">
+            {{ perfilUsuario?.perfilPessoal?.id }}
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
         <ion-label  position="stacked">Nome</ion-label>
         <ion-input  type="text" 
                     name="nome" 
@@ -36,75 +42,133 @@
 
       <ion-item>
         <ion-label  position="stacked">Telefone</ion-label>
-        <ion-input  type="text" name="telefone" 
+        <ion-input  type="text" 
+                    name="telefone" 
                     [ngModel]="perfilUsuario?.tefefone" 
                     ngModel required #telefone="ngModel"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label  position="stacked">CPF</ion-label>
-        <ion-input  type="text" name="cpf" 
+        <ion-input  type="text" 
+                    name="cpf" 
                     [ngModel]="perfilUsuario?.cpf" 
                     ngModel required #cpf="ngModel"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label  position="stacked">RG</ion-label>
-        <ion-input  type="text" name="rg" 
+        <ion-input  type="text" 
+                    name="rg" 
                     [ngModel]="perfilUsuario?.rg" 
                     ngModel required #cpf="ngModel"></ion-input>
       </ion-item>      
    
+      <!--
       <ion-item>
         <ion-label  position="stacked">Sexo</ion-label>
         <ion-input  type="text" name="sexo"
                     [ngModel]="perfilUsuario?.perfilPessoal?.sexo"
                     ngModel required #sexo="ngModel"></ion-input>
       </ion-item>
+      -->
+
+      <ion-item>
+        <ion-label>Gênero</ion-label>
+        <!-- [(ngModel)]="cmb_genero" -->
+        <ion-select name="sexo"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.sexo"
+                    placeholder="Selecione">
+          <ion-select-option value="F">Feminino</ion-select-option>
+          <ion-select-option value="M">Masculino</ion-select-option>
+        </ion-select>
+      </ion-item>
 
       <ion-item>
         <ion-label  position="stacked">Data de nascimento</ion-label>
-        <ion-input  type="text" name="nascimento"
+        <ion-input  type="text" 
+                    name="nascimento"
                     [ngModel]="perfilUsuario?.perfilPessoal?.nascimento"
                     ngModel required #nascimento="ngModel"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label  position="stacked">Altura</ion-label>
-        <ion-input  type="number" name="altura"
+        <ion-input  type="number" 
+                    name="altura"
                     [ngModel]="perfilUsuario?.perfilPessoal?.altura"
                     ngModel required #altura="ngModel"></ion-input>
       </ion-item>      
 
       <ion-item>
         <ion-label  position="stacked">Peso</ion-label>
-        <ion-input  type="number" name="peso"
+        <ion-input  type="number" 
+                    name="peso"
                     [ngModel]="perfilUsuario?.perfilPessoal?.peso"
                     ngModel required #peso="ngModel"></ion-input>
       </ion-item>
 
+      <ion-item>
+        <ion-label>Pratica esporte</ion-label>
+        <ion-toggle name="praticaEsporte"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.praticaEsporte"
+                    >
+        </ion-toggle>
+      </ion-item>
 
       <ion-item>
-        <ion-label  position="stacked">Doador de órgãos</ion-label>
-        <ion-input  type="text" name="doadorOrgao"
+        <ion-label>Doador de órgãos</ion-label>
+        <ion-toggle name="doadorOrgao"
                     [ngModel]="perfilUsuario?.perfilPessoal?.doadorOrgao"
-                    ngModel #doadorOrgao="ngModel"></ion-input>
+                    >
+        </ion-toggle>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Doador de sangue</ion-label>
+        <ion-toggle name="doadorSangue"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.doadorSangue"
+                    >
+        </ion-toggle>
       </ion-item>
 
 
-      <!--
-      tipoSangue: "AB-"
-      doadorSangue: true
-      praticaEsporte
-      -->
-
+      <ion-item>
+        <ion-label>Tipo sanguíneo</ion-label>
+        <ion-select name="tipoSangue" 
+                    placeholder="Selecione"
+                    [ngModel]="perfilUsuario?.perfilPessoal?.tipoSangue">
+          <ion-select-option value="A+">A+</ion-select-option>
+          <ion-select-option value="A-">A-</ion-select-option>
+          <ion-select-option value="B+">B+</ion-select-option>
+          <ion-select-option value="B-">B-</ion-select-option>
+          <ion-select-option value="AB+">AB+</ion-select-option>
+          <ion-select-option value="AB-">AB-</ion-select-option>
+          <ion-select-option value="O+">O+</ion-select-option>
+          <ion-select-option value="O-">O-</ion-select-option>
+        </ion-select>
+      </ion-item>
 
 
   
       <div padding>
-        <ion-button color="primary" expand="block" type="submit" 
-        [disabled]="!form.valid">Registrar</ion-button>
+        <ion-button color="primary" 
+          expand="block" 
+          type="submit" 
+          [disabled]="!form.valid">Gravar dados
+        </ion-button>
+
+        <div *ngIf="perfilUsuario?.perfilPessoal?.id != null">
+        <ion-button 
+          color="danger"  
+          expand="block" 
+          type="button" 
+          (click)="deletePerfilPessoal()">Excluir perfil Pessoal
+        </ion-button>
       </div>
+      </div>
+
+      
   
     </ion-list>
 
@@ -116,7 +180,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button size="small" fill="outline">Anterior</ion-button>
+      <ion-button size="small" fill="outline" (click)="irParaTelaAnterior()">Anterior</ion-button>
     </ion-buttons>
     <ion-title>Criar perfil</ion-title>
     <ion-buttons slot="primary">

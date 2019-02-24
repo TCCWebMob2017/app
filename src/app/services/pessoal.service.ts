@@ -32,20 +32,17 @@ export class PessoalService {
 
   adicionarPerfilPessoal(id: string, body: any) {
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
-    //console.log('pessoal.service ---------> [adicionarPerfilPessoal]' + url);
-    return this.http.post(
-      url, 
-      body, { 
-        observe: 'response', 
-        responseType: 'text' 
-      }
-    );
+    return this.http.post(url, body, { observe: 'response', responseType: 'text'});
+  }
+
+  modificarPerfilPessoal(id: string, body: any) {
+    let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
+    return this.http.put(url, body, { observe: 'response', responseType: 'text'});
   }
 
   excluirPerfilPessoal(id: string) {
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
-    //console.log('pessoal.service ---------> [excluirPerfilPessoal]' + url);
-    return this.http.delete(url);
+    return this.http.delete(url, { observe: 'response', responseType: 'text'});
   }
 
 
