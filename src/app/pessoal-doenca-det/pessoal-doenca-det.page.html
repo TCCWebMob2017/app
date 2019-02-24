@@ -38,6 +38,18 @@
                   >
       </ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label  position="stacked">Nome</ion-label>
+      <ion-input  type="text" 
+                  name="nome" 
+                  required
+                  [ngModel]="perfilUsuario?.nome"
+                  ngModel required #nome="ngModel"
+                  [class.invalid]="nome.errors && nome.dirty"
+                  >
+      </ion-input>
+    </ion-item>    
   
 
 
