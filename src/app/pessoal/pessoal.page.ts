@@ -45,7 +45,6 @@ export class PessoalPage implements OnInit {
       */
       this.pessoalService.getLoggedInUser()
         .subscribe(Response => {
-        console.log('Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         this.prontuario = Response;
         //console.log(this.prontuario);
         this.storage.setLocalProfile(this.prontuario);
@@ -82,13 +81,13 @@ export class PessoalPage implements OnInit {
       console.log(keys);
       */
 
-    console.log(Object.keys(jsonData));
-    if (jsonData.perfilPessoal == null) {
-      console.log('jsonData.perfilPessoal  / Vaziooooooooooooooo');
-    }
-    else {
-      console.log(Object.keys(jsonData.perfilPessoal));
-    }
+    //console.log(Object.keys(jsonData));
+    //if (jsonData.perfilPessoal == null) {
+      //console.log('jsonData.perfilPessoal  / Vaziooooooooooooooo');
+    //}
+    //else {
+      //console.log(Object.keys(jsonData.perfilPessoal));
+    //}
 
     // ////////////////////////////////////////////
 
@@ -117,10 +116,10 @@ export class PessoalPage implements OnInit {
   pessoalAll() {
     this.pessoalService.findAll()
       .subscribe(Response => {
-        console.log(Response);
+        //console.log(Response);
       },
       error => {
-        console.log(error);
+        //console.log(error);
 
       }
       );

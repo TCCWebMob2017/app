@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'pessoal-medicamentos', loadChildren: './pessoal-medicamentos/pessoal-medicamentos.module#PessoalMedicamentosPageModule' },
   { path: 'sobre', loadChildren: './sobre/sobre.module#SobrePageModule' },
-  { path: 'pessoal-base', loadChildren: './pessoal-base/pessoal-base.module#PessoalBasePageModule' },  { path: 'pessoal-doencas', loadChildren: './pessoal-doencas/pessoal-doencas.module#PessoalDoencasPageModule' }
+  { path: 'pessoal-base', loadChildren: './pessoal-base/pessoal-base.module#PessoalBasePageModule' },  { path: 'pessoal-doencas', loadChildren: './pessoal-doencas/pessoal-doencas.module#PessoalDoencasPageModule' },
+  { path: 'pessoal-doenca-det', loadChildren: './pessoal-doenca-det/pessoal-doenca-det.module#PessoalDoencaDetPageModule' }
 
 
 ];

@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/pessoal"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Doenças: Editar</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding>
+  
+  <ion-item>
+      <ion-label  position="stacked">ID da doença</ion-label>
+      <ion-input  type="text" 
+                  name="id" 
+                  required
+                  [ngModel]="doenca?.id"
+                  >
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label  position="stacked">CID</ion-label>
+      <ion-input  type="text" 
+                  name="cid" 
+                  required
+                  [ngModel]="doenca?.cid"
+                  >
+      </ion-input>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label  position="stacked">Nome</ion-label>
+      <ion-input  type="text" 
+                  name="nome" 
+                  required
+                  [ngModel]="doenca?.nome"
+                  >
+      </ion-input>
+    </ion-item>
+  
+
+
+
+
+</ion-content>
