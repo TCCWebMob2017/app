@@ -3,5 +3,5 @@ export interface DoencaDTO {
     cid: string;
     nome: string;
     descricao: string;
-    nomesPopulares: string[];
+    //nomesPopulares: string[];
 }

@@ -15,10 +15,10 @@
     <ion-list-header>
       <ion-label>Título da lista</ion-label>
     </ion-list-header>    
-    <ion-item *ngFor="let item of items">
-      {{item.title}}
+    <ion-item *ngFor="let item of doencas">
+      {{item.nome}}
       <div class="item-note" slot="end">
-        {{item.note}}
+        {{item.descricao}}
       </div>
     </ion-item>
   </ion-list>
