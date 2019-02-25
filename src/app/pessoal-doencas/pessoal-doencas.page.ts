@@ -64,7 +64,7 @@ export class PessoalDoencasPage implements OnInit {
   }
 
   irParaProximaTela() {
-    this.navCtrl.navigateForward('ficha-medica');
+    this.navCtrl.navigateForward('pessoal-medicamentos');
   }
 
 }
