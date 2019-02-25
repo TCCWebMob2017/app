@@ -137,9 +137,11 @@
 
       <ion-item>
         <ion-label>Tipo sanguíneo</ion-label>
+        <!-- [interfaceOptions]="customPopoverOptions"  interface="popover"  -->
         <ion-select name="tipoSangue" 
                     placeholder="Selecione"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.tipoSangue">
+                    [ngModel]="perfilUsuario?.perfilPessoal?.tipoSangue"
+                    multiple="false">
           <ion-select-option value="A+">A+</ion-select-option>
           <ion-select-option value="A-">A-</ion-select-option>
           <ion-select-option value="B+">B+</ion-select-option>
@@ -151,8 +153,6 @@
         </ion-select>
       </ion-item>
 
-
-  
       <div padding>
         <ion-button color="primary" 
           expand="block" 

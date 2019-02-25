@@ -67,4 +67,23 @@ export class PessoalService {
   }
   
 
+  
+  getMedicamentosAll() {
+    let url =  `${API_CONFIG.baseUrl}/api/v1/medicamento/all`;
+    return this.http.get<any>(url);
+  }
+
+  getMedicamentosAll2() : Observable<any> {
+    let url =  `${API_CONFIG.baseUrl}/api/v1/medicamento/all`;
+    return this.http.get(url, {responseType : 'text'});
+  }
+  
+  filterItems(obj: any, searchTerm){
+    return obj.filter((item) => {
+        return item.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });     
+
+}
+
+
 }

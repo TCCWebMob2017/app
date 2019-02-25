@@ -10,141 +10,39 @@
   </ion-header>
 
 
-
-<ion-content padding>
+  <ion-content padding>
   <!-- ---------------------------------------------------------------------------------------------------- -->
   <!-- ---------------------------------------------------------------------------------------------------- -->
 
-  <!--
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs">docs</a> will be your guide.</p>
-  -->
-
-    <!--
-    <ion-button (click)="showModal()">
-      Show Modal
-    </ion-button>
-    
-    -->
-  <!--
-  <form [formGroup]="loginForm" (ngSubmit)="onClickLogIn()">
-  -->
-
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-
-    <ion-item>
-      <ion-label position="{{ position }}">Nome:</ion-label>
-      <ion-input formControlName="nome" type="text" placeholder="Nome"></ion-input>
-    </ion-item> 
-    
-    <!--
-    <ion-label>
-        <p *ngIf="loginForm.get('nome').hasError('required')  && loginForm.get('nome').touched" class="error">Nome é obrigatório</p>
-        <p *ngIf="loginForm.get('nome').hasError('minlength') && loginForm.get('nome').touched" class="error">Username must have at least 4 characters</p>
-        <p *ngIf="loginForm.get('nome').hasError('maxlength') && loginForm.get('nome').touched" class="error">Username must have maximum 20 characters</p>      
-    </ion-label>
-    -->
-    <div class="validation-errors">
-      <ng-container *ngFor="let validation of validation_messages.nome">
-        <div class="error-message" *ngIf="loginForm.get('nome').hasError(validation.type) && (loginForm.get('nome').dirty || loginForm.get('nome').touched)">
-          {{ validation.message }}
-        </div>
-      </ng-container>
-    </div>
-
-    <ion-item>
-      <ion-label position="{{ position }}">Peso (Kg):</ion-label>
-      <ion-input formControlName="peso" type="number" placeholder="Peso (Kg)"></ion-input>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validation_messages.peso">
-          <div class="error-message" *ngIf="loginForm.get('peso').hasError(validation.type) && (loginForm.get('peso').dirty || loginForm.get('peso').touched)">
-            {{ validation.message }}
-          </div>
-        </ng-container>
-      </div>
-    </ion-item>
-    
-
-    <ion-item>
-      <ion-label position="{{ position }}">Altura (m):</ion-label>
-      <ion-input formControlName="altura" type="number" placeholder="Altura (m)"></ion-input>
-    </ion-item> 
-
-    
-    <ion-list>
-      <ion-item>
-        <ion-label>Tipo sanguíneo</ion-label>
-        <ion-select formControlName="tipoSangue" [interfaceOptions]="customPopoverOptions" interface="popover" multiple="false" placeholder="Selecione">
-          <ion-select-option value="A+">A+</ion-select-option>
-          <ion-select-option value="A-">A-</ion-select-option>
-          <ion-select-option value="B+">B+</ion-select-option>
-          <ion-select-option value="B-">B-</ion-select-option>
-          <ion-select-option value="AB+">AB+</ion-select-option>
-          <ion-select-option value="AB-">AB-</ion-select-option>
-          <ion-select-option value="O+">O+</ion-select-option>
-          <ion-select-option value="O-">O-</ion-select-option>
-        </ion-select>
-      </ion-item>     
-    </ion-list>
   
-    <!--
-    <input class="myClasses" (change)='update($event)' [(ngModel)]="input" type="number" name="input" min="0" max="10" (blur)='blur($event)' value="input">
-    -->
-
-    <ion-item>
-      <ion-label position="{{ position }}">Data de nascimento:</ion-label>
-      <!-- <ion-datetime displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"max="{{ maxSelectableDate }}"></ion-datetime> -->
-      <ion-datetime formControlName="nascimento" displayFormat="DD/MM/YYYY" min="{{ minSelectableDate }}"></ion-datetime>
-    </ion-item>
-
-    
-
-    <!--
-    <ion-item>
-      <ion-label floating>Date</ion-label>
-      <ion-datetime displayFormat="DD-MM-YYYY" [(ngModel)]="userData.date" [min]="today()"></ion-datetime>
-    </ion-item>
-    -->
-
-
-
-    <!--
-    <ion-item>
-      <ion-input (keyup.enter)="onClickLogIn()" type="text" name="username" placeholder="Enter username"
-        formControlName="username"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input (keyup.enter)="onClickLogIn()" type="password" name="password" placeholder="Enter password"
-        formControlName="password"></ion-input>
-    </ion-item>
-    -->
-
-
-
-    <ion-button type="submit">Registrar</ion-button>
-  </form>
-
-  <!--
-  <ion-button (click)="lockSwipes(true)">
-    Lock Swipes
-  </ion-button>
-  -->
+  <ion-content>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
+    <ion-list lines>
+        <ion-item *ngFor="let item of medicamentos">
+          <ion-label>
+            <h2> {{ item?.nome }} </h2>
+            <p>  Forma Farmaceutica: {{ item?.formaFarmaceutica }}</p>
+            <p>  Concentracao: {{ item?.concentracao }} </p>
+            <p>  Código ATC: {{ item?.codigoATC }} </p>
+            <p>  {{ item?.id }} </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+  </ion-content>
   
+
+
   <!--
-  <ion-button (click)="lockSwipes(false)">
-    Unlock Swipes
-  </ion-button>
+  <ion-menu-toggle *ngFor="let page of medicamentos">
+    <ion-item detail="true" 
+              [routerLink]="page.url" 
+              [routerDirection]="'root'">
+      <ion-icon slot="start" name="contact" color="primary"></ion-icon>
+      <ion-label>{{page.nome}}</ion-label>
+    </ion-item>
+  </ion-menu-toggle>
   -->
 
-
- 
-  <div padding>
-    <!--
-    <ion-button color="primary" expand="block" type="submit" [disabled]="!form.valid">Registrar</ion-button>
-    -->
-    
-  </div>
 
 
 

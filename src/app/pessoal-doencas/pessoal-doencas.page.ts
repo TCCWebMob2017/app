@@ -10,24 +10,12 @@ import { DoencaDTO } from '../models/doenca';
 })
 export class PessoalDoencasPage implements OnInit {
 
-  public items: Array<{ 
-    title: string; 
-    note: string;
-   }> = [];
-
    public doencas: any;
 
   constructor(public navCtrl: NavController,
               private storage: StorageService) { }
 
   ngOnInit() {
-
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i
-      });
-    }
 
     this.doencas = [
       {
