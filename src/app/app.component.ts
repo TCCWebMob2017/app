@@ -14,7 +14,7 @@ export class AppComponent {
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Pessoal', url: '/pessoal', icon: 'finger-print' },
     //{ title: 'Pessoal', url: '/pessoal', icon: 'contact' },
-    { title: 'List', url: '/list', icon: 'list' },
+    //{ title: 'List', url: '/list', icon: 'list' },
     { title: 'Ficha médica', url: '/ficha-medica', icon: 'medical' },
     { title: 'Logout', url: '/login', icon: 'log-out' }
     //{ title: 'Logout', component: ''}
