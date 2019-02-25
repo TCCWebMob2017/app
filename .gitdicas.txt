@@ -19,3 +19,6 @@ $ git push origin master
 Atualizar (download)
 git remote add origin https://github.com/alcenirfelix/Q-Life.git
 git push -u origin master
+
+Atualizar url:
+git remote set-url origin https://github.com/TCCWebMob2017/app.git
