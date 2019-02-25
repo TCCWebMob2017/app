@@ -1,5 +1,11 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="addDoenca()">
+        <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-title>Pessoal: Doenças</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -20,7 +26,6 @@
     </ion-item>
   </ion-list>
 
-  <ion-button type="button" (click)="addDoenca()">Adicionar</ion-button>   
 
   <!-- -------------------------------------------------------------------------------- -->
   <!-- -------------------------------------------------------------------------------- -->
