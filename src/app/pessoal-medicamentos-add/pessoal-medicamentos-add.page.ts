@@ -1,6 +1,7 @@
 import { PessoalService } from './../services/pessoal.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { pessoalMedicamentos } from './../pessoal-medicamentos/pessoal-medicamentos.page' ;
 
 @Component({
   selector: 'app-pessoal-medicamentos-add',
@@ -29,10 +30,6 @@ export class PessoalMedicamentosAddPage implements OnInit {
 
   }
 
-  ionViewDidLoad(){
-   console.log('ionViewDidLoad ......');
-  }
-
   setFilteredItems(ev: any) {
     let val = ev.target.value;
     this.medicamentos = this.pessoalService.filterItems(this.medicamentos_all, val);
@@ -45,6 +42,9 @@ export class PessoalMedicamentosAddPage implements OnInit {
   selecionarMedicamento(value:any) {
     if (value!= null) {
       console.log(value);
+
+      pessoalMedicamentos.medicamentos = null;
+
       this.navCtrl.navigateBack('pessoal-medicamentos');
     }
   }

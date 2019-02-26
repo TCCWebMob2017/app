@@ -1,57 +1,57 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="primary">
-        <ion-button (click)="addMedicamento()">
-          <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>Pessoal : medicamentos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="addMedicamento()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Pessoal : medicamentos</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content padding>
-  <!-- ---------------------------------------------------------------------------------------------------- -->
-  <!-- ---------------------------------------------------------------------------------------------------- -->
- 
-  <ion-content>
-    <ion-list lines>
-        <ion-item *ngFor="let item of medicamentos">
-          <ion-label>
-            <h2> {{ item?.nome }} </h2>
-            <p>  Forma Farmaceutica: {{ item?.formaFarmaceutica }}</p>
-            <p>  Concentracao: {{ item?.concentracao }} </p>
-            <p>  Código ATC: {{ item?.codigoATC }} </p>
-            <p>  {{ item?.id }} </p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-  </ion-content>
+<ion-content padding>
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
 
-  <!--
-  <ion-menu-toggle *ngFor="let page of medicamentos">
-    <ion-item detail="true" 
-              [routerLink]="page.url" 
-              [routerDirection]="'root'">
-      <ion-icon slot="start" name="contact" color="primary"></ion-icon>
-      <ion-label>{{page.nome}}</ion-label>
-    </ion-item>
-  </ion-menu-toggle>
-  -->
+<ion-content>
+  <ion-list lines>
+      <ion-item *ngFor="let item of medicamentos">
+        <ion-label>
+          <h2> {{ item?.nome }} </h2>
+          <p>  Forma Farmaceutica: {{ item?.formaFarmaceutica }}</p>
+          <p>  Concentracao: {{ item?.concentracao }} </p>
+          <p>  Código ATC: {{ item?.codigoATC }} </p>
+          <p>  {{ item?.id }} </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+</ion-content>
 
-  <!-- ---------------------------------------------------------------------------------------------------- -->
-  <!-- ---------------------------------------------------------------------------------------------------- -->
+<!--
+<ion-menu-toggle *ngFor="let page of medicamentos">
+  <ion-item detail="true" 
+            [routerLink]="page.url" 
+            [routerDirection]="'root'">
+    <ion-icon slot="start" name="contact" color="primary"></ion-icon>
+    <ion-label>{{page.nome}}</ion-label>
+  </ion-item>
+</ion-menu-toggle>
+-->
+
+<!-- ---------------------------------------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------------------------------------- -->
 </ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button icon="arrow-back" text="Anterior" defaultHref="/pessoal-doencas"></ion-back-button>
-      </ion-buttons>
-      <!-- <ion-title>Criar perfil</ion-title> -->
-      <ion-buttons slot="primary">
-        <ion-button size="small" (click)="irParaProximaTela()">Próximo
-            <ion-icon slot="icon-only" name="checkmark-circle"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button icon="arrow-back" text="Anterior" defaultHref="/pessoal-doencas"></ion-back-button>
+    </ion-buttons>
+    <!-- <ion-title>Criar perfil</ion-title> -->
+    <ion-buttons slot="primary">
+      <ion-button size="small" (click)="irParaProximaTela()">Próximo
+          <ion-icon slot="icon-only" name="checkmark-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

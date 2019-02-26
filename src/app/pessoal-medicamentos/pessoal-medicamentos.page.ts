@@ -2,6 +2,7 @@ import { PessoalService } from './../services/pessoal.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-pessoal-medicamentos',
   templateUrl: './pessoal-medicamentos.page.html',
@@ -23,8 +24,39 @@ export class PessoalMedicamentosPage implements OnInit {
     error => {
       console.log(error);
     });
+    console.log('ngOnInit ....');
 
   }
+
+  ionViewDidLoad(){
+    console.log('ionViewDidLoad ================================================');
+  }
+
+  ionViewWillEnter(){
+    console.log('ionViewWillEnter ================================================');
+    //console.log(value);
+  }
+
+  ionViewDidEnter(){
+    console.log('ionViewDidEnter ================================================');
+    //console.log(value);
+  }
+
+  ionViewWillLeave(){
+    console.log('ionViewWillLeave ================================================');
+  }
+
+  ionViewDidLeave(){
+    console.log('ionViewDidLeave ================================================');
+  }
+
+  ionViewWillUnload(){
+    console.log('ionViewWillUnload ================================================');
+  }
+
+
+
+
 
   addMedicamento() {
     this.navCtrl.navigateForward('pessoal-medicamentos-add');
@@ -39,6 +71,8 @@ export class PessoalMedicamentosPage implements OnInit {
     }
   }  
 */
+  irParaProximaTela() {
+    this.navCtrl.navigateForward('pessoal-alergias'); 
+  }
 
 }
-
