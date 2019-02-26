@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pessoal-medicamento"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Adicionar medicamento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-content>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
+    <ion-list lines>
+      <ion-item *ngFor="let item of medicamentos" (click)="selecionarMedicamento(item)">
+        <ion-label>
+          <h2> {{ item?.nome }} </h2>
+          <p>  Forma Farmaceutica: {{ item?.formaFarmaceutica }}</p>
+          <p>  Concentracao: {{ item?.concentracao }} </p>
+          <p>  Código ATC: {{ item?.codigoATC }} </p>
+          <p>  {{ item?.id }} </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-content>

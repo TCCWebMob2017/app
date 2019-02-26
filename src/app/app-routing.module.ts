@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'pessoal-medicamentos', loadChildren: './pessoal-medicamentos/pessoal-medicamentos.module#PessoalMedicamentosPageModule' },
   { path: 'sobre', loadChildren: './sobre/sobre.module#SobrePageModule' },
   { path: 'pessoal-base', loadChildren: './pessoal-base/pessoal-base.module#PessoalBasePageModule' },  { path: 'pessoal-doencas', loadChildren: './pessoal-doencas/pessoal-doencas.module#PessoalDoencasPageModule' },
-  { path: 'pessoal-doenca-det', loadChildren: './pessoal-doenca-det/pessoal-doenca-det.module#PessoalDoencaDetPageModule' }
+  { path: 'pessoal-doenca-det', loadChildren: './pessoal-doenca-det/pessoal-doenca-det.module#PessoalDoencaDetPageModule' },
+  { path: 'pessoal-medicamentos-add', loadChildren: './pessoal-medicamentos-add/pessoal-medicamentos-add.module#PessoalMedicamentosAddPageModule' }
 
 
 ];
