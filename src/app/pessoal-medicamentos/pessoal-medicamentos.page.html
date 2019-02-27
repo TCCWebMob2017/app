@@ -17,11 +17,11 @@
   <ion-list lines>
       <ion-item *ngFor="let item of medicamentos">
         <ion-label>
-          <h2> {{ item?.nome }} </h2>
-          <p>  Forma Farmaceutica: {{ item?.formaFarmaceutica }}</p>
-          <p>  Concentracao: {{ item?.concentracao }} </p>
-          <p>  Código ATC: {{ item?.codigoATC }} </p>
-          <p>  {{ item?.id }} </p>
+          <h2> {{ item?.medicamento?.nome }} </h2>
+          <p>  Concentracao: {{ item?.medicamento?.concentracao }} </p>
+          <p>  Código ATC: {{ item?.medicamento?.codigoATC }} </p>
+          <p>  Forma Farmaceutica: {{ item?.medicamento?.formaFarmaceutica }}</p>
+          <p>  Dosagem: {{ item?.dosagem }} Frequência: {{ item?.frequencia }} </p>
         </ion-label>
       </ion-item>
     </ion-list>

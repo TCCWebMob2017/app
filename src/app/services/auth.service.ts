@@ -19,10 +19,34 @@ export class AuthService {
     
     console.log('credsssssssssssssssssss');
     console.log(creds);
+
+    //https://github.com/TCCWebMob2017/api-springboot-mongobd/blob/master/src/main/java/data/demo/usuarios
     if((creds.email + "" == "a") && (creds.password+"" == "")) { 
       creds.email = "afelix@softquim.com.br";
       creds.password = "123456";
     }
+    else if((creds.email + "" == "b") && (creds.password+"" == "")) { 
+      creds.email = "enzorafaeldasilva@carubelli.com.br";
+      creds.password = "D5EWaFJ2ZY";
+    }
+    else if((creds.email + "" == "c") && (creds.password+"" == "")) { 
+      creds.email = "ggustavomiguellima@yahoo.it";
+      creds.password = "h81pJCbFMB";
+    }
+    else if((creds.email + "" == "d") && (creds.password+"" == "")) { 
+      creds.email = "benjaminkevinrenatoferreira-92@mucoucah.com.br";
+      creds.password = "nbHTCkysuO";
+    }
+    else if((creds.email + "" == "e") && (creds.password+"" == "")) { 
+      creds.email = "aantoniosamuelsilva@andrepires.com.br";
+      creds.password = "uMnCEdXT3L";
+    }
+    else if((creds.email + "" == "f") && (creds.password+"" == "")) { 
+      creds.email = "aarthurgustavolevibaptista@cartovale.com.br";
+      creds.password = "nTIC15CLTh";
+    }
+
+
     if((creds.email + "" == "") || (creds.password+"" == "")) { 
       creds.email = "marinakamillysuelimoreira-86@alemponte.com.br";
       creds.password = "iZEtE2llMC";

@@ -27,6 +27,7 @@ export class PessoalMedicamentosPage implements OnInit {
       console.log(error);
     });
     */
+
     console.log('ngOnInit ....');
   }
 
@@ -34,42 +35,36 @@ export class PessoalMedicamentosPage implements OnInit {
     let _localProfile = this.storage.getLocalProfile();
     let _perfilPessoal = _localProfile['perfilPessoal'];
     this.medicamentos = _perfilPessoal['medicamentos'];
+    console.log('this.medicamentos ssssssssssssssssssssssssssss');
+    console.log(this.medicamentos);
   }
 
   ionViewDidLoad(){
-    console.log('ionViewDidLoad ================================================');
-    //
+    //console.log('ionViewDidLoad ================================================');
   }
 
   ionViewWillEnter(){
-    console.log('ionViewWillEnter ================================================');
-    //console.log(value);   
+    //console.log('ionViewWillEnter ================================================');
+    //console.log(value);
     this.obterListaMedicamentos();
   }
 
   ionViewDidEnter(){
-    console.log('ionViewDidEnter ================================================');
+    //console.log('ionViewDidEnter ================================================');
     //console.log(value);
-
-//this.value = this.navPara
-
   }
 
   ionViewWillLeave(){
-    console.log('ionViewWillLeave ================================================');
+    //console.log('ionViewWillLeave ================================================');
   }
 
   ionViewDidLeave(){
-    console.log('ionViewDidLeave ================================================');
+    //console.log('ionViewDidLeave ================================================');
   }
 
   ionViewWillUnload(){
-    console.log('ionViewWillUnload ================================================');
+    //console.log('ionViewWillUnload ================================================');
   }
-
-
-
-
 
   addMedicamento() {
     this.navCtrl.navigateForward('pessoal-medicamentos-add');
