@@ -10,36 +10,32 @@
 </ion-header>
 
 <ion-content padding>
-<!-- ---------------------------------------------------------------------------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------------------- -->
 
-<ion-content>
-  <ion-list lines>
-      <ion-item *ngFor="let item of medicamentos">
-        <ion-label>
-          <h2> {{ item?.medicamento?.nome }} </h2>
-          <p>  Concentracao: {{ item?.medicamento?.concentracao }} </p>
-          <p>  Código ATC: {{ item?.medicamento?.codigoATC }} </p>
-          <p>  Forma Farmaceutica: {{ item?.medicamento?.formaFarmaceutica }}</p>
-          <p>  Dosagem: {{ item?.dosagem }} Frequência: {{ item?.frequencia }} </p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-</ion-content>
+  <ion-content>
+    <ion-list lines>
+        <ion-item *ngFor="let item of medicamentos">
+          <ion-label>
+            <h2> {{ item?.medicamento?.nome }} </h2>
+            <p>  Concentracao: {{ item?.medicamento?.concentracao }} </p>
+            <p>  Código ATC: {{ item?.medicamento?.codigoATC }} </p>
+            <p>  Forma Farmaceutica: {{ item?.medicamento?.formaFarmaceutica }}</p>
+            <p>  Dosagem: {{ item?.dosagem }} Frequência: {{ item?.frequencia }} </p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+  </ion-content>
 
-<!--
-<ion-menu-toggle *ngFor="let page of medicamentos">
-  <ion-item detail="true" 
-            [routerLink]="page.url" 
-            [routerDirection]="'root'">
-    <ion-icon slot="start" name="contact" color="primary"></ion-icon>
-    <ion-label>{{page.nome}}</ion-label>
-  </ion-item>
-</ion-menu-toggle>
--->
+  <!--
+  <ion-menu-toggle *ngFor="let page of medicamentos">
+    <ion-item detail="true" 
+              [routerLink]="page.url" 
+              [routerDirection]="'root'">
+      <ion-icon slot="start" name="contact" color="primary"></ion-icon>
+      <ion-label>{{page.nome}}</ion-label>
+    </ion-item>
+  </ion-menu-toggle>
+  -->
 
-<!-- ---------------------------------------------------------------------------------------------------- -->
-<!-- ---------------------------------------------------------------------------------------------------- -->
 </ion-content>
 
 <ion-footer>
