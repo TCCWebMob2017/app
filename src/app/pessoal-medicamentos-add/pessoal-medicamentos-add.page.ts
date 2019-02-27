@@ -1,7 +1,8 @@
+import { MedicamentoDTO } from './../models/medicamentos';
 import { PessoalService } from './../services/pessoal.service';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { pessoalMedicamentos } from './../pessoal-medicamentos/pessoal-medicamentos.page' ;
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-pessoal-medicamentos-add',
@@ -13,9 +14,11 @@ export class PessoalMedicamentosAddPage implements OnInit {
   public medicamentos_all: any;
   public medicamentos: any;
   searchTerm: string = '';
-
+  
+  
   constructor(public navCtrl: NavController, 
-              public pessoalService: PessoalService) { }
+              public pessoalService: PessoalService,
+              private storage: StorageService) { }
 
   ngOnInit() {
 
@@ -35,17 +38,38 @@ export class PessoalMedicamentosAddPage implements OnInit {
     this.medicamentos = this.pessoalService.filterItems(this.medicamentos_all, val);
   }
 
-  addMedicamento() {
-    this.navCtrl.navigateForward('pessoal-medicamentos-add');
-  }  
-
-  selecionarMedicamento(value:any) {
+  selecionarMedicamento(value: any) {
     if (value!= null) {
-      console.log(value);
-
-      pessoalMedicamentos.medicamentos = null;
-
-      this.navCtrl.navigateBack('pessoal-medicamentos');
+      this.addMedicamento(value);
+      this.navCtrl.navigateBack(['pessoal-medicamentos', {value: value}]);
     }
   }
+
+  addMedicamento(value: any) {
+    //this.navCtrl.navigateForward('pessoal-medicamentos-add');
+    //console.log(value);
+    let _localProfile = this.storage.getLocalProfile();
+    //console.log(_localProfile);
+    let _perfilPessoal = _localProfile['perfilPessoal'];
+    //console.log(_perfilPessoal);
+    let _medicamentos = _perfilPessoal['medicamentos'];
+    //console.log(_medicamentos);
+
+    let xMedicamento = [];
+    if (_medicamentos != null) {
+      xMedicamento = _medicamentos;  
+    }
+    xMedicamento.push(value); 
+    
+    //console.log('xMedicamentoooooooooooooooooooooooooooooooooo');
+    //console.log(xMedicamento);
+    _perfilPessoal['medicamentos'] = xMedicamento;
+    _localProfile['perfilPessoal'] = _perfilPessoal;
+    //console.log(_localProfile);
+
+    this.storage.setLocalProfile(_localProfile);
+
+  }  
+
+
 }

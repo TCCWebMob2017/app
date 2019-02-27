@@ -1,7 +1,7 @@
 import { PessoalService } from './../services/pessoal.service';
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-
+import { NavController, NavParams } from '@ionic/angular';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-pessoal-medicamentos',
@@ -13,33 +13,46 @@ export class PessoalMedicamentosPage implements OnInit {
   public medicamentos: any;
   
   constructor(public navCtrl: NavController, 
-              public pessoalService: PessoalService) { }
+              public pessoalService: PessoalService,
+              private storage: StorageService) { }
 
   ngOnInit() {
 
+    /*
     this.pessoalService.getMedicamentosAll()
     .subscribe(Response => {
-        this.medicamentos     = Response;
+        this.medicamentos = Response;
     },
     error => {
       console.log(error);
     });
+    */
     console.log('ngOnInit ....');
+  }
 
+  obterListaMedicamentos() {
+    let _localProfile = this.storage.getLocalProfile();
+    let _perfilPessoal = _localProfile['perfilPessoal'];
+    this.medicamentos = _perfilPessoal['medicamentos'];
   }
 
   ionViewDidLoad(){
     console.log('ionViewDidLoad ================================================');
+    //
   }
 
   ionViewWillEnter(){
     console.log('ionViewWillEnter ================================================');
-    //console.log(value);
+    //console.log(value);   
+    this.obterListaMedicamentos();
   }
 
   ionViewDidEnter(){
     console.log('ionViewDidEnter ================================================');
     //console.log(value);
+
+//this.value = this.navPara
+
   }
 
   ionViewWillLeave(){
