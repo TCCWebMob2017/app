@@ -13,17 +13,9 @@ export class PessoalService {
   constructor(private http : HttpClient, private storage : StorageService) { }
 
   findAll() : Observable<PessoalDTO[]> {
-    //let url =  `${API_CONFIG.baseUr}` + 'usuario/pessoal'; 
     let url =  `${API_CONFIG.baseUrl}` + 'pessoal/all';
-
-    console.log(url);
     return this.http.get<PessoalDTO[]>(url);
-
-    //https://bioup.herokuapp.com/api/v1/pessoal/all
-    //https://api-qlife.herokuapp.com/api/v1/usuario/pessoal
-
   }
-
 
   getLoggedInUser() {
     let url =  `${API_CONFIG.baseUrl}` + '/api/v1/usuario';

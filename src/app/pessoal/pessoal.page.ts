@@ -1,11 +1,9 @@
+import { UsuarioDTO } from './../models/usuario';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
-import { PessoalDTO } from '../models/pessoal.dto';
 import { NavController, ToastController } from '@ionic/angular';
-import { perfilUsuario } from '../models/perfilUsuario';
-import { perfilPessoal } from '../models/perfilPessoal';
 import { STORAGE_KEY } from 'src/config/storagekeys.config';
 
 @Component({
@@ -15,18 +13,15 @@ import { STORAGE_KEY } from 'src/config/storagekeys.config';
 })
 export class PessoalPage implements OnInit {
 
-  //pessoal: PessoalDTO;
   prontuario: any;
+  usuario: UsuarioDTO;
   //_perfilUsuario: perfilUsuario;
-  //_perfilPessoal: perfilPessoal;
-
-
+  
   constructor(public navCtrl : NavController,
               public pessoalService: PessoalService,
               private storage: StorageService,
               public toastController: ToastController,
-              public alertController: AlertController
-              ) { }
+              public alertController: AlertController) { }
 
   ngOnInit() {
     
@@ -116,12 +111,8 @@ export class PessoalPage implements OnInit {
   pessoalAll() {
     this.pessoalService.findAll()
       .subscribe(Response => {
-        //console.log(Response);
       },
-      error => {
-        //console.log(error);
-
-      }
+      error => { }
       );
   }
 

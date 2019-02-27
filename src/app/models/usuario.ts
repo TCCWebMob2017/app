@@ -1,15 +1,19 @@
+import { perfilPessoal } from "./perfilPessoal";
+import { perfilProfissional } from "./perfilProfissional";
+import { perfilInstitucional } from "./perfilInstitucional";
+
 export interface UsuarioDTO {
     id: string;
     created: string;
     nome: string;
     email: string;
     password: string;
-    telefone?: string;
+    tefefone?: string;
     cpf: string;
     rg?: string;
     emabled: boolean;
     tipos: string;
-    perfilPessoal: string;
-    perfilProfissional: string;
-    perfisInstituicoes: string;    
+    perfilPessoal?: perfilPessoal;
+    perfilProfissional?: perfilProfissional;
+    perfisInstituicoes?: perfilInstitucional;    
 }
