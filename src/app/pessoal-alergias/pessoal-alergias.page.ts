@@ -15,4 +15,8 @@ export class PessoalAlergiasPage implements OnInit {
   addAlergia() {
     
   }
+
+  irParaProximaTela() {
+    
+  }
 }
