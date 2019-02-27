@@ -66,8 +66,6 @@ export class PessoalService {
     return this.http.get(url, {responseType : 'blob'});
   }
   
-
-  
   getMedicamentosAll() {
     let url =  `${API_CONFIG.baseUrl}/api/v1/medicamento/all`;
     return this.http.get<any>(url);
