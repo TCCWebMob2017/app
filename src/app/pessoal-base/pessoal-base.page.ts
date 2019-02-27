@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalController, NavController, ToastController, AlertController } from '@ionic/angular';
-import { perfilUsuario } from '../models/perfilUsuario';
+import { UsuarioDTO } from './../models/usuario';
 import { PessoalService } from './../services/pessoal.service';
 
 
@@ -35,8 +35,8 @@ export class PessoalBasePage implements OnInit {
   maxSelectableDate;
   myDate;
   
-  //public perfilUsuario: any;
-  public perfilUsuario: perfilUsuario;
+  //public perfilUsuario: perfilUsuario;
+  public perfilUsuario: UsuarioDTO;
   public cmb_genero: string;
 
   constructor(

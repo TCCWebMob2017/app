@@ -12,16 +12,16 @@ export class PessoalService {
 
   constructor(private http : HttpClient, private storage : StorageService) { }
 
-  findAll() : Observable<PessoalDTO[]> {
-    let url =  `${API_CONFIG.baseUrl}` + 'pessoal/all';
-    return this.http.get<PessoalDTO[]>(url);
-  }
-
   getLoggedInUser() {
     let url =  `${API_CONFIG.baseUrl}` + '/api/v1/usuario';
     return this.http.get<any>(url);
   }
 
+  findAll() : Observable<PessoalDTO[]> {
+    let url =  `${API_CONFIG.baseUrl}` + 'pessoal/all';
+    return this.http.get<PessoalDTO[]>(url);
+  }
+  
   adicionarPerfilPessoal(id: string, body: any) {
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
     return this.http.post(url, body, { observe: 'response', responseType: 'text'});

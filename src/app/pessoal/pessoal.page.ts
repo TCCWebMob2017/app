@@ -1,10 +1,10 @@
+import { UsuarioService } from './../services/usuario.service';
 import { UsuarioDTO } from './../models/usuario';
 import { AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { NavController, ToastController } from '@ionic/angular';
-import { STORAGE_KEY } from 'src/config/storagekeys.config';
 
 @Component({
   selector: 'app-pessoal',
@@ -15,16 +15,35 @@ export class PessoalPage implements OnInit {
 
   prontuario: any;
   usuario: UsuarioDTO;
-  //_perfilUsuario: perfilUsuario;
   
   constructor(public navCtrl : NavController,
               public pessoalService: PessoalService,
+              public usuarioService: UsuarioService,
               private storage: StorageService,
               public toastController: ToastController,
               public alertController: AlertController) { }
 
+
+  getUserProfile() {
+    this.usuarioService.getLoggedInUser()
+    .subscribe(Response => {
+      this.usuario = Response;
+      //this.usuario.setSt
+      console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+      console.log(this.usuario);
+    },
+    error => { 
+      if (error.status == 403) {
+        this.navCtrl.navigateRoot('login');
+      }
+    }
+    )
+  };
+
   ngOnInit() {
     
+  this.getUserProfile();
+
    let localUser = this.storage.getLocalUser();
    
     if(localUser && localUser.email) {
