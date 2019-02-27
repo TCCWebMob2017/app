@@ -29,8 +29,8 @@ export class PessoalPage implements OnInit {
     .subscribe(Response => {
       this.usuario = Response;
       //this.usuario.setSt
-      console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-      console.log(this.usuario);
+      //console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
+      //console.log(this.usuario);
     },
     error => { 
       if (error.status == 403) {
