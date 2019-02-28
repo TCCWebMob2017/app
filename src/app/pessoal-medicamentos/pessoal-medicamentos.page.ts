@@ -21,12 +21,7 @@ export class PessoalMedicamentosPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-
     this.medicamentos = this.storage.getMedicamentos();
-
-    console.log('this.medicamentos uuuuuuuuuuuuuuuuuuuuuuuuuuuu');
-    console.log(this.medicamentos);
-
     /*
     this.pessoalService.getMedicamentosAll()
     .subscribe(Response => {
@@ -36,16 +31,12 @@ export class PessoalMedicamentosPage implements OnInit {
       console.log(error);
     });
     */
-
-    console.log('ngOnInit ....');
   }
 
   obterListaMedicamentos() {
     let _localProfile = this.storage.getLocalProfile();
     let _perfilPessoal = _localProfile['perfilPessoal'];
     this.medicamentos = _perfilPessoal['medicamentos'];
-    console.log('this.medicamentos ssssssssssssssssssssssssssss');
-    console.log(this.medicamentos);
   }
 
   gravarDados() {
