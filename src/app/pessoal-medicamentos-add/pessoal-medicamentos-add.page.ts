@@ -60,6 +60,8 @@ export class PessoalMedicamentosAddPage implements OnInit {
       xMedicamento = _medicamentos;  
     }
     xMedicamento.push(value); 
+
+    //{privacidade: {…}, observacao: null, medicamento: {…}, dosagem: null, viaAdministracao: null, …}
     
     //console.log('xMedicamentoooooooooooooooooooooooooooooooooo');
     //console.log(xMedicamento);
@@ -67,7 +69,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
     _localProfile['perfilPessoal'] = _perfilPessoal;
     //console.log(_localProfile);
 
-    this.storage.setLocalProfile(_localProfile);
+    this.storage.setUsuarioDados(_localProfile);
 
   }  
 

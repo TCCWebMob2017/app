@@ -98,7 +98,6 @@ export class PessoalBasePage implements OnInit {
     }
   }
 
-
   async gravaDadosPresentToast() {
     const toast = await this.toastController.create({
       message: 'Dados gravados com sucesso.',
