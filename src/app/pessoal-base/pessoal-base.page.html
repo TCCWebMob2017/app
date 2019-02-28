@@ -16,7 +16,7 @@
       <!--
       <ion-item>
         <ion-label  position="stacked">
-            {{ perfilUsuario?.perfilPessoal?.id }}
+            {{ usuario?.perfilPessoal?.id }}
         </ion-label>
       </ion-item>
       -->
@@ -26,27 +26,18 @@
         <ion-input  type="text" 
                     name="nome" 
                     required
-                    [ngModel]="perfilUsuario?.nome"
+                    [ngModel]="usuario?.nome"
                     ngModel required #nome="ngModel"
                     [class.invalid]="nome.errors && nome.dirty"
                     >
         </ion-input>
       </ion-item>
 
-      <!--
-      <ion-item>
-        <ion-label  position="stacked">E-mail</ion-label>
-        <ion-input  type="email" name="email"
-                    [ngModel]="perfilUsuario?.email"
-                    ngModel required email #email="ngModel"></ion-input>
-      </ion-item>
-      -->
-
       <ion-item>
         <ion-label  position="stacked">Telefone</ion-label>
         <ion-input  type="text" 
                     name="telefone" 
-                    [ngModel]="perfilUsuario?.tefefone" 
+                    [ngModel]="usuario?.tefefone" 
                     ngModel required #telefone="ngModel"></ion-input>
       </ion-item>
 
@@ -54,7 +45,7 @@
         <ion-label  position="stacked">CPF</ion-label>
         <ion-input  type="text" 
                     name="cpf" 
-                    [ngModel]="perfilUsuario?.cpf" 
+                    [ngModel]="usuario?.cpf" 
                     ngModel required #cpf="ngModel"></ion-input>
       </ion-item>
 
@@ -62,24 +53,15 @@
         <ion-label  position="stacked">RG</ion-label>
         <ion-input  type="text" 
                     name="rg" 
-                    [ngModel]="perfilUsuario?.rg" 
+                    [ngModel]="usuario?.rg" 
                     ngModel required #cpf="ngModel"></ion-input>
       </ion-item>      
    
-      <!--
-      <ion-item>
-        <ion-label  position="stacked">Sexo</ion-label>
-        <ion-input  type="text" name="sexo"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.sexo"
-                    ngModel required #sexo="ngModel"></ion-input>
-      </ion-item>
-      -->
-
       <ion-item>
         <ion-label>Gênero</ion-label>
         <!-- [(ngModel)]="cmb_genero" -->
         <ion-select name="sexo"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.sexo"
+                    [ngModel]="usuario?.perfilPessoal?.sexo"
                     placeholder="Selecione">
           <ion-select-option value="F">Feminino</ion-select-option>
           <ion-select-option value="M">Masculino</ion-select-option>
@@ -90,7 +72,7 @@
         <ion-label  position="stacked">Data de nascimento</ion-label>
         <ion-input  type="text" 
                     name="nascimento"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.nascimento"
+                    [ngModel]="usuario?.perfilPessoal?.nascimento"
                     ngModel required #nascimento="ngModel"></ion-input>
       </ion-item>
 
@@ -98,7 +80,7 @@
         <ion-label  position="stacked">Altura</ion-label>
         <ion-input  type="number" 
                     name="altura"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.altura"
+                    [ngModel]="usuario?.perfilPessoal?.altura"
                     ngModel required #altura="ngModel"></ion-input>
       </ion-item>      
 
@@ -106,14 +88,14 @@
         <ion-label  position="stacked">Peso</ion-label>
         <ion-input  type="number" 
                     name="peso"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.peso"
+                    [ngModel]="usuario?.perfilPessoal?.peso"
                     ngModel required #peso="ngModel"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Pratica esporte</ion-label>
         <ion-toggle name="praticaEsporte"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.praticaEsporte"
+                    [ngModel]="usuario?.perfilPessoal?.praticaEsporte"
                     >
         </ion-toggle>
       </ion-item>
@@ -121,7 +103,7 @@
       <ion-item>
         <ion-label>Doador de órgãos</ion-label>
         <ion-toggle name="doadorOrgao"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.doadorOrgao"
+                    [ngModel]="usuario?.perfilPessoal?.doadorOrgao"
                     >
         </ion-toggle>
       </ion-item>
@@ -129,7 +111,7 @@
       <ion-item>
         <ion-label>Doador de sangue</ion-label>
         <ion-toggle name="doadorSangue"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.doadorSangue"
+                    [ngModel]="usuario?.perfilPessoal?.doadorSangue"
                     >
         </ion-toggle>
       </ion-item>
@@ -140,7 +122,7 @@
         <!-- [interfaceOptions]="customPopoverOptions"  interface="popover"  -->
         <ion-select name="tipoSangue" 
                     placeholder="Selecione"
-                    [ngModel]="perfilUsuario?.perfilPessoal?.tipoSangue"
+                    [ngModel]="usuario?.perfilPessoal?.tipoSangue"
                     multiple="false">
           <ion-select-option value="A+">A+</ion-select-option>
           <ion-select-option value="A-">A-</ion-select-option>
@@ -160,7 +142,7 @@
           [disabled]="!form.valid">Gravar dados
         </ion-button>
 
-        <div *ngIf="perfilUsuario?.perfilPessoal?.id != null">
+        <div *ngIf="usuario?.perfilPessoal?.id != null">
         <ion-button 
           color="danger"  
           expand="block" 
@@ -168,9 +150,7 @@
           (click)="deletePerfilPessoal()">Excluir perfil Pessoal
         </ion-button>
       </div>
-      </div>
-
-      
+      </div>    
   
     </ion-list>
 
@@ -186,7 +166,7 @@
     </ion-buttons>
     <ion-title>Criar perfil</ion-title>
     <ion-buttons slot="primary">
-      <ion-button size="small" fill="outline" (click)="irParaProximaTela()">Próximo</ion-button>
+      <ion-button size="small" fill="outline" (click)="irParaProximaTela(form.value)">Próximo</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

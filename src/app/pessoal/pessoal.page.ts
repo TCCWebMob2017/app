@@ -13,39 +13,46 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class PessoalPage implements OnInit {
 
-  prontuario: any;
-  usuario: UsuarioDTO;
+  prontuario  : any;
+  usuario     : UsuarioDTO;
   
-  constructor(public navCtrl : NavController,
-              public pessoalService: PessoalService,
-              public usuarioService: UsuarioService,
-              private storage: StorageService,
-              public toastController: ToastController,
-              public alertController: AlertController) { }
+  constructor(public  navCtrl         : NavController,
+              public  pessoalService  : PessoalService,
+              public  usuarioService  : UsuarioService,
+              private storage         : StorageService,
+              public  toastController : ToastController,
+              public  alertController : AlertController) { }
 
 
-  getUserProfile() {
-    this.usuarioService.getLoggedInUser()
-    .subscribe(Response => {
-      this.usuario = Response;
-      //this.usuario.setSt
-      //console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
-      //console.log(this.usuario);
-    },
-    error => { 
-      if (error.status == 403) {
-        this.navCtrl.navigateRoot('login');
-      }
+  ngOnInit() { 
+    this.buscarDadosUsuarioApi();
+    //this.buscaProntuario_back();
+  }
+
+
+  buscarDadosUsuarioApi() {
+    let _localUser = this.storage.getLocalUser();
+    if(_localUser && _localUser.email) {
+      this.usuarioService.getLoggedInUser()
+      .subscribe(Response => {
+        this.usuario = Response;
+        console.log(this.usuario);
+        this.storage.setUsuarioDados(this.usuario);
+      },
+      error => { 
+        if (error.status == 403) {
+          this.navCtrl.navigateRoot('login');
+        }
+      })
     }
-    )
+    else { this.navCtrl.navigateRoot('login'); }
   };
 
-  ngOnInit() {
-    
-  this.getUserProfile();
 
-   let localUser = this.storage.getLocalUser();
-   
+  buscaProntuario_back() {
+
+    let localUser = this.storage.getLocalUser();
+  
     if(localUser && localUser.email) {
 
       /*
@@ -61,7 +68,7 @@ export class PessoalPage implements OnInit {
         .subscribe(Response => {
         this.prontuario = Response;
         //console.log(this.prontuario);
-        this.storage.setLocalProfile(this.prontuario);
+        this.storage.setUsuarioDados(this.prontuario);
 
 
 
@@ -114,9 +121,11 @@ export class PessoalPage implements OnInit {
     }
     else {
       this.navCtrl.navigateRoot('login');
-    }
+    }    
 
   }
+
+
 
   getImageIfExist() {
     this.pessoalService.getImageFromBucket(this.prontuario.pessoal.id)

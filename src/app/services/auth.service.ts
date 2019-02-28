@@ -17,8 +17,7 @@ export class AuthService {
   authenticate(creds : CredenciaisDTO) {
     let url = API_CONFIG.loginUrl;    
     
-    console.log('credsssssssssssssssssss');
-    console.log(creds);
+    //console.log(creds);
 
     //https://github.com/TCCWebMob2017/api-springboot-mongobd/blob/master/src/main/java/data/demo/usuarios
     if((creds.email + "" == "a") && (creds.password+"" == "")) { 
@@ -45,13 +44,10 @@ export class AuthService {
       creds.email = "aarthurgustavolevibaptista@cartovale.com.br";
       creds.password = "nTIC15CLTh";
     }
-
-
     if((creds.email + "" == "") || (creds.password+"" == "")) { 
       creds.email = "marinakamillysuelimoreira-86@alemponte.com.br";
       creds.password = "iZEtE2llMC";
     }
-
 
     return this.http.post(url, creds, { observe: 'response', responseType: 'text' });
   }
@@ -60,7 +56,6 @@ export class AuthService {
     let _token = authorizationValue.substring(7);
     let _user : LocalUser = { email: email, token: _token
     };
-    //console.log(_user);
     this.storage.setLocalUser(_user);
   }
 

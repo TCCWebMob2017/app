@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
 import { CredenciaisDTO } from '../models/credenciais.dto';
 import { AuthService } from '../services/auth.service';
-//import { first } from 'rxjs/operators';
-//import {finalize} from 'rxjs/operators';
 import { StorageService } from '../services/storage.service';
 
 @Component({
@@ -39,48 +37,18 @@ export class LoginPage implements OnInit {
     this.menu.enable(true);
   }
 
-  login() {
-    
+  login() {    
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
-        
         this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
-
-        /*
-        // public userOnLine: any;
-        console.log('this.auth.authenticate(this.creds) ------------>');
-        this.auth.getByUserLogin()
-          .subscribe(Response => {
-          this.userOnLine = Response;
-
-          console.log('this.userOnLine?');
-          console.log(this.userOnLine);
-          console.log(Response);
-  
-        },
-        error => {  }
-        );      
-        */
-
         this.navCtrl.navigateRoot('pessoal');
       },
       error => {
         console.log(error);
       }
-      )
-
-    /*
-    this.auth.userAuthentication(this.creds);
-    console.log(Response);
-    */
-
+    )
   };
 
-  
-  
-    // //this.navCtrl.navigateRoot('pessoal');
-    // //this.navCtrl.navigateForward('pessoal');
-  
 
   signup() { 
     //this.navCtrl.navigateRoot('signup');

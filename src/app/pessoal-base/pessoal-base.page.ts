@@ -1,9 +1,11 @@
+import { UsuarioService } from './../services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalController, NavController, ToastController, AlertController } from '@ionic/angular';
 import { UsuarioDTO } from './../models/usuario';
 import { PessoalService } from './../services/pessoal.service';
+import { perfilPessoal } from '../models/perfilPessoal';
 
 
 @Component({
@@ -16,81 +18,32 @@ export class PessoalBasePage implements OnInit {
   formGroup: FormGroup;
   submitted: boolean;
   position:  string;
-
-  customAlertOptions: any = {
-    header: 'Tipo sanguíneo',
-    //subHeader: 'Subheaderrrr',
-    //message: 'messageeeeeee',
-    translucent: false
-  };
-
-  customPopoverOptions: any = {
-    header: 'Tipo sanguíneo'
-    //subHeader: 'Tipo sanguíneo',
-    //message: 'Selecione o seu tipo sanguíneo'
-  };  
-
-
   minSelectableDate = '1900-01-01';
   maxSelectableDate;
   myDate;
-  
-  //public perfilUsuario: perfilUsuario;
-  public perfilUsuario: UsuarioDTO;
-  public cmb_genero: string;
+  public usuario: UsuarioDTO;
 
   constructor(
-    private navCtrl: NavController,
-    private storage: StorageService,
-    public pessoalService: PessoalService,
-    private formBuilder: FormBuilder,
-    private modalController: ModalController,
-    public toastController: ToastController,
-    public alertController: AlertController   
+    private navCtrl         : NavController,
+    private storage         : StorageService,
+    //public  pessoalService  : PessoalService,
+    public  usuarioService  : UsuarioService,
+    private formBuilder     : FormBuilder,
+    //private modalController : ModalController,
+    public  toastController : ToastController,
+    public  alertController : AlertController   
     ) { 
-      
       this.position = "floating";
       //this.position = "fixed";
-
       this.myDate = new Date();
       this.maxSelectableDate = this.formatDate(this.myDate);
-
     }
-
-  formatDate(date) {
-    let d = new Date(date),
-      day = '' + d.getDate(),
-      month = '' + (d.getMonth() + 1),
-      year = d.getFullYear();
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    return [year, month, day].join('-');
-  }
 
   ngOnInit() {
 
-    this.perfilUsuario = this.storage.getLocalProfile();
-    //console.log(this.perfilUsuario);
-
-    
-    if (this.perfilUsuario['perfilPessoal'] != null) {
-      this.cmb_genero = this.perfilUsuario['perfilPessoal'].sexo;
-    }
-    else {
-      this.cmb_genero = "";
-    }
-
-    //let _nome: string;
-    //_nome = this.perfilUsuario.perfilPessoal.nome + " _0";
-    //_nome = this.perfilUsuario.JSON().nome;
-
-    //console.log(this.test(this.perfilUsuario.perfilPessoal.nome))
-    //console.log(_nome);
-
+    this.usuario = this.storage.getLocalProfile();
     this.formGroup = this.formBuilder.group({
-      //username: new FormControl(''),
       nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      //peso:       [this.perfilUsuario.perfilPessoal.peso , [Validators.required, Validators.min(10)]],
       peso:       ['' , [Validators.required, Validators.min(10)]],
       altura:     ['', [Validators.required, Validators.min(10)]],
       nascimento: ['', [Validators.required]],
@@ -102,70 +55,49 @@ export class PessoalBasePage implements OnInit {
   }
 
 
+  irParaProximaTela(value : any) {
+    this.moverValoresFormParaSotage(value);
+    this.navCtrl.navigateForward('pessoal-doencas');
+  }
+
 
   onSubmit(value: any) {
-
     this.submitted = true;
-    // stop here if form is invalid
-    //if (this.loginForm.invalid) {
-    //  return;
-    //}
-    //console.log('submit --------->');
-    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.formGroup.value))
-    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(value))
-    
-    //console.log('value ------------->');
-    //console.log(value);
-    //console.log(JSON.stringify(value)); 
-    //console.log(this.perfilUsuario);
+    this.moverValoresFormParaSotage(value);    
+    this.gravarDados();
+  }
 
-    let _idUsuario = this.perfilUsuario['id'];
 
-    /*
-    let _perfilPessoal: perfilPessoal;
-    _perfilPessoal = this.perfilUsuario['perfilPessoal'];
-    if ( _perfilPessoal == null) {
-      //console.log('id: ' + _idUsuario);
-      //console.log(value);
+  moverValoresFormParaSotage(value : any) {
+    if (this.usuario['perfilPessoal'] == null) {
+      let _perfilPessoal : any = { "id": null };
+      this.usuario['perfilPessoal'] = _perfilPessoal;
     }
-    else {
-      //console.log(_perfilPessoal);
-      //console.log(Object.keys(_perfilPessoal));
-      for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
-        let field_name = Object.keys(_perfilPessoal)[i];
-        let field_value = _perfilPessoal[field_name];
-        //console.log('_perfilPessoal[i]' + i);
-        let resultt = i +  ' campo: ' +  field_name + ' / valor: ' + field_value;
-      }
-    }
-    */
+    this.usuario['perfilPessoal']['nome']           = value.nome,
+    this.usuario['perfilPessoal']['tipoPerfil']     = "PESSOAL",
+    this.usuario['perfilPessoal']['telefone']       = value.telefone,
+    this.usuario['perfilPessoal']['nascimento']     = value.nascimento,
+    this.usuario['perfilPessoal']['sexo']           = value.sexo,
+    this.usuario['perfilPessoal']['praticaEsporte'] = value.praticaEsporte,
+    this.usuario['perfilPessoal']['doadorOrgao']    = value.doadorOrgao,
+    this.usuario['perfilPessoal']['doadorSangue']   = value.doadorSangue,
+    this.usuario['perfilPessoal']['tipoSangue']     = value.tipoSangue,
+    this.usuario['perfilPessoal']['altura']         = value.altura,
+    this.usuario['perfilPessoal']['peso']           = value.peso,
+    this.usuario['perfilPessoal']['rg']             = value.rg,
+    this.usuario['perfilPessoal']['cpf']            = value.cpf
+    this.storage.setUsuarioDados(this.usuario);
+  }
 
 
-    let _body = this.montarBodyPerfilPessoal(value);
-    if ((_idUsuario != null) && (_body != null)) {
-      if(this.perfilUsuario['perfilPessoal'] != null ) {
-        this.pessoalService.modificarPerfilPessoal(_idUsuario,  _body)
-        .subscribe(Response => {
-          this.gravaDadosPresentToast();
-          this.irParaTelaAnterior();
-        },
-        error => {
-          //console.log(error); 
-        });
-      }
-      else {
-        this.pessoalService.adicionarPerfilPessoal(_idUsuario,  _body)
-        .subscribe(Response => {
-          this.gravaDadosPresentToast();
-          this.irParaTelaAnterior();
-        },
-        error => {
-          //console.log(error); 
-        });
-      }
-
+  gravarDados() {
+    if (this.usuarioService.enviarDadosDoStorageParaApi()) {
+      this.gravaDadosPresentToast();
+      alert('Okkk');
+      this.irParaTelaAnterior();
     }
   }
+
 
   async gravaDadosPresentToast() {
     const toast = await this.toastController.create({
@@ -175,42 +107,7 @@ export class PessoalBasePage implements OnInit {
     toast.present();
   }  
 
-  montarBodyPerfilPessoal(value: any) : any {
-    let _value = { 
-      //"id"
-      //"created"
-      "nome": value.nome,
-      "tipoPerfil": "PESSOAL",
-      //"contatos"
-      //"privacidade"
-      "telefone": value.telefone,
-      //"residencia"
-      //"trabalho"
-      "nascimento": value.nascimento,
-      "sexo": value.sexo,
-      "praticaEsporte": value.praticaEsporte,
-      "doadorOrgao": value.doadorOrgao,
-      "doadorSangue": value.doadorSangue,
-      "tipoSangue": value.tipoSangue,
-      "altura": value.altura,
-      "peso": value.peso,
-      //"dependentes"
-      //"doencas"
-      //"alergias"
-      //"medicamentos"
-      //"cirurgias"
-      //"contatoEmergencia"
-      //"protocolosEmergencias"
-      //"profissionais"
-      //"convenios"
-      //"drogas"
-      //"acidentes"
-      //"condicoesEspeciais"
-      "rg": value.rg,
-      "cpf": value.cpf
-    };
-    return _value;
-  }
+
   
   /*
   {
@@ -445,10 +342,10 @@ export class PessoalBasePage implements OnInit {
         {
           text: 'Ok',
           handler: () => {
-            let _idUsuario = this.perfilUsuario['id'];
+            let _idUsuario = this.usuario['id'];
             console.log(_idUsuario);
             if (_idUsuario != null) {
-              this.pessoalService.excluirPerfilPessoal(_idUsuario)
+              this.usuarioService.excluirPerfilPessoal(_idUsuario)
               .subscribe(Response => {
                 this.deletePresentToast();
                 this.irParaTelaAnterior();
@@ -477,9 +374,24 @@ export class PessoalBasePage implements OnInit {
     this.navCtrl.navigateBack('pessoal');
   }
 
-  irParaProximaTela() {
-    this.navCtrl.navigateForward('pessoal-doencas');
-  }
+      /*
+      for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
+        let field_name = Object.keys(_perfilPessoal)[i];
+        let field_value = _perfilPessoal[field_name];
+        //console.log('_perfilPessoal[i]' + i);
+        let resultt = i +  ' campo: ' +  field_name + ' / valor: ' + field_value;
+      }
+    */
 
+   formatDate(date) {
+    let d = new Date(date),
+      day = '' + d.getDate(),
+      month = '' + (d.getMonth() + 1),
+      year = d.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    return [year, month, day].join('-');
+  }    
 
 }
+

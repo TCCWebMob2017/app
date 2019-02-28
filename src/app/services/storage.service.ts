@@ -32,7 +32,7 @@ export class StorageService {
     localStorage.removeItem(STORAGE_KEY.localUser);
   }
 
-  setLocalProfile(obj : any) {
+  setUsuarioDados(obj : any) {
     if(obj == null) {
       localStorage.removeItem(STORAGE_KEY.localProfile);
     }
@@ -50,5 +50,17 @@ export class StorageService {
       return JSON.parse(profile);
     }
   }
+
+  getperfilPessoal(): any {
+    let _usuario = this.getLocalProfile();
+    if (_usuario == null) {
+      return null;
+    }
+    else {
+      let _perfilPessoal = _usuario['perfilPessoal'];
+      return _perfilPessoal;
+    }
+  }
+
 
 }
