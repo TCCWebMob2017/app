@@ -36,19 +36,8 @@ export class UsuarioService {
       else {
         this.adicionarPerfilPessoal(_idUsuario,  _body)
         .subscribe(Response => {
-
-          console.log('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
-
-          this.getLoggedInUser()
-          .subscribe(Response => {
-            _usuario = Response;
-            console.log(_usuario);
-            this.storage.setUsuarioDados(_usuario);
-          },
-          error => { 
-            if (error.status == 403) { }
-          })
-
+          _usuario['perfilPessoal']['id'] = JSON.parse(Response['body'])['perfilPessoal']['id']; 
+          this.storage.setUsuarioDados(_usuario);
           return true;
         },
         error => {
