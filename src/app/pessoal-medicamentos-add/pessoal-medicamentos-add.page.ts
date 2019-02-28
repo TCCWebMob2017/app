@@ -46,31 +46,15 @@ export class PessoalMedicamentosAddPage implements OnInit {
   }
 
   addMedicamento(value: any) {
-    //this.navCtrl.navigateForward('pessoal-medicamentos-add');
-    //console.log(value);
-    let _localProfile = this.storage.getLocalProfile();
-    //console.log(_localProfile);
-    let _perfilPessoal = _localProfile['perfilPessoal'];
-    //console.log(_perfilPessoal);
-    let _medicamentos = _perfilPessoal['medicamentos'];
-    //console.log(_medicamentos);
 
-    let xMedicamento = [];
-    if (_medicamentos != null) {
-      xMedicamento = _medicamentos;  
-    }
-    xMedicamento.push(value); 
-
-    //{privacidade: {…}, observacao: null, medicamento: {…}, dosagem: null, viaAdministracao: null, …}
-    
-    //console.log('xMedicamentoooooooooooooooooooooooooooooooooo');
-    //console.log(xMedicamento);
-    _perfilPessoal['medicamentos'] = xMedicamento;
-    _localProfile['perfilPessoal'] = _perfilPessoal;
-    //console.log(_localProfile);
-
-    this.storage.setUsuarioDados(_localProfile);
-
+    let _medicm = value;
+    let _medicamento = { };
+    _medicamento['privacidade']       = { };
+    _medicamento['observacao']        = null;
+    _medicamento['medicamento']       = _medicm ;
+    _medicamento['dosagem']           = null;
+    _medicamento['viaAdministracao']  = null;
+    this.storage.addMedicamentos(_medicamento);
   }  
 
 

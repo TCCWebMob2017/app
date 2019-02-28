@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pessoal"></ion-back-button>
+      <ion-button (click)="gravarDados(form.value)">
+          <ion-icon slot="icon-only" name="save"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Informações gerais</ion-title>
   </ion-toolbar>

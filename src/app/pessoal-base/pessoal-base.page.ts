@@ -31,7 +31,7 @@ export class PessoalBasePage implements OnInit {
     private formBuilder     : FormBuilder,
     //private modalController : ModalController,
     public  toastController : ToastController,
-    public  alertController : AlertController   
+    public  alertController : AlertController 
     ) { 
       this.position = "floating";
       //this.position = "fixed";
@@ -61,10 +61,10 @@ export class PessoalBasePage implements OnInit {
   }
 
 
-  onSubmit(value: any) {
+  onSubmit(value : any) {
     this.submitted = true;
-    this.moverValoresFormParaSotage(value);    
-    this.gravarDados();
+    this.moverValoresFormParaSotage(value);
+    this.gravarDadosNaApi();
   }
 
 
@@ -89,14 +89,22 @@ export class PessoalBasePage implements OnInit {
     this.storage.setUsuarioDados(this.usuario);
   }
 
+  
+  gravarDados(value : any) {
+    this.submitted = true;
+    this.moverValoresFormParaSotage(value);
+    this.gravarDadosNaApi();
+  }
 
-  gravarDados() {
+
+  gravarDadosNaApi(){
     if (this.usuarioService.enviarDadosDoStorageParaApi()) {
       this.gravaDadosPresentToast();
-      alert('Okkk');
+      //alert('Okkk');
       this.irParaTelaAnterior();
     }
   }
+
 
   async gravaDadosPresentToast() {
     const toast = await this.toastController.create({

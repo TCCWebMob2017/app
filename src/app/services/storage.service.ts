@@ -51,7 +51,7 @@ export class StorageService {
     }
   }
 
-  getperfilPessoal(): any {
+  getPerfilPessoal(): any {
     let _usuario = this.getLocalProfile();
     if (_usuario == null) {
       return null;
@@ -60,6 +60,38 @@ export class StorageService {
       let _perfilPessoal = _usuario['perfilPessoal'];
       return _perfilPessoal;
     }
+  }
+
+  getMedicamentos(): any {
+    let _perfilPessoal = this.getPerfilPessoal();
+    if (_perfilPessoal == null) {
+      return null;
+    }
+    else {
+      let _medicamentos = _perfilPessoal['medicamentos'];
+      return _medicamentos;
+    }
+  }
+
+  addMedicamentos(obj : any) {
+    let _medicamentos = this.getMedicamentos();
+    if (_medicamentos == null) { _medicamentos = []; }
+    if (obj != null) { _medicamentos.push(obj); }   
+    this.setMedicamentos(_medicamentos);
+  }
+
+  setMedicamentos(value : any) {
+    let _usuario = this.getLocalProfile();
+    if (_usuario == null) { 
+      return; 
+    }
+    let _perfilPessoal = _usuario['perfilPessoal'];
+    if (_perfilPessoal == null) { 
+      return; 
+    }
+    _perfilPessoal['medicamentos'] = value;
+    _usuario['perfilPessoal'] = _perfilPessoal;
+    this.setUsuarioDados(_usuario);
   }
 
 

@@ -1,7 +1,9 @@
+import { MedicamentoDTO } from './../models/medicamentos';
 import { PessoalService } from './../services/pessoal.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-pessoal-medicamentos',
@@ -9,14 +11,21 @@ import { StorageService } from '../services/storage.service';
   styleUrls: ['./pessoal-medicamentos.page.scss'],
 })
 export class PessoalMedicamentosPage implements OnInit {
-
-  public medicamentos: any;
   
-  constructor(public navCtrl: NavController, 
-              public pessoalService: PessoalService,
-              private storage: StorageService) { }
+  //public medicamentos : MedicamentoDTO;
+  public medicamentos : any;
+  
+  constructor(public navCtrl          : NavController, 
+              public pessoalService   : PessoalService,
+              private storage         : StorageService,
+              public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
+
+    this.medicamentos = this.storage.getMedicamentos();
+
+    console.log('this.medicamentos uuuuuuuuuuuuuuuuuuuuuuuuuuuu');
+    console.log(this.medicamentos);
 
     /*
     this.pessoalService.getMedicamentosAll()
@@ -37,6 +46,14 @@ export class PessoalMedicamentosPage implements OnInit {
     this.medicamentos = _perfilPessoal['medicamentos'];
     console.log('this.medicamentos ssssssssssssssssssssssssssss');
     console.log(this.medicamentos);
+  }
+
+  gravarDados() {
+    if (this.usuarioService.enviarDadosDoStorageParaApi()) {
+      //this.gravaDadosPresentToast();
+      //this.irParaTelaAnterior();
+      this.navCtrl.navigateRoot('pessoal');
+    }
   }
 
   ionViewDidLoad(){
