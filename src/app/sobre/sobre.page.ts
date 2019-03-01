@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-sobre',
@@ -7,14 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SobrePage implements OnInit {
 
-  position: string
+  segment: number;
+  @ViewChild("slides") slides;
 
   constructor() { 
-    //this.position = "stacked";
-    this.position = "floating";
+    this.segment = 0;
   }
 
   ngOnInit() {
   }
+
+  public async setSegment(activeIndex: Promise<number>) {
+    this.segment = await activeIndex;
+  }
+    
 
 }
