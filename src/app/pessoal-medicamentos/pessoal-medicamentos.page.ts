@@ -1,6 +1,5 @@
-import { MedicamentoDTO } from './../models/medicamentos';
-import { PessoalService } from './../services/pessoal.service';
 import { Component, OnInit } from '@angular/core';
+import { PessoalService } from './../services/pessoal.service';
 import { NavController, NavParams } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
@@ -14,11 +13,15 @@ export class PessoalMedicamentosPage implements OnInit {
   
   //public medicamentos : MedicamentoDTO;
   public medicamentos : any;
-  
-  constructor(public navCtrl          : NavController, 
-              public pessoalService   : PessoalService,
+
+  constructor(public  navCtrl         : NavController, 
+            //private navParams       : NavParams,
+              public  pessoalService  : PessoalService,
               private storage         : StorageService,
-              public  usuarioService  : UsuarioService) { }
+              public  usuarioService  : UsuarioService,) { 
+
+
+              }
 
   ngOnInit() {
     this.medicamentos = this.storage.getMedicamentos();
@@ -34,9 +37,9 @@ export class PessoalMedicamentosPage implements OnInit {
   }
 
   obterListaMedicamentos() {
-    let _localProfile = this.storage.getLocalProfile();
-    let _perfilPessoal = _localProfile['perfilPessoal'];
-    this.medicamentos = _perfilPessoal['medicamentos'];
+    let _localProfile   = this.storage.getLocalProfile();
+    let _perfilPessoal  = _localProfile['perfilPessoal'];
+    this.medicamentos   = _perfilPessoal['medicamentos'];
   }
 
   gravarDados() {
@@ -44,17 +47,28 @@ export class PessoalMedicamentosPage implements OnInit {
       //this.gravaDadosPresentToast();
       //this.irParaTelaAnterior();
       this.navCtrl.navigateRoot('pessoal');
+      //this.navCtrl.navigateBack('pessoal');
     }
   }
 
   ionViewDidLoad(){
     //console.log('ionViewDidLoad ================================================');
+    //console.log(this.value);
   }
 
   ionViewWillEnter(){
     //console.log('ionViewWillEnter ================================================');
     //console.log(value);
+    /*
+    let test = this.route.params.subscribe( params  => {
+                  console.log(params);
+                  this.id = params['id']; });
+    */
+
+    console.log(this.value);
     this.obterListaMedicamentos();
+
+
   }
 
   ionViewDidEnter(){
@@ -74,7 +88,7 @@ export class PessoalMedicamentosPage implements OnInit {
     //console.log('ionViewWillUnload ================================================');
   }
 
-  addMedicamento() {
+  adicionarRegistro() {
     this.navCtrl.navigateForward('pessoal-medicamentos-add');
   }
 
