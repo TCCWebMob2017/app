@@ -55,4 +55,9 @@ export class PessoalDoencasPage implements OnInit {
     this.navCtrl.navigateForward('pessoal-medicamentos');
   }
 
+  cancelarEdicao() {
+    this.navCtrl.navigateBack('pessoal');
+  }
+
+
 }

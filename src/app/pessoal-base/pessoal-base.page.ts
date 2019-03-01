@@ -4,8 +4,6 @@ import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalController, NavController, ToastController, AlertController } from '@ionic/angular';
 import { UsuarioDTO } from './../models/usuario';
-import { PessoalService } from './../services/pessoal.service';
-import { perfilPessoal } from '../models/perfilPessoal';
 
 
 @Component({
@@ -114,204 +112,6 @@ export class PessoalBasePage implements OnInit {
     toast.present();
   }  
 
-
-  
-  /*
-  {
-    "acidentes": [
-      {
-        "data": "dd/MM/yyyy",
-        "descricao": "string",
-        "gravidade": "string",
-        "implicacoes": "string",
-        "observacao": "string",
-        "privacidade": {}
-      }
-    ],
-    "alergias": [
-      {
-        "alergia": {
-          "agenteCausador": "string",
-          "categoria": "string",
-          "created": "dd/MM/yyyy HH:mm:ss",
-          "descricao": "string",
-          "id": "string",
-          "nome": "string",
-          "reacoesAdversas": "string"
-        },
-        "desde": "dd/MM/yyyy",
-        "observacao": "string",
-        "privacidade": {}
-      }
-    ],
-    "altura": value.altura,
-    "cirurgias": [
-      {
-        "data": "dd/MM/yyyy",
-        "descricao": "string",
-        "observacao": "string",
-        "privacidade": {}
-      }
-    ],
-    "condicoesEspeciais": [
-      {
-        "descricao": "string",
-        "observacao": "string",
-        "privacidade": {}
-      }
-    ],
-    "contatoEmergencia": [
-      {
-        "created": "dd/MM/yyyy HH:mm:ss",
-        "email": "string",
-        "id": "string",
-        "nivelPermissao": {},
-        "nome": "string",
-        "relacao": "string",
-        "telefone": "string"
-      }
-    ],
-    "contatos": [
-      {
-        "created": "dd/MM/yyyy HH:mm:ss",
-        "email": "string",
-        "id": "string",
-        "nivelPermissao": {},
-        "nome": "string",
-        "relacao": "string",
-        "telefone": "string"
-      }
-    ],
-    "convenios": [
-      {
-        "codigousuarioConvenio": "string",
-        "nomeConvenio": "string",
-        "observacao": "string",
-        "privacidade": {}
-      }
-    ],
-    "cpf": '"' + value.cpf + '"',
-    "created": "dd/MM/yyyy HH:mm:ss",
-    "dependentes": [
-      {
-        "observacao": "string",
-        "parentesco": "0",
-        "perfil": {},
-        "privacidade": {}
-      }
-    ],
-    "doadorOrgao": true,
-    "doadorSangue": true,
-    "doencas": [
-      {
-        "desde": "dd/MM/yyyy",
-        "doenca": {
-          "cid": "string",
-          "created": "dd/MM/yyyy HH:mm:ss",
-          "descricao": "string",
-          "id": "string",
-          "nome": "string",
-          "nomesPopulares": [
-            "string"
-          ]
-        },
-        "observacao": "string",
-        "privacidade": {}
-      }
-    ],
-    "drogas": [
-      {
-        "desde": "dd/MM/yyyy",
-        "frequecia": "string",
-        "observacao": "string",
-        "privacidade": {},
-        "quantidade": "string"
-      }
-    ],
-    "id": "string",
-    "medicamentos": [
-      {
-        "dosagem": "string",
-        "frequencia": "string",
-        "medicamento": {
-          "codigoATC": "string",
-          "composicao": "string",
-          "concentracao": "string",
-          "contraindicacao": "string",
-          "contraindicacoes": "string",
-          "created": "dd/MM/yyyy HH:mm:ss",
-          "dosagemAdultos": "string",
-          "dosagemPediatrica": "string",
-          "efeitosColaterais": "string",
-          "formaFarmaceutica": "string",
-          "generico": true,
-          "gravidez": "string",
-          "id": "string",
-          "indicacao": "string",
-          "laboratorio": "string",
-          "lactacao": "string",
-          "nome": "string",
-          "nomeComercial": "string",
-          "principioAtivo": "string",
-          "reacoesAdversas": "string"
-        },
-        "observacao": "string",
-        "privacidade": {},
-        "viaAdministracao": "string"
-      }
-    ],
-    "nascimento": "04/11/1975",
-    "nome": "Alcenir Felix",
-    "peso": 74,
-    "praticaEsporte": true,
-    "privacidade": [
-      "RESTRITO"
-    ],
-    "profissionais": [
-      {
-        "created": "dd/MM/yyyy HH:mm:ss",
-        "email": "string",
-        "id": "string",
-        "nivelPermissao": {},
-        "nome": "string",
-        "relacao": "string",
-        "telefone": "string"
-      }
-    ],
-    "protocolosEmergencias": [
-      {
-        "descricao": "string",
-        "observacao": "string",
-        "privacidade": {},
-        "tipoEmergencia": "string"
-      }
-    ],
-    "residencia": {
-      "bairro": "string",
-      "cep": "string",
-      "cidade": "string",
-      "estado": "string",
-      "logradouro": "string",
-      "nomeLocal": "string",
-      "numero": "string"
-    },
-    "rg": "25532296",
-    "sexo": value.sexo,
-    "telefone": "1231326282",
-    "trabalho": {
-      "bairro": "string",
-      "cep": "string",
-      "cidade": "string",
-      "estado": "string",
-      "logradouro": "string",
-      "nomeLocal": "string",
-      "numero": "string"
-    },
-    "tipoSangue": "O",
-    "tipoPerfil": "PESSOAL"
-  }
-  */
-
   validation_messages = {
     'nome': [
       { type: 'required', message: 'Name is required.' },
@@ -376,6 +176,10 @@ export class PessoalBasePage implements OnInit {
     });
     toast.present();
   }  
+
+  cancelarEdicao() {
+    this.navCtrl.navigateBack('pessoal');
+  }
 
   irParaTelaAnterior() {
     this.navCtrl.navigateBack('pessoal');

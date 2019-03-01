@@ -91,4 +91,8 @@ export class PessoalMedicamentosPage implements OnInit {
     this.navCtrl.navigateForward('pessoal-alergias'); 
   }
 
+  cancelarEdicao() {
+    this.navCtrl.navigateBack('pessoal');
+  }
+
 }
