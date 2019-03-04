@@ -78,9 +78,8 @@ export class PessoalMedicamentosAddPage implements OnInit {
             };
             //this.navCtrl.navigateForward(['page-slug'], true, navigationExtras);
             */
-            
 
-            this.navCtrl.navigateBack(['pessoal-medicamentos', {value: _value}]);
+            this.navCtrl.navigateBack(['pessoal-medicamentos', {value: value['id'] }]);
           }
         }
       ]
@@ -99,6 +98,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
     _medicamento['observacao']        = data['observacao'];
     _medicamento['medicamento']       = _medicm;
     this.storage.addMedicamentos(_medicamento);
+    return _medicamento;
   }    
 
 }

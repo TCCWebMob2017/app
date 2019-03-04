@@ -139,7 +139,7 @@ export class PessoalBasePage implements OnInit {
       message: 'O Perfil Pessoal será excuído.',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {

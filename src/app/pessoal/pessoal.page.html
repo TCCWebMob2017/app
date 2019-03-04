@@ -21,6 +21,7 @@
   <h2 text-center>{{ usuario?.nome }}</h2>
   <p text-center>{{ usuario?.email }}</p>
 
+  <!--
   <ion-item>
     <ion-label position="stacked">Telefone</ion-label>
     <ion-input readonly>{{ usuario?.tefefone }}</ion-input>
@@ -32,7 +33,8 @@
   <ion-item>
     <ion-label position="stacked">CPF:</ion-label>
     <ion-input readonly>{{ usuario?.cpf }}</ion-input>
-  </ion-item>    
+  </ion-item>
+  -->
 
   
   <div *ngIf="usuario?.perfilPessoal == null">
@@ -59,34 +61,40 @@
     <ion-card>
     <!-- <ion-list lines="none"> -->
       <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="person" slot="start"></ion-icon>
+        <ion-label>Informações pesoais</ion-label>
+      </ion-item>   
+
+      <ion-item (click)="exibirPessoalMedicamentos()">
         <ion-icon name="medkit" slot="start"></ion-icon>
         <ion-label>Medicamentos</ion-label>
-      </ion-item>   
-
-      <ion-item (click)="exibirPessoalMedicamentos()">
+      </ion-item>
+    
+      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
         <ion-icon name="nuclear" slot="start"></ion-icon>
         <ion-label>Doenças</ion-label>
-      </ion-item>
-    
-      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="snow" slot="start"></ion-icon>
-        <ion-label>Alergias</ion-label>
       </ion-item>   
     
       <ion-item (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="people" slot="start"></ion-icon>
-        <ion-label>Dependentes</ion-label>
+        <ion-icon name="snow" slot="start"></ion-icon>
+        <ion-label>Alergias</ion-label>
       </ion-item>
 
       <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
-        <ion-icon name="pulse" slot="start"></ion-icon>
-        <ion-label>Cirurgias</ion-label>
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label>Dependentes</ion-label>
       </ion-item>   
     
       <ion-item (click)="exibirPessoalMedicamentos()">
+        <ion-icon name="pulse" slot="start"></ion-icon>
+        <ion-label>Cirurgias</ion-label>
+      </ion-item>
+
+      <ion-item class="activated" (click)="exibirPessoalMedicamentos()">
         <ion-icon name="lock" slot="start"></ion-icon>
         <ion-label>Permissões</ion-label>
-      </ion-item>
+      </ion-item> 
+
   
     </ion-card>
   </div>

@@ -25,7 +25,12 @@
 
   <ion-content>
     <ion-list lines>
-        <ion-item *ngFor="let item of medicamentos">
+        <ion-item *ngFor="let item of medicamentos; index as pos" text-wrap>
+          <!--
+          <ion-thumbnail slot="start">
+            <ion-img [src]="img.path"></ion-img>
+          </ion-thumbnail>
+          -->
           <ion-label>
             <h2> {{ item?.medicamento?.nome }} </h2>
             <p>  Concentracao: {{ item?.medicamento?.concentracao }} </p>
@@ -33,9 +38,30 @@
             <p>  Forma Farmaceutica: {{ item?.medicamento?.formaFarmaceutica }}</p>
             <p>  Dosagem: {{ item?.dosagem }} Frequência: {{ item?.frequencia }} </p>
           </ion-label>
+          <ion-button slot="end" fill="clear" (click)="deleteRow(pos)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-button>
+
         </ion-item>
       </ion-list>
   </ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let img of medicamentos; index as pos" text-wrap>
+      <ion-thumbnail slot="start">
+        <!--
+        <ion-img [src]="img.path"></ion-img>
+        -->
+      </ion-thumbnail>
+      <ion-label>
+        {{ img?.nome }}
+      </ion-label>
+
+      <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 
   <!--
   <ion-menu-toggle *ngFor="let page of medicamentos">

@@ -80,6 +80,12 @@ export class StorageService {
     this.setMedicamentos(_medicamentos);
   }
 
+  removeMedicamento(index : number) {
+    let _medicamentos = this.getMedicamentos();
+    _medicamentos.splice(index, 1);
+    this.setMedicamentos(_medicamentos);
+  }
+
   setMedicamentos(value : any) {
     let _usuario = this.getLocalProfile();
     if (_usuario == null) { 

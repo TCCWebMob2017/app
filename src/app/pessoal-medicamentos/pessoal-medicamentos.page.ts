@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
-import { NavController, NavParams } from '@ionic/angular';
+import { NavController, NavParams, AlertController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pessoal-medicamentos',
@@ -15,16 +16,16 @@ export class PessoalMedicamentosPage implements OnInit {
   public medicamentos : any;
 
   constructor(public  navCtrl         : NavController, 
-            //private navParams       : NavParams,
+            //public  navParams       : NavParams,
+              public  alertController : AlertController,
+              private activatedRoute  : ActivatedRoute,
               public  pessoalService  : PessoalService,
               private storage         : StorageService,
-              public  usuarioService  : UsuarioService,) { 
-
-
-              }
+              public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
     this.medicamentos = this.storage.getMedicamentos();
+
     /*
     this.pessoalService.getMedicamentosAll()
     .subscribe(Response => {
@@ -59,13 +60,27 @@ export class PessoalMedicamentosPage implements OnInit {
   ionViewWillEnter(){
     //console.log('ionViewWillEnter ================================================');
     //console.log(value);
+    
     /*
     let test = this.route.params.subscribe( params  => {
                   console.log(params);
                   this.id = params['id']; });
     */
 
-    console.log(this.value);
+    /*
+    this.theIds$ = this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => {
+        return params.get('value');
+      })
+    );    
+    */
+   let value  = this.activatedRoute.snapshot.paramMap.get('value');
+   console.log(value);
+
+    //let _value  = this.navParams.get('value');
+    //console.log(_value);
+
+    //console.log(this.value);
     this.obterListaMedicamentos();
 
 
@@ -108,5 +123,27 @@ export class PessoalMedicamentosPage implements OnInit {
   cancelarEdicao() {
     this.navCtrl.navigateBack('pessoal');
   }
+
+
+  async deleteRow(position) {
+    const alert = await this.alertController.create({
+      header:  'Eliminar registro',
+      message: 'O medicamento será eliminado.',
+      buttons: [
+        {
+          text: 'Cancelar', role: 'cancel', cssClass: 'secondary',
+          handler: () => { }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            this.storage.removeMedicamento(position);
+            this.obterListaMedicamentos();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }    
 
 }
