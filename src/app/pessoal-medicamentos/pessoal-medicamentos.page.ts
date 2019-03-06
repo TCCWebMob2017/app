@@ -74,8 +74,7 @@ export class PessoalMedicamentosPage implements OnInit {
       })
     );    
     */
-   let value  = this.activatedRoute.snapshot.paramMap.get('value');
-   console.log(value);
+   let _value  = this.activatedRoute.snapshot.paramMap.get('value');
 
     //let _value  = this.navParams.get('value');
     //console.log(_value);

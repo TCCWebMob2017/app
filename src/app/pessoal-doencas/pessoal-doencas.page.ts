@@ -53,7 +53,7 @@ export class PessoalDoencasPage implements OnInit {
 
   irParaProximaTela() {
     //this.navCtrl.navigateForward('pessoal-medicamentos');
-    this.navCtrl.navigateForward(['pessoal-medicamentos', {value: "Teste"}]);
+    this.navCtrl.navigateForward(['pessoal-medicamentos', {value: ""}]);
   }
 
   cancelarEdicao() {

@@ -32,11 +32,16 @@
           </ion-thumbnail>
           -->
           <ion-label>
-            <h2> {{ item?.medicamento?.nome }} </h2>
-            <p>  Concentracao: {{ item?.medicamento?.concentracao }} </p>
-            <p>  Código ATC: {{ item?.medicamento?.codigoATC }} </p>
-            <p>  Forma Farmaceutica: {{ item?.medicamento?.formaFarmaceutica }}</p>
-            <p>  Dosagem: {{ item?.dosagem }} Frequência: {{ item?.frequencia }} </p>
+            <h2>{{ item?.medicamento?.nome }}</h2>
+            <p>Concentracao: {{ item?.medicamento?.concentracao }}</p>
+            <p>Código ATC: {{ item?.medicamento?.codigoATC }}</p>
+            <p>Forma Farm: {{ item?.medicamento?.formaFarmaceutica }}</p>
+            <p *ngIf="(item?.dosagem != null && item?.dosagem != '')">  
+              Dosagem: {{ item?.dosagem }} 
+            </p>
+            <p *ngIf="(item?.frequencia != null && item?.frequencia != '')">  
+              Frequência: {{ item?.frequencia }}
+            </p>
           </ion-label>
           <ion-button slot="end" fill="clear" (click)="deleteRow(pos)">
             <ion-icon slot="icon-only" name="trash"></ion-icon>

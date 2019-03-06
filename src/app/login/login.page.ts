@@ -19,9 +19,9 @@ export class LoginPage implements OnInit {
   public userOnLine: any;
 
   constructor(
-    public navCtrl : NavController, 
-    public menu : MenuController,
-    public auth : AuthService,
+    public  navCtrl : NavController, 
+    public  menu    : MenuController,
+    public  auth    : AuthService,
     private storage : StorageService) { }
 
 
