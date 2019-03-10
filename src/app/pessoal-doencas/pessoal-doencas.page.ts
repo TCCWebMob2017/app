@@ -10,7 +10,8 @@ import { DoencaDTO } from '../models/doenca';
 })
 export class PessoalDoencasPage implements OnInit {
 
-   public doencas: any;
+  public  tituloJanela  : string = "Pessoal : Doenças"; 
+  public doencas: any;
 
   constructor(public navCtrl: NavController,
               private storage: StorageService) { }
@@ -46,14 +47,12 @@ export class PessoalDoencasPage implements OnInit {
   }
 
   irParaTelaAnterior() {
-    //this.navCtrl.navigateBack('pessoal');
-    //this.navCtrl.navigateForward('pessoal-base');
-    this.navCtrl.navigateBack('pessoal-base');
+    this.navCtrl.navigateBack(['pessoal-medicamentos', {value: ""}]);
   }
 
   irParaProximaTela() {
     //this.navCtrl.navigateForward('pessoal-medicamentos');
-    this.navCtrl.navigateForward(['pessoal-medicamentos', {value: ""}]);
+    this.navCtrl.navigateForward(['pessoal-alergias', {value: ""}]);
   }
 
   cancelarEdicao() {

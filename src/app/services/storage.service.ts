@@ -80,6 +80,13 @@ export class StorageService {
     this.setMedicamentos(_medicamentos);
   }
 
+  modificarMedicamento(index : number, obj : any) {
+    let _medicamentos = this.getMedicamentos();
+    if (_medicamentos == null) { _medicamentos = []; }
+    if (obj != null) { _medicamentos[index] = obj; }
+    this.setMedicamentos(_medicamentos);
+  }
+
   removeMedicamento(index : number) {
     let _medicamentos = this.getMedicamentos();
     _medicamentos.splice(index, 1);

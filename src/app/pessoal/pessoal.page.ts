@@ -158,10 +158,36 @@ export class PessoalPage implements OnInit {
     this.navCtrl.navigateForward('pessoal-base');
   }
 
-  exibirPessoalMedicamentos() {
-    this.navCtrl.navigateForward('pessoal-medicamentos');
+  exibirPessoalBase() {
+    this.navCtrl.navigateForward(['pessoal-base', {modoCRUD: 'R'}]);
   }
 
-  
+  modificarPessoalBase() {
+    this.navCtrl.navigateForward(['pessoal-base', {modoCRUD: 'U'}]);
+  }
+
+  exibirPessoalMedicamentos() {
+    this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: 'R'}]);
+  }
+
+  exibirPessoalDoencas() {
+    this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: 'R'}]);
+  }
+
+  exibirPessoalAlergias() {
+    this.navCtrl.navigateForward(['pessoal-alergias', {modoCRUD: 'R'}]);
+  }
+
+  exibirPessoalDependentes() {
+    this.navCtrl.navigateForward(['pessoal-dependentes', {modoCRUD: 'R'}]);
+  }
+
+  exibirPessoalCirurgias() {
+    this.navCtrl.navigateForward(['pessoal-cirurgias', {modoCRUD: 'R'}]);
+  }
+
+  exibirPessoalPermissoes() {
+    this.navCtrl.navigateForward(['pessoal-permissoes', {modoCRUD: 'R'}]);
+  }  
 
 }

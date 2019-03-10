@@ -10,13 +10,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './pessoal-medicamentos.page.html',
   styleUrls: ['./pessoal-medicamentos.page.scss'],
 })
-export class PessoalMedicamentosPage implements OnInit {
-  
-  //public medicamentos : MedicamentoDTO;
-  public medicamentos : any;
+export class PessoalMedicamentosPage implements OnInit {  
+  public  tituloJanela  : string = "Pessoal : Medicamentos";
+  public  medicamentos  : any;
+  private modoCRUD      : string;
+  public  somenteLeitura: boolean;
 
   constructor(public  navCtrl         : NavController, 
-            //public  navParams       : NavParams,
               public  alertController : AlertController,
               private activatedRoute  : ActivatedRoute,
               public  pessoalService  : PessoalService,
@@ -25,31 +25,32 @@ export class PessoalMedicamentosPage implements OnInit {
 
   ngOnInit() {
     this.medicamentos = this.storage.getMedicamentos();
-
-    /*
-    this.pessoalService.getMedicamentosAll()
-    .subscribe(Response => {
-        this.medicamentos = Response;
-    },
-    error => {
-      console.log(error);
-    });
-    */
   }
 
+  obterParametrosRecebidos() {
+    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
+    if (this.modoCRUD == 'R') {
+      this.somenteLeitura = true;
+    }
+    else {
+      this.somenteLeitura = false;
+    }
+  }
+  
   obterListaMedicamentos() {
     let _localProfile   = this.storage.getLocalProfile();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
     this.medicamentos   = _perfilPessoal['medicamentos'];
   }
 
+  exibirMedicamento() {
+
+  }
   gravarDados() {
-    if (this.usuarioService.enviarDadosDoStorageParaApi()) {
+    if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
-      //this.irParaTelaAnterior();
-      this.navCtrl.navigateRoot('pessoal');
-      //this.navCtrl.navigateBack('pessoal');
     }
+    this.irParaTelaHome();
   }
 
   ionViewDidLoad(){
@@ -74,15 +75,13 @@ export class PessoalMedicamentosPage implements OnInit {
       })
     );    
     */
-   let _value  = this.activatedRoute.snapshot.paramMap.get('value');
-
+    
+    this.obterParametrosRecebidos();
     //let _value  = this.navParams.get('value');
     //console.log(_value);
 
     //console.log(this.value);
     this.obterListaMedicamentos();
-
-
   }
 
   ionViewDidEnter(){
@@ -102,27 +101,42 @@ export class PessoalMedicamentosPage implements OnInit {
     //console.log('ionViewWillUnload ================================================');
   }
 
-  adicionarRegistro() {
-    this.navCtrl.navigateForward('pessoal-medicamentos-add');
+  editRow(pos : number, value: any) {
+    if (value!= null) { 
+      this.alertModificarItem(pos, value);
+    }    
   }
 
-/*
-  setFilteredLocations(ev: any){
-    let val = ev.target.value;
-    console.log(val);
-    if (val && val.trim() !== '') {
-      return this.medicamentos.filterLocations(val);
-    }
-  }  
-*/
-  irParaProximaTela() {
-    this.navCtrl.navigateForward('pessoal-alergias'); 
+  async alertModificarItem(pos: number , obj : any) {
+    const alert = await this.alertController.create({
+      header: 'Modificar dados',
+      message: '<b>' + obj['medicamento']['nome'] + '</b>',
+      inputs: [
+        { name: 'frequencia',       type: 'text', value: obj.frequencia,       placeholder: 'Frequência de uso' },
+        { name: 'dosagem',          type: 'text', value: obj.dosagem,          placeholder: 'Dosagem' },
+        { name: 'viaAdministracao', type: 'text', value: obj.viaAdministracao, placeholder: 'Via de administração' },
+        { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
+      ],
+      buttons: [
+        {
+          text: 'Cancel', role: 'cancel', cssClass: 'secondary',
+          handler: () => {
+            //console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: ( data = Response ) => {
+            obj['frequencia']        = data['frequencia'];
+            obj['dosagem']           = data['dosagem'];
+            obj['viaAdministracao']  = data['viaAdministracao'];
+            obj['observacao']        = data['observacao'];
+            this.storage.modificarMedicamento(pos, obj);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
-
-  cancelarEdicao() {
-    this.navCtrl.navigateBack('pessoal');
-  }
-
 
   async deleteRow(position) {
     const alert = await this.alertController.create({
@@ -144,5 +158,25 @@ export class PessoalMedicamentosPage implements OnInit {
     });
     await alert.present();
   }    
+
+  adicionarRegistro() {
+    this.navCtrl.navigateForward('pessoal-medicamentos-add');
+  }
+
+  cancelarEdicao() {
+    this.irParaTelaHome();
+  }
+
+  irParaTelaHome() {
+    this.navCtrl.navigateBack('pessoal');
+  }
+
+  irParaTelaAnterior() {
+    this.navCtrl.navigateBack(['pessoal-base', {modoCRUD: this.modoCRUD}]);
+  }
+
+  irParaProximaTela() {
+    this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
+  }
 
 }

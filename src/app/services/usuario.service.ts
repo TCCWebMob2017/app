@@ -2,6 +2,7 @@ import { API_CONFIG } from 'src/config/api.config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
+import { error } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,9 @@ export class UsuarioService {
         });
       }
     }
-    return false;
+    else {
+      return false;
+    }
   }
 
   adicionarPerfilPessoal(id: string, body: any) {

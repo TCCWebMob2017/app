@@ -5,10 +5,12 @@
     </ion-buttons>
     <ion-title>Adicionar medicamento</ion-title>
   </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Termo de pesquisa (mínimo 5 caracteres)"></ion-searchbar>
+  </ion-toolbar>    
 </ion-header>
 
 <ion-content padding>
-
   <ion-content>
     <ion-searchbar [(ngModel)]="searchTerm" (ionInput)="setFilteredItems($event)"></ion-searchbar>
     <ion-list lines>
@@ -23,5 +25,4 @@
       </ion-item>
     </ion-list>
   </ion-content>
-
 </ion-content>

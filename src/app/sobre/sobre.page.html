@@ -1,58 +1,80 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        Ionic Blank
-      </ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-segment (ionChange)="slides.slideTo(segment)" [(ngModel)]="segment">
-        <ion-segment-button value="0">
-          <ion-icon name="person"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="1">
-          <ion-icon name="camera"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="2">
-          <ion-icon name="star"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value="3">
-          <ion-icon name="pin"></ion-icon>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment (ionChange)="slides.slideTo(segment)" [(ngModel)]="segment">
+      <ion-segment-button value="0">
+        <ion-icon name="person"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="1">
+        <ion-icon name="camera"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-icon name="star"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button value="3">
+        <ion-icon name="pin"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
 
 
-<!-- Default Searchbar -->
-<ion-searchbar></ion-searchbar>
-
-<!-- Searchbar with danger color -->
-<ion-searchbar color="danger"></ion-searchbar>
-
-<!-- Searchbar with value -->
-<ion-searchbar value="Ionic"></ion-searchbar>
-
-<!-- Searchbar with telephone type -->
-<ion-searchbar type="tel"></ion-searchbar>
-
-<!-- Searchbar with a cancel button and custom cancel button text -->
-<ion-searchbar showCancelButton cancelButtonText="Custom Cancel"></ion-searchbar>
-
-<!-- Searchbar with a custom debounce -->
-<ion-searchbar debounce="500"></ion-searchbar>
-
-<!-- Animated Searchbar -->
-<ion-searchbar animated></ion-searchbar>
-
-<!-- Searchbar with a placeholder -->
-<ion-searchbar placeholder="Filter Schedules"></ion-searchbar>
-
-<!-- Searchbar in a Toolbar -->
-<ion-toolbar>
-  <ion-searchbar></ion-searchbar>
-</ion-toolbar>
+<!-- ---------------------------------------------- -->
+<!-- ---------------------------------------------- -->
 
 
-  </ion-content>
+
+<!-- Default Input -->
+<ion-input></ion-input>
+
+<!-- Input with value -->
+<ion-input value="custom"></ion-input>
+
+<!-- Input with placeholder -->
+<ion-input placeholder="Enter Input"></ion-input>
+
+<!-- Input with clear button when there is a value -->
+<ion-input clearInput value="clear me"></ion-input>
+
+<!-- Number type input -->
+<ion-input type="number" value="333"></ion-input>
+
+<!-- Disabled input -->
+<ion-input value="Disabled" disabled></ion-input>
+
+<!-- Readonly input -->
+<ion-input value="Readonly" readonly></ion-input>
+
+<!-- Inputs with labels -->
+<ion-item>
+  <ion-label>Default Label</ion-label>
+  <ion-input></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="floating">Floating Label</ion-label>
+  <ion-input></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="fixed">Fixed Label</ion-label>
+  <ion-input></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Stacked Label</ion-label>
+  <ion-input></ion-input>
+</ion-item>
+
+
+
+<!-- ---------------------------------------------- -->
+<!-- ---------------------------------------------- -->
+
+</ion-content>

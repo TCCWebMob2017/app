@@ -4,7 +4,7 @@ import { StorageService } from './../services/storage.service';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModalController, NavController, ToastController, AlertController } from '@ionic/angular';
 import { UsuarioDTO } from './../models/usuario';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-pessoal-base',
@@ -19,15 +19,16 @@ export class PessoalBasePage implements OnInit {
   minSelectableDate = '1900-01-01';
   maxSelectableDate;
   myDate;
-  public usuario: UsuarioDTO;
+  public  usuario       : UsuarioDTO;
+  private modoCRUD      : string;
+  public  somenteLeitura: boolean;
 
   constructor(
     private navCtrl         : NavController,
     private storage         : StorageService,
-    //public  pessoalService  : PessoalService,
     public  usuarioService  : UsuarioService,
     private formBuilder     : FormBuilder,
-    //private modalController : ModalController,
+    private activatedRoute  : ActivatedRoute,
     public  toastController : ToastController,
     public  alertController : AlertController 
     ) { 
@@ -39,6 +40,7 @@ export class PessoalBasePage implements OnInit {
 
   ngOnInit() {
 
+    this.obterParametrosRecebidos();
     this.usuario = this.storage.getLocalProfile();
     this.formGroup = this.formBuilder.group({
       nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
@@ -51,13 +53,25 @@ export class PessoalBasePage implements OnInit {
       //password: new FormControl(''),
     });
   }
-
-
-  irParaProximaTela(value : any) {
-    this.moverValoresFormParaSotage(value);
-    this.navCtrl.navigateForward('pessoal-doencas');
+  obterParametrosRecebidos() {
+    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
+    if (this.modoCRUD == 'R') {
+      this.somenteLeitura = true;
+    }
+    else {
+      this.somenteLeitura = false;
+    }
   }
 
+  generoDescricao() : string {
+    if(this.usuario.perfilPessoal.sexo == 'F') {
+      return "Feminino";
+    }
+    else if(this.usuario.perfilPessoal.sexo == 'M') {
+      return "Masculino";
+    }
+    return "";
+  }
 
   onSubmit(value : any) {
     this.submitted = true;
@@ -87,22 +101,20 @@ export class PessoalBasePage implements OnInit {
     this.storage.setUsuarioDados(this.usuario);
   }
 
-  
   gravarDados(value : any) {
     this.submitted = true;
     this.moverValoresFormParaSotage(value);
     this.gravarDadosNaApi();
   }
 
-
   gravarDadosNaApi(){
-    if (this.usuarioService.enviarDadosDoStorageParaApi()) {
-      this.gravaDadosPresentToast();
-      //alert('Okkk');
-      this.irParaTelaAnterior();
-    }
-  }
 
+    if (this.usuarioService.enviarDadosDoStorageParaApi()) {
+      //this.gravaDadosPresentToast();
+    }
+    this.irParaTelaAnterior();
+
+  }
 
   async gravaDadosPresentToast() {
     const toast = await this.toastController.create({
@@ -175,34 +187,50 @@ export class PessoalBasePage implements OnInit {
       duration: 2000
     });
     toast.present();
-  }  
+  } 
+
+  /*
+  for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
+    let field_name = Object.keys(_perfilPessoal)[i];
+    let field_value = _perfilPessoal[field_name];
+    //console.log('_perfilPessoal[i]' + i);
+    let resultt = i +  ' campo: ' +  field_name + ' / valor: ' + field_value;
+  }
+  */
+
+   formatDate(date) {
+    let _date = new Date(date),
+        day   = '' + _date.getDate(),
+        month = '' + (_date.getMonth() + 1),
+        year  = _date.getFullYear();
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2)   day   = '0' + day;
+    return [year, month, day].join('-');
+  }
 
   cancelarEdicao() {
+    this.irParaTelaHome();
+  }
+
+  irParaTelaHome() {
     this.navCtrl.navigateBack('pessoal');
   }
 
   irParaTelaAnterior() {
-    this.navCtrl.navigateBack('pessoal');
+    this.irParaTelaHome();
   }
 
-      /*
-      for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
-        let field_name = Object.keys(_perfilPessoal)[i];
-        let field_value = _perfilPessoal[field_name];
-        //console.log('_perfilPessoal[i]' + i);
-        let resultt = i +  ' campo: ' +  field_name + ' / valor: ' + field_value;
-      }
-    */
+  irParaProximaTela(value : any) {
+    if (this.somenteLeitura != true) {
+      this.moverValoresFormParaSotage(value);
+    }
+    this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: this.modoCRUD}]);
+  }
 
-   formatDate(date) {
-    let d = new Date(date),
-      day = '' + d.getDate(),
-      month = '' + (d.getMonth() + 1),
-      year = d.getFullYear();
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    return [year, month, day].join('-');
-  }    
+  _irParaProximaTela() {
+    this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
+  }
+
 
 }
 

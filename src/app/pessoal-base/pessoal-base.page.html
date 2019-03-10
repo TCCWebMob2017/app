@@ -1,11 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="cancelarEdicao()">Cancelar
+    <ion-buttons slot="start">     
+      <ion-button (click)="irParaTelaAnterior()" *ngIf="somenteLeitura == true">
+          <ion-icon slot="icon-only" name="home"></ion-icon>
       </ion-button>
+      <ion-button (click)="cancelarEdicao()" *ngIf="somenteLeitura != true">Cancelar</ion-button>
     </ion-buttons>
-    <ion-title>Informações gerais</ion-title>
-    <ion-buttons slot="primary">
+    <ion-title>Informações pessoais</ion-title>
+    <ion-buttons slot="primary" *ngIf="somenteLeitura != true">
       <ion-button (click)="gravarDados(form.value)">
         <ion-icon slot="icon-only" name="save"></ion-icon>
       </ion-button>
@@ -23,8 +25,9 @@
         <ion-input  type="text" 
                     name="nome" 
                     required
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.nome"
-                    ngModel required #nome="ngModel"
+                    [ngModel] required #nome="ngModel"
                     [class.invalid]="nome.errors && nome.dirty"
                     >
         </ion-input>
@@ -34,6 +37,7 @@
         <ion-label  position="stacked">Telefone</ion-label>
         <ion-input  type="text" 
                     name="telefone" 
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.tefefone" 
                     ngModel required #telefone="ngModel"></ion-input>
       </ion-item>
@@ -42,6 +46,7 @@
         <ion-label  position="stacked">CPF</ion-label>
         <ion-input  type="text" 
                     name="cpf" 
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.cpf" 
                     ngModel required #cpf="ngModel"></ion-input>
       </ion-item>
@@ -50,25 +55,38 @@
         <ion-label  position="stacked">RG</ion-label>
         <ion-input  type="text" 
                     name="rg" 
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.rg" 
-                    ngModel required #cpf="ngModel"></ion-input>
+                    ngModel required #rg="ngModel"></ion-input>
       </ion-item>      
    
-      <ion-item>
+      <ion-item *ngIf="somenteLeitura != true">
         <ion-label>Gênero</ion-label>
         <!-- [(ngModel)]="cmb_genero" -->
         <ion-select name="sexo"
                     [ngModel]="usuario?.perfilPessoal?.sexo"
+                    disabled={{somenteLeitura}}
                     placeholder="Selecione">
           <ion-select-option value="F">Feminino</ion-select-option>
           <ion-select-option value="M">Masculino</ion-select-option>
         </ion-select>
       </ion-item>
 
+      <ion-item *ngIf="somenteLeitura == true">
+        <ion-label  position="stacked">Gênero</ion-label>
+        <ion-input  type="text" 
+                    name="sexo" 
+                    readonly={{somenteLeitura}}
+                    [ngModel]="generoDescricao()" 
+                    ngModel required #sexo="ngModel"></ion-input>
+      </ion-item>     
+
+
       <ion-item>
         <ion-label  position="stacked">Data de nascimento</ion-label>
         <ion-input  type="text" 
                     name="nascimento"
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.nascimento"
                     ngModel required #nascimento="ngModel"></ion-input>
       </ion-item>
@@ -77,6 +95,7 @@
         <ion-label  position="stacked">Altura</ion-label>
         <ion-input  type="number" 
                     name="altura"
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.altura"
                     ngModel required #altura="ngModel"></ion-input>
       </ion-item>      
@@ -85,6 +104,7 @@
         <ion-label  position="stacked">Peso</ion-label>
         <ion-input  type="number" 
                     name="peso"
+                    readonly={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.peso"
                     ngModel required #peso="ngModel"></ion-input>
       </ion-item>
@@ -92,6 +112,7 @@
       <ion-item>
         <ion-label>Pratica esporte</ion-label>
         <ion-toggle name="praticaEsporte"
+                    disabled={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.praticaEsporte"
                     >
         </ion-toggle>
@@ -100,6 +121,7 @@
       <ion-item>
         <ion-label>Doador de órgãos</ion-label>
         <ion-toggle name="doadorOrgao"
+                    disabled={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.doadorOrgao"
                     >
         </ion-toggle>
@@ -108,13 +130,14 @@
       <ion-item>
         <ion-label>Doador de sangue</ion-label>
         <ion-toggle name="doadorSangue"
+                    disabled={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.doadorSangue"
                     >
         </ion-toggle>
       </ion-item>
 
 
-      <ion-item>
+      <ion-item *ngIf="somenteLeitura != true">
         <ion-label>Tipo sanguíneo</ion-label>
         <!-- [interfaceOptions]="customPopoverOptions"  interface="popover"  -->
         <ion-select name="tipoSangue" 
@@ -132,6 +155,15 @@
         </ion-select>
       </ion-item>
 
+      <ion-item *ngIf="somenteLeitura == true">
+        <ion-label  position="stacked">Tipo sanguíneo</ion-label>
+        <ion-input  type="text" 
+                    name="tipoSangue" 
+                    readonly={{somenteLeitura}}
+                    [ngModel]="usuario?.perfilPessoal?.tipoSangue"
+                    ngModel required #tipoSangue="ngModel"></ion-input>
+      </ion-item>
+
       <!--
       <div padding>
         <ion-button color="primary" 
@@ -142,7 +174,7 @@
       </div>
       -->
       <br>
-      <div *ngIf="usuario?.perfilPessoal?.id != null">
+      <div *ngIf="usuario?.perfilPessoal?.id != null && modoCRUD == 'U'">
         <ion-button 
           color="danger"  
           expand="block" 
@@ -156,16 +188,18 @@
 
   </form>
 </ion-content>
-  
 
+<!------------------------------------------------------------------------------>
 <ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="secondary">
-      <ion-button size="small" fill="outline" (click)="irParaTelaAnterior()">Anterior</ion-button>
+  <ion-toolbar *ngIf="somenteLeitura != true">
+    <ion-buttons slot="start">
+      <ion-back-button  icon="arrow-back" text="Anterior" defaultHref="/pessoal">
+      </ion-back-button>
     </ion-buttons>
-    <ion-title>Criar perfil</ion-title>
     <ion-buttons slot="primary">
-      <ion-button size="small" fill="outline" (click)="irParaProximaTela(form.value)">Próximo</ion-button>
+      <ion-button size="small" (click)="irParaProximaTela(form.value)">Próximo
+          <ion-icon slot="icon-only" name="checkmark-circle"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
