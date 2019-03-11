@@ -1,22 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">     
-      <ion-button (click)="irParaTelaAnterior()" *ngIf="somenteLeitura == true">
-          <ion-icon slot="icon-only" name="home"></ion-icon>
-      </ion-button>
       <ion-button (click)="cancelarEdicao()" *ngIf="somenteLeitura != true">Cancelar</ion-button>
     </ion-buttons>
     <ion-title>Informações pessoais</ion-title>
-    <ion-buttons slot="primary" *ngIf="somenteLeitura != true">
-      <ion-button (click)="gravarDados(form.value)">
-        <ion-icon slot="icon-only" name="save"></ion-icon>
-      </ion-button>
+    <ion-buttons slot="primary">
+      <ion-button (click)="gravarDados(form.value)" *ngIf="somenteLeitura != true">OK</ion-button>
+      <ion-button (click)="irParaTelaHome()"        *ngIf="somenteLeitura == true">OK</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  
   <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" novalidate>
     
     <ion-list>

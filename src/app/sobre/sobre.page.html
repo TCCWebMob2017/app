@@ -30,48 +30,86 @@
 
 
 
-<!-- Default Input -->
-<ion-input></ion-input>
-
-<!-- Input with value -->
-<ion-input value="custom"></ion-input>
-
-<!-- Input with placeholder -->
-<ion-input placeholder="Enter Input"></ion-input>
-
-<!-- Input with clear button when there is a value -->
-<ion-input clearInput value="clear me"></ion-input>
-
-<!-- Number type input -->
-<ion-input type="number" value="333"></ion-input>
-
-<!-- Disabled input -->
-<ion-input value="Disabled" disabled></ion-input>
-
-<!-- Readonly input -->
-<ion-input value="Readonly" readonly></ion-input>
-
-<!-- Inputs with labels -->
-<ion-item>
-  <ion-label>Default Label</ion-label>
-  <ion-input></ion-input>
-</ion-item>
-
-<ion-item>
-  <ion-label position="floating">Floating Label</ion-label>
-  <ion-input></ion-input>
-</ion-item>
-
-<ion-item>
-  <ion-label position="fixed">Fixed Label</ion-label>
-  <ion-input></ion-input>
-</ion-item>
-
-<ion-item>
-  <ion-label position="stacked">Stacked Label</ion-label>
-  <ion-input></ion-input>
-</ion-item>
-
+<ion-content>
+    <!-- fab placed to the top end -->
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the bottom end -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="arrow-dropleft"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the top start -->
+    <ion-fab vertical="top" horizontal="start" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="arrow-dropright"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the bottom start -->
+    <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="arrow-dropup"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the (vertical) center and start -->
+    <ion-fab vertical="center" horizontal="start" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the (vertical) center and end -->
+    <ion-fab vertical="center" horizontal="end" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the top and end and on the top edge of the content overlapping header -->
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="person"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- fab placed to the bottom and start and on the bottom edge of the content overlapping footer with a list to the right -->
+    <ion-fab vertical="bottom" horizontal="start" edge slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="settings"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="end">
+        <ion-fab-button><ion-icon name="logo-vimeo"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  
+    <!-- fab placed in the center of the content with a list on each side -->
+    <ion-fab vertical="center" horizontal="center" slot="fixed">
+      <ion-fab-button>
+        <ion-icon name="share"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button><ion-icon name="logo-vimeo"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="bottom">
+        <ion-fab-button><ion-icon name="logo-facebook"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="start">
+        <ion-fab-button><ion-icon name="logo-instagram"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+      <ion-fab-list side="end">
+        <ion-fab-button><ion-icon name="logo-twitter"></ion-icon></ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-content>
+  
 
 
 <!-- ---------------------------------------------- -->

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
-import { NavController, NavParams, AlertController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./pessoal-medicamentos.page.scss'],
 })
 export class PessoalMedicamentosPage implements OnInit {  
-  public  tituloJanela  : string = "Pessoal : Medicamentos";
+  public  tituloJanela  : string = "Medicamentos";
   public  medicamentos  : any;
   private modoCRUD      : string;
   public  somenteLeitura: boolean;
@@ -46,6 +46,7 @@ export class PessoalMedicamentosPage implements OnInit {
   exibirMedicamento() {
 
   }
+
   gravarDados() {
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
@@ -53,53 +54,16 @@ export class PessoalMedicamentosPage implements OnInit {
     this.irParaTelaHome();
   }
 
-  ionViewDidLoad(){
-    //console.log('ionViewDidLoad ================================================');
-    //console.log(this.value);
-  }
-
   ionViewWillEnter(){
-    //console.log('ionViewWillEnter ================================================');
-    //console.log(value);
-    
-    /*
-    let test = this.route.params.subscribe( params  => {
-                  console.log(params);
-                  this.id = params['id']; });
-    */
-
-    /*
-    this.theIds$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => {
-        return params.get('value');
-      })
-    );    
-    */
-    
     this.obterParametrosRecebidos();
-    //let _value  = this.navParams.get('value');
-    //console.log(_value);
-
-    //console.log(this.value);
     this.obterListaMedicamentos();
   }
 
-  ionViewDidEnter(){
-    //console.log('ionViewDidEnter ================================================');
-    //console.log(value);
-  }
-
-  ionViewWillLeave(){
-    //console.log('ionViewWillLeave ================================================');
-  }
-
-  ionViewDidLeave(){
-    //console.log('ionViewDidLeave ================================================');
-  }
-
-  ionViewWillUnload(){
-    //console.log('ionViewWillUnload ================================================');
-  }
+  ionViewDidLoad(){}
+  ionViewDidEnter(){}
+  ionViewWillLeave(){}
+  ionViewDidLeave(){}
+  ionViewWillUnload(){}
 
   editRow(pos : number, value: any) {
     if (value!= null) { 
