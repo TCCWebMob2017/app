@@ -23,7 +23,6 @@ export class PessoalPage implements OnInit {
               public  toastController : ToastController,
               public  alertController : AlertController) { }
 
-
   ngOnInit() { 
     this.buscarDadosUsuarioApi();
     //this.buscaProntuario_back();
@@ -36,7 +35,7 @@ export class PessoalPage implements OnInit {
       this.usuarioService.getLoggedInUser()
       .subscribe(Response => {
         this.usuario = Response;
-        console.log(this.usuario);
+        //console.log(this.usuario);
         this.storage.setUsuarioDados(this.usuario);
       },
       error => { 

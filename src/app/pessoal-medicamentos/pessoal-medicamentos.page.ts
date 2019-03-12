@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, IonItemSliding } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
 import { ActivatedRoute } from '@angular/router';
@@ -24,8 +24,21 @@ export class PessoalMedicamentosPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    this.medicamentos = this.storage.getMedicamentos();
+    this.obterListaMedicamentos();
+    console.log('ngOnInit');
   }
+
+  ionViewWillEnter() {
+    this.obterParametrosRecebidos();
+    //this.obterListaMedicamentos();
+    console.log('Will Enter');
+  }
+
+  ionViewDidLoad(){}
+  ionViewDidEnter(){}
+  ionViewWillLeave(){}
+  ionViewDidLeave(){}
+  ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
     this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
@@ -38,13 +51,14 @@ export class PessoalMedicamentosPage implements OnInit {
   }
   
   obterListaMedicamentos() {
-    let _localProfile   = this.storage.getLocalProfile();
-    let _perfilPessoal  = _localProfile['perfilPessoal'];
-    this.medicamentos   = _perfilPessoal['medicamentos'];
+    this.medicamentos = this.storage.getMedicamentos();
+    console.log('obterListaMedicamentos');
+    console.log(this.medicamentos);
   }
 
-  exibirMedicamento() {
-
+  exibirMedicamento(item : any) {
+    console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
+    console.log(item);
   }
 
   gravarDados() {
@@ -54,22 +68,19 @@ export class PessoalMedicamentosPage implements OnInit {
     this.irParaTelaHome();
   }
 
-  ionViewWillEnter(){
-    this.obterParametrosRecebidos();
-    this.obterListaMedicamentos();
-  }
-
-  ionViewDidLoad(){}
-  ionViewDidEnter(){}
-  ionViewWillLeave(){}
-  ionViewDidLeave(){}
-  ionViewWillUnload(){}
-
-  editRow(pos : number, value: any) {
-    if (value!= null) { 
-      this.alertModificarItem(pos, value);
+  async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
+    await slidingItem.close();
+    if (item!= null) {
+      this.alertModificarItem(pos, item);
     }    
   }
+
+  /*
+  async modificarItem(slidingItem: IonItemSliding) {
+    await slidingItem.close();
+    console.log('Modificar');
+  }  
+  */
 
   async alertModificarItem(pos: number , obj : any) {
     const alert = await this.alertController.create({
@@ -102,7 +113,22 @@ export class PessoalMedicamentosPage implements OnInit {
     await alert.present();
   }
 
-  async deleteRow(position) {
+  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
+  await slidingItem.close();
+    let indexx = this.medicamentos.indexOf(item);
+    
+    console.log('Item: ' + item + ' / Index: ' + index);
+    console.log(slidingItem);
+    console.log(event);
+  
+    if(index > -1){
+        this.medicamentos.splice(index, 1);
+        this.storage.removeMedicamento(index);
+        //this.obterListaMedicamentos();
+    }
+  }
+
+  async deleteRow_Back(position) {
     const alert = await this.alertController.create({
       header:  'Eliminar registro',
       message: 'O medicamento será eliminado.',
@@ -143,4 +169,5 @@ export class PessoalMedicamentosPage implements OnInit {
     this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
   }
 
+ 
 }

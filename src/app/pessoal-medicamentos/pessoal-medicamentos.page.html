@@ -19,11 +19,11 @@
     </ion-fab-button>
   </ion-fab>
 
+
   <ion-list lines>
-    <!-- (click)="selecionarMedicamento(item)
-    -->
-      <ion-item *ngFor="let item of medicamentos; index as pos" text-wrap  
-                (click)="exibirMedicamento(item)">
+    <ion-item-sliding *ngFor="let item of medicamentos; index as pos" #slidingItem text-wrap>
+      <!-- <ion-item *ngFor="let item of medicamentos; index as pos" text-wrap  (click)="exibirMedicamento(item)"> -->
+      <ion-item *ngIf="(item.medicamento.deleted != true)" (click)="exibirMedicamento(item)">
         <ion-label>
           <h2>{{ item?.medicamento?.nome }}</h2>
           <p>Concentracao: {{ item?.medicamento?.concentracao }}</p>
@@ -36,14 +36,28 @@
             Frequência: {{ item?.frequencia }}
           </p>
         </ion-label>
+        <!--
         <ion-button slot="end" fill="clear" (click)="editRow(pos, item)" *ngIf="somenteLeitura != true">
           <ion-icon slot="icon-only" name="create"></ion-icon>
         </ion-button>
         <ion-button slot="end" fill="clear" (click)="deleteRow(pos)" *ngIf="somenteLeitura != true">
           <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
         </ion-button>
+        -->
       </ion-item>
-    </ion-list>
+
+      <ion-item-options side="end" *ngIf="somenteLeitura != true">
+        <ion-item-option (click)="editRow(slidingItem, item, pos)">Modificar</ion-item-option>
+        <ion-item-option color="danger" expandable (click)="deleteRow(slidingItem, $event, item, pos)">Excluir</ion-item-option>
+          <!-- <ion-icon name="trash"></ion-icon> -->
+      </ion-item-options>
+
+    </ion-item-sliding>  
+  </ion-list>
+
+
+
+
 </ion-content>
 <!------------------------------------------------------------------------------>
 <ion-footer>

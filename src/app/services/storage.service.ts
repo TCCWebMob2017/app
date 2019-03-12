@@ -62,6 +62,15 @@ export class StorageService {
     }
   }
 
+  checkDeletedField(obj : any) : any {
+    for( let i=0; i<obj.length;i++) {
+      if(obj[i]['deleted'] == undefined) {
+         obj[i]['deleted'] = false;
+      }
+    }
+    return obj;
+  }
+
   getMedicamentos(): any {
     let _perfilPessoal = this.getPerfilPessoal();
     if (_perfilPessoal == null) {
@@ -69,6 +78,7 @@ export class StorageService {
     }
     else {
       let _medicamentos = _perfilPessoal['medicamentos'];
+      _medicamentos = this.checkDeletedField(_medicamentos);
       return _medicamentos;
     }
   }
@@ -90,6 +100,12 @@ export class StorageService {
   removeMedicamento(index : number) {
     let _medicamentos = this.getMedicamentos();
     _medicamentos.splice(index, 1);
+    this.setMedicamentos(_medicamentos);
+  }
+
+  setDeletedMedicamento(index : number) {
+    let _medicamentos = this.getMedicamentos();
+    _medicamentos['deleted'](;
     this.setMedicamentos(_medicamentos);
   }
 
