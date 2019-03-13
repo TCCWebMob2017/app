@@ -1,26 +1,28 @@
-import { PessoalService } from './../services/pessoal.service';
-import { NavController, AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { PessoalService } from '../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
-import { ActivatedRoute, NavigationExtras } from '@angular/router';
 
 @Component({
-  selector: 'app-pessoal-medicamentos-add',
-  templateUrl: './pessoal-medicamentos-add.page.html',
-  styleUrls: ['./pessoal-medicamentos-add.page.scss'],
+  selector: 'app-pessoal-doencas-add',
+  templateUrl: './pessoal-doencas-add.page.html',
+  styleUrls: ['./pessoal-doencas-add.page.scss'],
 })
-export class PessoalMedicamentosAddPage implements OnInit {
+export class PessoalDoencasAddPage implements OnInit {
 
-  public  lista_items : any;
+  public  lista_items       : any;
           searchTerm        : string = '';
   private modoCRUD          : string;
   public  somenteLeitura    : boolean;  
 
-  constructor(public  navCtrl         : NavController, 
+  constructor(public  navCtrl         : NavController,
               public  pessoalService  : PessoalService,
               private storage         : StorageService,
               private activatedRoute  : ActivatedRoute,
               public  alertController : AlertController) { }
+
 
   ngOnInit() {
   }
@@ -54,7 +56,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
   }
   */
  
-  selecionarRegistro(value: any) {
+ selecionarRegistro(value: any) {
     if (value!= null) { 
       this.alertConfirmarAdicaoDeItem(value);
     }
@@ -62,12 +64,10 @@ export class PessoalMedicamentosAddPage implements OnInit {
 
   async alertConfirmarAdicaoDeItem(value : any) {
     const alert = await this.alertController.create({
-      header: 'Adicionar medicamento',
-      message: 'O medicamento <b>' + value['nome'] + '</b> será adicionado.',
+      header: 'Adicionar doença',
+      message: 'A doença <b>' + value['nome'] + '</b> será adicionada.',
       inputs: [
-        { name: 'frequencia',       type: 'text', value: '', placeholder: 'Frequência de uso' },
-        { name: 'dosagem',          type: 'text', value: '', placeholder: 'Dosagem' },
-        { name: 'viaAdministracao', type: 'text', value: '', placeholder: 'Via de administração' },
+        { name: 'desde',            type: 'text', value: '', placeholder: 'Desde' },
         { name: 'observacao',       type: 'text', value: '', placeholder: 'Observação' }
       ],
       buttons: [
@@ -80,7 +80,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _value = this.addRegistro(value, data);
-            this.navCtrl.navigateBack(['pessoal-medicamentos', {modoCRUD: this.modoCRUD}]);
+            this.navCtrl.navigateBack(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
           }
         }
       ]
@@ -92,9 +92,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
     let _novoRegistro = value;
     let _medicamento = { };
     _medicamento['privacidade']       = { };
-    _medicamento['frequencia']        = data['frequencia'];
-    _medicamento['dosagem']           = data['dosagem'];
-    _medicamento['viaAdministracao']  = data['viaAdministracao'];
+    _medicamento['desde']             = data['desde'];
     _medicamento['observacao']        = data['observacao'];
     _medicamento['medicamento']       = _novoRegistro;
     this.storage.addMedicamentos(_medicamento);
@@ -102,7 +100,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
   }    
 
   search(nome : string) {
-    this.pessoalService.getMedicamentosPorNome(nome)
+    this.pessoalService.getDoencasPorNome(nome)
     .subscribe(Response => {
       this.lista_items = Response;
     },
@@ -110,5 +108,4 @@ export class PessoalMedicamentosAddPage implements OnInit {
       console.log(error);
     });
   }
-
 }

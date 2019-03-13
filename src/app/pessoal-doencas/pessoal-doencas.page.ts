@@ -124,7 +124,7 @@ export class PessoalDoencasPage implements OnInit {
   }    
 
   adicionarRegistro() {
-    this.navCtrl.navigateForward('pessoal-medicamentos-add');
+    this.navCtrl.navigateForward('pessoal-doencas-add');
   }
 
   cancelarEdicao() {
