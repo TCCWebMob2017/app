@@ -46,8 +46,12 @@
         </ion-button>
         -->
       </ion-item>
-
-      <ion-item-options side="end" *ngIf="somenteLeitura != true">
+<!-- 
+  <ion-item-options (ionSwipe)="del(slidingItem, $event, item, pos)">
+-->
+      <ion-item-options side="end" 
+                        (ionSwipe)="deleteRow(slidingItem, $event, item, pos)" 
+                        *ngIf="somenteLeitura != true">
         <ion-item-option (click)="editRow(slidingItem, item, pos)">Modificar</ion-item-option>
         <ion-item-option color="danger" expandable (click)="deleteRow(slidingItem, $event, item, pos)">Excluir</ion-item-option>
           <!-- <ion-icon name="trash"></ion-icon> -->
@@ -55,9 +59,6 @@
 
     </ion-item-sliding>  
   </ion-list>
-
-
-
 
 </ion-content>
 <!------------------------------------------------------------------------------>

@@ -41,7 +41,7 @@ export class PessoalBasePage implements OnInit {
   ngOnInit() {
 
     this.obterParametrosRecebidos();
-    this.usuario = this.storage.getLocalProfile();
+    this.usuario = this.storage.getLocalUsuarioDados();
     this.formGroup = this.formBuilder.group({
       nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       peso:       ['' , [Validators.required, Validators.min(10)]],
@@ -99,7 +99,7 @@ export class PessoalBasePage implements OnInit {
     this.usuario['perfilPessoal']['peso']           = value.peso,
     this.usuario['perfilPessoal']['rg']             = value.rg,
     this.usuario['perfilPessoal']['cpf']            = value.cpf
-    this.storage.setUsuarioDados(this.usuario);
+    this.storage.setLocalUsuarioDados(this.usuario);
   }
 
   gravarDados(value : any) {

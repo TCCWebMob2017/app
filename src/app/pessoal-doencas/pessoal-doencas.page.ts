@@ -38,7 +38,7 @@ export class PessoalDoencasPage implements OnInit {
   }
 
   obterListaDoencas() {
-    let _localProfile   = this.storage.getLocalProfile();
+    let _localProfile   = this.storage.getLocalUsuarioDados();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
     this.listaItens     = _perfilPessoal['doencas'];
   }

@@ -104,6 +104,33 @@
                     ngModel required #peso="ngModel"></ion-input>
       </ion-item>
 
+      <ion-item *ngIf="somenteLeitura != true">
+        <ion-label>Tipo sanguíneo</ion-label>
+        <!-- [interfaceOptions]="customPopoverOptions"  interface="popover"  -->
+        <ion-select name="tipoSangue" 
+                    placeholder="Selecione"
+                    [ngModel]="usuario?.perfilPessoal?.tipoSangue"
+                    multiple="false">
+          <ion-select-option value="A+">A+</ion-select-option>
+          <ion-select-option value="A-">A-</ion-select-option>
+          <ion-select-option value="B+">B+</ion-select-option>
+          <ion-select-option value="B-">B-</ion-select-option>
+          <ion-select-option value="AB+">AB+</ion-select-option>
+          <ion-select-option value="AB-">AB-</ion-select-option>
+          <ion-select-option value="O+">O+</ion-select-option>
+          <ion-select-option value="O-">O-</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="somenteLeitura == true">
+        <ion-label  position="stacked">Tipo sanguíneo</ion-label>
+        <ion-input  type="text" 
+                    name="tipoSangue" 
+                    readonly={{somenteLeitura}}
+                    [ngModel]="usuario?.perfilPessoal?.tipoSangue"
+                    ngModel required #tipoSangue="ngModel"></ion-input>
+      </ion-item>
+      
       <ion-item>
         <ion-label>Pratica esporte</ion-label>
         <ion-toggle name="praticaEsporte"
@@ -132,32 +159,6 @@
       </ion-item>
 
 
-      <ion-item *ngIf="somenteLeitura != true">
-        <ion-label>Tipo sanguíneo</ion-label>
-        <!-- [interfaceOptions]="customPopoverOptions"  interface="popover"  -->
-        <ion-select name="tipoSangue" 
-                    placeholder="Selecione"
-                    [ngModel]="usuario?.perfilPessoal?.tipoSangue"
-                    multiple="false">
-          <ion-select-option value="A+">A+</ion-select-option>
-          <ion-select-option value="A-">A-</ion-select-option>
-          <ion-select-option value="B+">B+</ion-select-option>
-          <ion-select-option value="B-">B-</ion-select-option>
-          <ion-select-option value="AB+">AB+</ion-select-option>
-          <ion-select-option value="AB-">AB-</ion-select-option>
-          <ion-select-option value="O+">O+</ion-select-option>
-          <ion-select-option value="O-">O-</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item *ngIf="somenteLeitura == true">
-        <ion-label  position="stacked">Tipo sanguíneo</ion-label>
-        <ion-input  type="text" 
-                    name="tipoSangue" 
-                    readonly={{somenteLeitura}}
-                    [ngModel]="usuario?.perfilPessoal?.tipoSangue"
-                    ngModel required #tipoSangue="ngModel"></ion-input>
-      </ion-item>
 
       <!--
       <div padding>

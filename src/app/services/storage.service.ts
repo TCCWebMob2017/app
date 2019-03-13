@@ -32,16 +32,8 @@ export class StorageService {
     localStorage.removeItem(STORAGE_KEY.localUser);
   }
 
-  setUsuarioDados(obj : any) {
-    if(obj == null) {
-      localStorage.removeItem(STORAGE_KEY.localProfile);
-    }
-    else {
-      localStorage.setItem(STORAGE_KEY.localProfile, JSON.stringify(obj));
-    }
-  }
 
-  getLocalProfile() : any {
+  getLocalUsuarioDados() : any {
     let profile = localStorage.getItem(STORAGE_KEY.localProfile);
     if(profile == null) {
       return null;
@@ -51,8 +43,22 @@ export class StorageService {
     }
   }
 
+  setLocalUsuarioDados(obj : any) {
+    if(obj == null) {
+      localStorage.removeItem(STORAGE_KEY.localProfile);
+    }
+    else {
+      localStorage.setItem(STORAGE_KEY.localProfile, JSON.stringify(obj));
+    }
+  }
+
+  clearLocalUsuarioDados() {
+    localStorage.removeItem(STORAGE_KEY.localProfile);
+  }
+
+
   getPerfilPessoal(): any {
-    let _usuario = this.getLocalProfile();
+    let _usuario = this.getLocalUsuarioDados();
     if (_usuario == null) {
       return null;
     }
@@ -97,7 +103,7 @@ export class StorageService {
   }
 
   setMedicamentos(value : any) {
-    let _usuario = this.getLocalProfile();
+    let _usuario = this.getLocalUsuarioDados();
     console.log(_usuario);
     if (_usuario == null) { 
       return; 
@@ -110,7 +116,7 @@ export class StorageService {
     _perfilPessoal['medicamentos'] = value;
 
     _usuario['perfilPessoal'] = _perfilPessoal;
-    this.setUsuarioDados(_usuario);
+    this.setLocalUsuarioDados(_usuario);
   }
 
 

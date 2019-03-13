@@ -24,106 +24,29 @@ export class PessoalPage implements OnInit {
               public  alertController : AlertController) { }
 
   ngOnInit() { 
-    this.buscarDadosUsuarioApi();
-    //this.buscaProntuario_back();
+    this.lerUsuarioDados();
   }
 
-
-  buscarDadosUsuarioApi() {
+  lerUsuarioDados() {
     let _localUser = this.storage.getLocalUser();
+    console.log('PessoalPage | lerUsuarioDados');
     if(_localUser && _localUser.email) {
-      this.usuarioService.getLoggedInUser()
-      .subscribe(Response => {
-        this.usuario = Response;
-        //console.log(this.usuario);
-        this.storage.setUsuarioDados(this.usuario);
-      },
-      error => { 
-        if (error.status == 403) {
-          this.navCtrl.navigateRoot('login');
-        }
-      })
+      this.usuario = this.storage.getLocalUsuarioDados();
+      if (this.usuario == null) {
+        this.usuarioService.getLoggedInUser()
+        .subscribe(Response => {
+          this.usuario = Response;
+          this.storage.setLocalUsuarioDados(this.usuario);
+        },
+        error => { 
+          if (error.status == 403) {
+            this.navCtrl.navigateRoot('login');
+          }
+        });
+      }
     }
     else { this.navCtrl.navigateRoot('login'); }
   };
-
-
-  buscaProntuario_back() {
-
-    let localUser = this.storage.getLocalUser();
-  
-    if(localUser && localUser.email) {
-
-      /*
-      this.pessoalService.findById(localUser.id)
-      .subscribe(Response => {
-        this.pessoal = Response;
-        //this.getImageIfExist();
-        console.log('pessoa:ngOnInit');
-        console.log(Response);
-      },
-      */
-      this.pessoalService.getLoggedInUser()
-        .subscribe(Response => {
-        this.prontuario = Response;
-        //console.log(this.prontuario);
-        this.storage.setUsuarioDados(this.prontuario);
-
-
-
-      // ////////////////////////////////////////////
-      //var jsonData = [{"person":"me","age":"30"}, {"person":"you","age":"25"}];
-      var jsonData = this.prontuario;
-      /*
-      for(var i in jsonData){
-        var key = i;
-        var val = jsonData[i];
-        for(var j in val){
-          var sub_key = j;
-          var sub_val = val[j];
-          console.log(sub_key + ': ' + sub_val);
-        }
-      }
-      */
-
-      /*
-      console.log(jsonData);
-      var keys = [];
-      for(var i = 0;i<jsonData.length;i++)
-      {
-          Object.keys(jsonData[i]).forEach(function(key){
-              if(keys.indexOf(key) == -1)
-              {
-                  keys.push(key);
-              }
-          });
-      }
-      console.log(keys);
-      */
-
-    //console.log(Object.keys(jsonData));
-    //if (jsonData.perfilPessoal == null) {
-      //console.log('jsonData.perfilPessoal  / Vaziooooooooooooooo');
-    //}
-    //else {
-      //console.log(Object.keys(jsonData.perfilPessoal));
-    //}
-
-    // ////////////////////////////////////////////
-
-        },
-      error => {
-        if (error.status == 403) {
-          this.navCtrl.navigateRoot('login');
-        }
-      });
-    }
-    else {
-      this.navCtrl.navigateRoot('login');
-    }    
-
-  }
-
 
 
   getImageIfExist() {
@@ -133,14 +56,6 @@ export class PessoalPage implements OnInit {
     },
     error => {});
     //https://api-qlife.herokuapp.com/api/v1/pessoal/000/avatar
-  }
-
-  pessoalAll() {
-    this.pessoalService.findAll()
-      .subscribe(Response => {
-      },
-      error => { }
-      );
   }
 
   showFichaMedica() {

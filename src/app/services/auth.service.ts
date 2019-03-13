@@ -17,9 +17,7 @@ export class AuthService {
   authenticate(creds : CredenciaisDTO) {
     let url = API_CONFIG.loginUrl;    
     
-    //console.log(creds);
 
-    //https://github.com/TCCWebMob2017/api-springboot-mongobd/blob/master/src/main/java/data/demo/usuarios
     if((creds.email + "" == "a") && (creds.password+"" == "")) { 
       creds.email = "afelix@softquim.com.br";
       creds.password = "123456";

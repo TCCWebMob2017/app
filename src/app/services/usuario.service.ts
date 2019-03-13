@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { error } from 'util';
+import { UsuarioDTO } from '../models/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,27 @@ export class UsuarioService {
     return this.http.get<any>(url);
   }
 
+  buscarDadosUsuarioNaApiParaStorage() {
+    let _localUser = this.storage.getLocalUser();
+    if(_localUser && _localUser.email) {
+      this.getLoggedInUser()
+      .subscribe(Response => {
+        let _usuario : UsuarioDTO = Response;
+        //console.log(_usuario);
+        this.storage.setLocalUsuarioDados(_usuario);
+      },
+      error => { 
+        //if (error.status == 403) {
+        //  this.navCtrl.navigateRoot('login');
+        //}
+      })
+    }
+    //else { this.navCtrl.navigateRoot('login'); }
+  };
+
   enviarDadosDoStorageParaApi() : boolean {
 
-    let _usuario          = this.storage.getLocalProfile();
+    let _usuario          = this.storage.getLocalUsuarioDados();
     let _idUsuario        = _usuario['id'];
     let _body             = _usuario['perfilPessoal'];
     let _idPerfilPessoal  = _usuario['perfilPessoal']['id'];
@@ -38,7 +57,7 @@ export class UsuarioService {
         this.adicionarPerfilPessoal(_idUsuario,  _body)
         .subscribe(Response => {
           _usuario['perfilPessoal']['id'] = JSON.parse(Response['body'])['perfilPessoal']['id']; 
-          this.storage.setUsuarioDados(_usuario);
+          this.storage.setLocalUsuarioDados(_usuario);
           return true;
         },
         error => {

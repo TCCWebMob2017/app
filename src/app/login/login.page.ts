@@ -3,6 +3,7 @@ import { NavController, MenuController } from '@ionic/angular';
 import { CredenciaisDTO } from '../models/credenciais.dto';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +20,16 @@ export class LoginPage implements OnInit {
   public userOnLine: any;
 
   constructor(
-    public  navCtrl : NavController, 
-    public  menu    : MenuController,
-    public  auth    : AuthService,
-    private storage : StorageService) { }
+    public  navCtrl         : NavController, 
+    public  menu            : MenuController,
+    public  auth            : AuthService,
+    public  usuarioService  : UsuarioService,
+    private storage         : StorageService) { }
 
 
   ngOnInit() {
     this.storage.clearLocalUser();
+    this.storage.clearLocalUsuarioDados();
   }
 
   ionViewWillEnter(){
@@ -41,6 +44,7 @@ export class LoginPage implements OnInit {
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
         this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
+        //this.usuarioService.buscarDadosUsuarioNaApiParaStorage();
         this.navCtrl.navigateRoot('pessoal');
       },
       error => {
@@ -49,9 +53,7 @@ export class LoginPage implements OnInit {
     )
   };
 
-
   signup() { 
-    //this.navCtrl.navigateRoot('signup');
     this.navCtrl.navigateForward('signup');
   };
 
