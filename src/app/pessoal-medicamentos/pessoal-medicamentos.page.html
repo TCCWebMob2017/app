@@ -23,7 +23,7 @@
   <ion-list lines>
     <ion-item-sliding *ngFor="let item of medicamentos; index as pos" #slidingItem text-wrap>
       <!-- <ion-item *ngFor="let item of medicamentos; index as pos" text-wrap  (click)="exibirMedicamento(item)"> -->
-      <ion-item *ngIf="(item.medicamento.deleted != true)" (click)="exibirMedicamento(item)">
+      <ion-item (click)="exibirMedicamento(item)">
         <ion-label>
           <h2>{{ item?.medicamento?.nome }}</h2>
           <p>Concentracao: {{ item?.medicamento?.concentracao }}</p>
@@ -35,6 +35,7 @@
           <p *ngIf="(item?.frequencia != null && item?.frequencia != '')">  
             Frequência: {{ item?.frequencia }}
           </p>
+
         </ion-label>
         <!--
         <ion-button slot="end" fill="clear" (click)="editRow(pos, item)" *ngIf="somenteLeitura != true">
@@ -63,7 +64,7 @@
 <ion-footer>
   <ion-toolbar *ngIf="somenteLeitura != true">
     <ion-buttons slot="start">
-      <ion-back-button  icon="arrow-back" text="Anterior" defaultHref="/pessoal">
+      <ion-back-button  icon="arrow-back" text="Anterior" defaultHref="/pessoal-base">
       </ion-back-button>
     </ion-buttons>
     <ion-buttons slot="primary">

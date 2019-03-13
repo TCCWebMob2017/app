@@ -65,4 +65,9 @@ async del(slidingItem: IonItemSliding, event, item: any, index: number){
 
 
 
+
+search(q: string) { 
+  console.log(q); 
+}
+
 }

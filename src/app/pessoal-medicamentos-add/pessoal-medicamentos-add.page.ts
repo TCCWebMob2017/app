@@ -1,4 +1,3 @@
-import { MedicamentoDTO } from './../models/medicamentos';
 import { PessoalService } from './../services/pessoal.service';
 import { NavController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -13,13 +12,17 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 })
 export class PessoalMedicamentosAddPage implements OnInit {
 
-  public medicamentos_all: any;
-  public medicamentos: any;
-  searchTerm: string = '';
+  public  medicamentos_list : any;
+  public  medicamentos_all  : any;
+  public  medicamentos      : any;
+          searchTerm        : string = '';
+  private modoCRUD          : string;
+  public  somenteLeitura    : boolean;  
 
   constructor(public  navCtrl         : NavController, 
               public  pessoalService  : PessoalService,
               private storage         : StorageService,
+              private activatedRoute  : ActivatedRoute,
               public  alertController : AlertController) { }
 
   ngOnInit() {
@@ -35,6 +38,27 @@ export class PessoalMedicamentosAddPage implements OnInit {
 
   }
 
+  ionViewWillEnter() {
+    console.log('Will Enter');
+    this.obterParametrosRecebidos();
+  }
+
+  ionViewDidLoad(){}
+  ionViewDidEnter(){}
+  ionViewWillLeave(){}
+  ionViewDidLeave(){}
+  ionViewWillUnload(){}
+
+  obterParametrosRecebidos() {
+    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
+    if (this.modoCRUD == 'R') {
+      this.somenteLeitura = true;
+    }
+    else {
+      this.somenteLeitura = false;
+    }
+    console.log('PessoalMedicamentosAddPage | modoCRUD: ' + this.modoCRUD);
+  }
   setFilteredItems(ev: any) {
     let val = ev.target.value;
     this.medicamentos = this.pessoalService.filterItems(this.medicamentos_all, val);
@@ -68,25 +92,13 @@ export class PessoalMedicamentosAddPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _value = this.addMedicamento(value, data);
-
-            /*
-            let navigationExtras: NavigationExtras = {
-              queryParams: {
-                  currency: JSON.stringify(_value),
-                  refresh: _value
-              }
-            };
-            //this.navCtrl.navigateForward(['page-slug'], true, navigationExtras);
-            */
-
-            this.navCtrl.navigateBack(['pessoal-medicamentos', {value: value['id'] }]);
+            this.navCtrl.navigateBack(['pessoal-medicamentos', {modoCRUD: this.modoCRUD}]);
           }
         }
       ]
     });
     await alert.present();
   }
-
 
   addMedicamento(value : any, data : any) : any {
     let _medicm = value;
@@ -100,5 +112,16 @@ export class PessoalMedicamentosAddPage implements OnInit {
     this.storage.addMedicamentos(_medicamento);
     return _medicamento;
   }    
+
+  search(nome : string) {
+    this.pessoalService.getMedicamentosPorNome(nome)
+    .subscribe(Response => {
+      this.medicamentos_list = Response;
+    },
+    error => {
+      console.log(error);
+    });
+  }
+
 
 }

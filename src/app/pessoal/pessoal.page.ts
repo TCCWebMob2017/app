@@ -154,7 +154,7 @@ export class PessoalPage implements OnInit {
   }
 
   addPerfilPessoal() {
-    this.navCtrl.navigateForward('pessoal-base');
+    this.navCtrl.navigateForward(['pessoal-base', {modoCRUD: 'C'}]);
   }
 
   exibirPessoalBase() {

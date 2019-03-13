@@ -62,15 +62,6 @@ export class StorageService {
     }
   }
 
-  checkDeletedField(obj : any) : any {
-    for( let i=0; i<obj.length;i++) {
-      if(obj[i]['deleted'] == undefined) {
-         obj[i]['deleted'] = false;
-      }
-    }
-    return obj;
-  }
-
   getMedicamentos(): any {
     let _perfilPessoal = this.getPerfilPessoal();
     if (_perfilPessoal == null) {
@@ -78,7 +69,6 @@ export class StorageService {
     }
     else {
       let _medicamentos = _perfilPessoal['medicamentos'];
-      _medicamentos = this.checkDeletedField(_medicamentos);
       return _medicamentos;
     }
   }
@@ -86,8 +76,11 @@ export class StorageService {
   addMedicamentos(obj : any) {
     let _medicamentos = this.getMedicamentos();
     if (_medicamentos == null) { _medicamentos = []; }
-    if (obj != null) { _medicamentos.push(obj); }   
+    if (obj != null) { 
+      _medicamentos.push(obj); 
+    }
     this.setMedicamentos(_medicamentos);
+    console.log(_medicamentos);
   }
 
   modificarMedicamento(index : number, obj : any) {
@@ -103,14 +96,9 @@ export class StorageService {
     this.setMedicamentos(_medicamentos);
   }
 
-  setDeletedMedicamento(index : number) {
-    let _medicamentos = this.getMedicamentos();
-    _medicamentos['deleted'](;
-    this.setMedicamentos(_medicamentos);
-  }
-
   setMedicamentos(value : any) {
     let _usuario = this.getLocalProfile();
+    console.log(_usuario);
     if (_usuario == null) { 
       return; 
     }
@@ -118,7 +106,9 @@ export class StorageService {
     if (_perfilPessoal == null) { 
       return; 
     }
+
     _perfilPessoal['medicamentos'] = value;
+
     _usuario['perfilPessoal'] = _perfilPessoal;
     this.setUsuarioDados(_usuario);
   }

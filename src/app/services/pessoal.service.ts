@@ -63,6 +63,14 @@ export class PessoalService {
     return this.http.get<any>(url);
   }
 
+  getMedicamentosPorNome(nome : string) {
+    let url =  `${API_CONFIG.baseUrl}/api/v1/medicamento/nome?value=${nome}`;
+    console.log(url);
+    return this.http.get<any>(url);
+  }
+
+  //https://api-qlife.herokuapp.com/api/v1/medicamento/nome?value=tace
+  //https://api-qlife.herokuapp.com
   getMedicamentosAll2() : Observable<any> {
     let url =  `${API_CONFIG.baseUrl}/api/v1/medicamento/all`;
     return this.http.get(url, {responseType : 'text'});

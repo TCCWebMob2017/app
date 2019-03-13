@@ -4,22 +4,6 @@
       Ionic Blank
     </ion-title>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-segment (ionChange)="slides.slideTo(segment)" [(ngModel)]="segment">
-      <ion-segment-button value="0">
-        <ion-icon name="person"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button value="1">
-        <ion-icon name="camera"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button value="2">
-        <ion-icon name="star"></ion-icon>
-      </ion-segment-button>
-      <ion-segment-button value="3">
-        <ion-icon name="pin"></ion-icon>
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
@@ -59,6 +43,61 @@
 <br>
 
 
+
+<ion-searchbar #q
+      [showCancelButton]="true"
+      (keyup.enter)="search(q.value)">
+</ion-searchbar>
+
+
+<!-- Default -->
+<ion-button>Default</ion-button>
+
+<!-- Anchor -->
+<ion-button href="#">Anchor</ion-button>
+
+<!-- Colors -->
+<ion-button color="primary">Primary</ion-button>
+<ion-button color="secondary">Secondary</ion-button>
+<ion-button color="tertiary">Tertiary</ion-button>
+<ion-button color="success">Success</ion-button>
+<ion-button color="warning">Warning</ion-button>
+<ion-button color="danger">Danger</ion-button>
+<ion-button color="light">Light</ion-button>
+<ion-button color="medium">Medium</ion-button>
+<ion-button color="dark">Dark</ion-button>
+
+<!-- Expand -->
+<ion-button expand="full">Full Button</ion-button>
+<ion-button expand="block">Block Button</ion-button>
+
+<!-- Round -->
+<ion-button shape="round">Round Button</ion-button>
+
+<!-- Fill -->
+<ion-button expand="full" fill="outline">Outline + Full</ion-button>
+<ion-button expand="block" fill="outline">Outline + Block</ion-button>
+<ion-button shape="round" fill="outline">Outline + Round</ion-button>
+
+<!-- Icons -->
+<ion-button>
+  <ion-icon slot="start" name="star"></ion-icon>
+  Left Icon
+</ion-button>
+
+<ion-button>
+  Right Icon
+  <ion-icon slot="end" name="star"></ion-icon>
+</ion-button>
+
+<ion-button>
+  <ion-icon slot="icon-only" name="star"></ion-icon>
+</ion-button>
+
+<!-- Sizes -->
+<ion-button size="large">Large</ion-button>
+<ion-button>Default</ion-button>
+<ion-button size="small">Small</ion-button>
 
 
 

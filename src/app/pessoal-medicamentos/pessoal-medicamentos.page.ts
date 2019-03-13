@@ -24,14 +24,14 @@ export class PessoalMedicamentosPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    this.obterListaMedicamentos();
     console.log('ngOnInit');
+    this.obterListaMedicamentos();
   }
 
   ionViewWillEnter() {
-    this.obterParametrosRecebidos();
-    //this.obterListaMedicamentos();
     console.log('Will Enter');
+    this.obterParametrosRecebidos();
+    this.obterListaMedicamentos();
   }
 
   ionViewDidLoad(){}
@@ -48,17 +48,19 @@ export class PessoalMedicamentosPage implements OnInit {
     else {
       this.somenteLeitura = false;
     }
+    console.log('PessoalMedicamentosPage | modoCRUD: ' + this.modoCRUD);
   }
   
   obterListaMedicamentos() {
-    this.medicamentos = this.storage.getMedicamentos();
     console.log('obterListaMedicamentos');
+    this.medicamentos = this.storage.getMedicamentos();
     console.log(this.medicamentos);
   }
 
   exibirMedicamento(item : any) {
     console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
     console.log(item);
+    console.log(this.medicamentos);
   }
 
   gravarDados() {
@@ -115,16 +117,13 @@ export class PessoalMedicamentosPage implements OnInit {
 
   async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
   await slidingItem.close();
-    let indexx = this.medicamentos.indexOf(item);
-    
-    console.log('Item: ' + item + ' / Index: ' + index);
-    console.log(slidingItem);
-    console.log(event);
-  
+    //let indexx = this.medicamentos.indexOf(item); 
+    console.log('deleteRow');
     if(index > -1){
-        this.medicamentos.splice(index, 1);
-        this.storage.removeMedicamento(index);
-        //this.obterListaMedicamentos();
+      //this.medicamentos.splice(index, 1);
+      this.storage.removeMedicamento(index);
+      this.obterListaMedicamentos();
+      console.log(this.medicamentos);
     }
   }
 
@@ -150,7 +149,7 @@ export class PessoalMedicamentosPage implements OnInit {
   }    
 
   adicionarRegistro() {
-    this.navCtrl.navigateForward('pessoal-medicamentos-add');
+    this.navCtrl.navigateForward(['pessoal-medicamentos-add', {modoCRUD: this.modoCRUD}]);
   }
 
   cancelarEdicao() {
