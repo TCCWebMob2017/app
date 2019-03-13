@@ -24,12 +24,12 @@ export class PessoalMedicamentosPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    console.log('ngOnInit');
+    console.log('PessoalMedicamentosPage | ngOnInit');
     this.obterListaMedicamentos();
   }
 
   ionViewWillEnter() {
-    console.log('Will Enter');
+    console.log('PessoalMedicamentosPage | Will Enter');
     this.obterParametrosRecebidos();
     this.obterListaMedicamentos();
   }
@@ -64,6 +64,9 @@ export class PessoalMedicamentosPage implements OnInit {
   }
 
   gravarDados() {
+
+    //this.moverValoresFormParaSotage(value);
+
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
     }

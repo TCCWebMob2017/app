@@ -2,7 +2,6 @@ import { API_CONFIG } from 'src/config/api.config';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
-import { error } from 'util';
 import { UsuarioDTO } from '../models/usuario';
 
 @Injectable({
@@ -56,9 +55,15 @@ export class UsuarioService {
       else {
         this.adicionarPerfilPessoal(_idUsuario,  _body)
         .subscribe(Response => {
-          _usuario['perfilPessoal']['id'] = JSON.parse(Response['body'])['perfilPessoal']['id']; 
+          _usuario['perfilPessoal']['id'] = JSON.parse(Response['body'])['perfilPessoal']['id'];           
           this.storage.setLocalUsuarioDados(_usuario);
-          return true;
+          
+          this.modificarPerfilPessoal(_idUsuario,  _body)
+          .subscribe(Response => {
+            return true;
+          },
+          error => { return false; }); 
+          //return true;
         },
         error => {
           return false;
@@ -71,6 +76,11 @@ export class UsuarioService {
   }
 
   adicionarPerfilPessoal(id: string, body: any) {
+
+    console.clear;
+    console.log('adicionarPerfilPessoal llllllllllllllllll');
+    console.log(body);
+
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
     return this.http.post(url, body, { observe: 'response', responseType: 'text'});
   }

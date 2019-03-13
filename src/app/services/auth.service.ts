@@ -19,8 +19,8 @@ export class AuthService {
     
 
     if((creds.email + "" == "a") && (creds.password+"" == "")) { 
-      creds.email = "afelix@softquim.com.br";
-      creds.password = "123456";
+      creds.email = "marinakamillysuelimoreira-86@alemponte.com.br";
+      creds.password = "iZEtE2llMC";
     }
     else if((creds.email + "" == "b") && (creds.password+"" == "")) { 
       creds.email = "enzorafaeldasilva@carubelli.com.br";
@@ -43,8 +43,8 @@ export class AuthService {
       creds.password = "nTIC15CLTh";
     }
     if((creds.email + "" == "") || (creds.password+"" == "")) { 
-      creds.email = "marinakamillysuelimoreira-86@alemponte.com.br";
-      creds.password = "iZEtE2llMC";
+      creds.email = "afelix@softquim.com.br";
+      creds.password = "123456";
     }
 
     return this.http.post(url, creds, { observe: 'response', responseType: 'text' });

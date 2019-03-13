@@ -24,8 +24,14 @@ export class PessoalPage implements OnInit {
               public  alertController : AlertController) { }
 
   ngOnInit() { 
+    console.log('PessoalPage | ngOnInit');
     this.lerUsuarioDados();
   }
+
+  ionViewWillEnter() {
+    console.log('PessoalPage | Will Enter');
+    this.lerUsuarioDados();
+  }  
 
   lerUsuarioDados() {
     let _localUser = this.storage.getLocalUser();

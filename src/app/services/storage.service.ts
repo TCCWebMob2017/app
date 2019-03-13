@@ -68,6 +68,16 @@ export class StorageService {
     }
   }
 
+  clearPerfilPessoal() {
+    let _usuario = this.getLocalUsuarioDados();
+    if (_usuario != null) {
+
+      _usuario['perfilPessoal'] = null;
+      this.setLocalUsuarioDados(_usuario);
+
+    }
+  }
+
   getMedicamentos(): any {
     let _perfilPessoal = this.getPerfilPessoal();
     if (_perfilPessoal == null) {

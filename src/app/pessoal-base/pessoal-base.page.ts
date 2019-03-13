@@ -77,7 +77,10 @@ export class PessoalBasePage implements OnInit {
   onSubmit(value : any) {
     this.submitted = true;
     this.moverValoresFormParaSotage(value);
-    this.gravarDadosNaApi();
+    if (this.usuarioService.enviarDadosDoStorageParaApi()) {
+      //this.gravaDadosPresentToast();
+    }
+    this.irParaTelaAnterior();
   }
 
 
@@ -105,16 +108,10 @@ export class PessoalBasePage implements OnInit {
   gravarDados(value : any) {
     this.submitted = true;
     this.moverValoresFormParaSotage(value);
-    this.gravarDadosNaApi();
-  }
-
-  gravarDadosNaApi(){
-
     if (this.usuarioService.enviarDadosDoStorageParaApi()) {
       //this.gravaDadosPresentToast();
     }
     this.irParaTelaAnterior();
-
   }
 
   async gravaDadosPresentToast() {
@@ -167,6 +164,11 @@ export class PessoalBasePage implements OnInit {
             if (_idUsuario != null) {
               this.usuarioService.excluirPerfilPessoal(_idUsuario)
               .subscribe(Response => {
+                console.log('PessoalBasePage | excluirPerfilPessoal');
+                console.log(Response);
+
+                this.storage.clearPerfilPessoal();
+
                 this.deletePresentToast();
                 this.irParaTelaAnterior();
               },

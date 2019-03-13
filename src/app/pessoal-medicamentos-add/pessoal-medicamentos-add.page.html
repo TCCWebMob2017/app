@@ -14,8 +14,14 @@
                     (ionInput)="setFilteredItems($event)"
                     [showCancelButton]="false"
                     (keyup.enter)="search(q.value)">
-    <ion-button size="small" (click)=search(q.value)>Buscar</ion-button>
     </ion-searchbar>
+    
+
+
+    <div style="margin: 1px 1px 1px 12px">
+      <ion-button size="small" (click)=search(q.value)>Buscar</ion-button>
+    </div>
+
 
     <ion-list lines>
       <ion-item *ngFor="let item of medicamentos_list" (click)="selecionarMedicamento(item)">
