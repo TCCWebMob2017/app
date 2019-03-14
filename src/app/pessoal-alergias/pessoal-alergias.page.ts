@@ -130,7 +130,7 @@ export class PessoalAlergiasPage implements OnInit {
   }
 
   irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-dependentes', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateForward(['pessoal-drogas', {modoCRUD: this.modoCRUD}]);
   }
 
 }

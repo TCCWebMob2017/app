@@ -83,6 +83,11 @@ export class PessoalService {
     return this.http.get<any>(url);
   }
 
+  getDrogasPorNome(nome : string) {
+    let url =  `${API_CONFIG.baseUrl}/api/v1/droga/nome?value=${nome}`;
+    return this.http.get<any>(url);
+  }
+
   filterItems(obj: any, searchTerm){
     return obj.filter((item) => {
         return item.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;

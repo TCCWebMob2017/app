@@ -25,13 +25,13 @@ export class PessoalMedicamentosPage implements OnInit {
 
   ngOnInit() {
     console.log('PessoalMedicamentosPage | ngOnInit');
-    this.obterListaMedicamentos();
+    this.obterListaItens();
   }
 
   ionViewWillEnter() {
     console.log('PessoalMedicamentosPage | Will Enter');
     this.obterParametrosRecebidos();
-    this.obterListaMedicamentos();
+    this.obterListaItens();
   }
 
   ionViewDidLoad(){}
@@ -51,7 +51,7 @@ export class PessoalMedicamentosPage implements OnInit {
     console.log('PessoalMedicamentosPage | modoCRUD: ' + this.modoCRUD);
   }
   
-  obterListaMedicamentos() {
+  obterListaItens() {
     console.log('obterListaMedicamentos');
     this.listaItens = this.storage.getMedicamentos();
     console.log(this.listaItens);
@@ -59,14 +59,10 @@ export class PessoalMedicamentosPage implements OnInit {
 
   exibirRegistro(item : any) {
     console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
-    console.log(item);
-    console.log(this.listaItens);
   }
 
   gravarDados() {
-
     //this.moverValoresFormParaSotage(value);
-
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
     }
@@ -125,7 +121,7 @@ export class PessoalMedicamentosPage implements OnInit {
     if(index > -1){
       //this.medicamentos.splice(index, 1);
       this.storage.removeMedicamento(index);
-      this.obterListaMedicamentos();
+      this.obterListaItens();
       console.log(this.listaItens);
     }
   }
@@ -143,7 +139,7 @@ export class PessoalMedicamentosPage implements OnInit {
           text: 'Ok',
           handler: () => {
             this.storage.removeMedicamento(position);
-            this.obterListaMedicamentos();
+            this.obterListaItens();
           }
         }
       ]
@@ -171,5 +167,4 @@ export class PessoalMedicamentosPage implements OnInit {
     this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
   }
 
- 
 }

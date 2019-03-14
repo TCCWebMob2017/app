@@ -1,24 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, IonItemSliding } from '@ionic/angular';
-import { StorageService } from '../services/storage.service';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController, IonItemSliding } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
 import { PessoalService } from '../services/pessoal.service';
+import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({
-  selector: 'app-pessoal-doencas',
-  templateUrl: './pessoal-doencas.page.html',
-  styleUrls: ['./pessoal-doencas.page.scss'],
+  selector: 'app-pessoal-drogas',
+  templateUrl: './pessoal-drogas.page.html',
+  styleUrls: ['./pessoal-drogas.page.scss'],
 })
-export class PessoalDoencasPage implements OnInit {
-  public  tituloJanela    : string = "Doenças";
-  public  nomeObjetoLista : string = "doencas";
-  public  nomeObjeto      : string = "doenca";
+export class PessoalDrogasPage implements OnInit {
+  public  tituloJanela    : string = "Drogas";
+  public  nomeObjetoLista : string = "drogas";
+  public  nomeObjeto      : string = "droga";
   public  listaItens      : any;
   private modoCRUD        : string;
   public  somenteLeitura  : boolean;
 
-  constructor(public  navCtrl         : NavController, 
+  constructor(public  navCtrl         : NavController,
               public  alertController : AlertController,
               private activatedRoute  : ActivatedRoute,
               public  pessoalService  : PessoalService,
@@ -79,7 +80,7 @@ export class PessoalDoencasPage implements OnInit {
       header: 'Modificar dados',
       message: '<b>' + obj[this.nomeObjeto]['nome'] + '</b>',
       inputs: [
-        //{ name: 'dosagem',          type: 'text', value: obj.dosagem,          placeholder: 'Dosagem' },
+        { name: 'frequecia',        type: 'text', value: obj.dosagem,          placeholder: 'Frequência' },
         { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
       ],
       buttons: [
@@ -91,7 +92,7 @@ export class PessoalDoencasPage implements OnInit {
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
-            //obj['dosagem']           = data['dosagem'];
+            obj['frequecia']         = data['frequecia'];
             obj['observacao']        = data['observacao'];
             this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
           }
@@ -112,7 +113,7 @@ export class PessoalDoencasPage implements OnInit {
     }
 
   adicionarRegistro() {
-    this.navCtrl.navigateForward('pessoal-doencas-add');
+    this.navCtrl.navigateForward('pessoal-drogas-add');
   }
 
   cancelarEdicao() {
@@ -124,11 +125,11 @@ export class PessoalDoencasPage implements OnInit {
   }
 
   irParaTelaAnterior() {
-    this.navCtrl.navigateBack(['pessoal-medicamentos', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateBack(['pessoal-alergias', {modoCRUD: this.modoCRUD}]);
   }
 
   irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-alergias', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateForward(['pessoal-cirurgias', {modoCRUD: this.modoCRUD}]);
   }
 
 }

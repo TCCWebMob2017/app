@@ -59,7 +59,7 @@ export class PessoalDoencasAddPage implements OnInit {
   async alertConfirmarAdicaoDeItem(value : any) {
     const alert = await this.alertController.create({
       header: this.tituloJanela,
-      message: 'O registro <b>' + value['nome'] + '</b> será adicionado.',
+      message: 'O item <b>' + value['nome'] + '</b> será adicionado.',
       inputs: [
       //{ name: 'desde',            type: 'text', value: '', placeholder: 'Desde' },
         { name: 'observacao',       type: 'text', value: '', placeholder: 'Observação' }

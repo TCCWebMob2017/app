@@ -17,7 +17,10 @@ const routes: Routes = [
   { path: 'pessoal-doenca-det', loadChildren: './pessoal-doenca-det/pessoal-doenca-det.module#PessoalDoencaDetPageModule' },
   { path: 'pessoal-medicamentos-add', loadChildren: './pessoal-medicamentos-add/pessoal-medicamentos-add.module#PessoalMedicamentosAddPageModule' },
   { path: 'pessoal-alergias', loadChildren: './pessoal-alergias/pessoal-alergias.module#PessoalAlergiasPageModule' },  { path: 'pessoal-doencas-add', loadChildren: './pessoal-doencas-add/pessoal-doencas-add.module#PessoalDoencasAddPageModule' },
-  { path: 'pessoal-alergias-add', loadChildren: './pessoal-alergias-add/pessoal-alergias-add.module#PessoalAlergiasAddPageModule' }
+  { path: 'pessoal-alergias-add', loadChildren: './pessoal-alergias-add/pessoal-alergias-add.module#PessoalAlergiasAddPageModule' },
+  { path: 'pessoal-drogas', loadChildren: './pessoal-drogas/pessoal-drogas.module#PessoalDrogasPageModule' },
+  { path: 'pessoal-drogas-add', loadChildren: './pessoal-drogas-add/pessoal-drogas-add.module#PessoalDrogasAddPageModule' },
+  { path: 'pessoal-dependentes', loadChildren: './pessoal-dependentes/pessoal-dependentes.module#PessoalDependentesPageModule' }
 
 
 

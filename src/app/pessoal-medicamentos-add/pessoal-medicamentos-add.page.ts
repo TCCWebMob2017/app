@@ -63,7 +63,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
   async alertConfirmarAdicaoDeItem(value : any) {
     const alert = await this.alertController.create({
       header: 'Adicionar medicamento',
-      message: 'O medicamento <b>' + value['nome'] + '</b> será adicionado.',
+      message: 'O item <b>' + value['nome'] + '</b> será adicionado.',
       inputs: [
         { name: 'frequencia',       type: 'text', value: '', placeholder: 'Frequência de uso' },
         { name: 'dosagem',          type: 'text', value: '', placeholder: 'Dosagem' },
