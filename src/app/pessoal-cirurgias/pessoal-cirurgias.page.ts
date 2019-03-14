@@ -7,14 +7,14 @@ import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
 
 @Component({
-  selector: 'app-pessoal-drogas',
-  templateUrl: './pessoal-drogas.page.html',
-  styleUrls: ['./pessoal-drogas.page.scss'],
+  selector: 'app-pessoal-cirurgias',
+  templateUrl: './pessoal-cirurgias.page.html',
+  styleUrls: ['./pessoal-cirurgias.page.scss'],
 })
-export class PessoalDrogasPage implements OnInit {
-  public  tituloJanela    : string = "Drogas";
-  public  nomeObjetoLista : string = "drogas";
-  public  nomeObjeto      : string = "droga";
+export class PessoalCirurgiasPage implements OnInit {
+  public  tituloJanela    : string = "Cirurgias";
+  public  nomeObjetoLista : string = "cirurgias";
+  public  nomeObjeto      : string = "cirurgia";
   public  listaItens      : any;
   private modoCRUD        : string;
   public  somenteLeitura  : boolean;
@@ -80,7 +80,7 @@ export class PessoalDrogasPage implements OnInit {
       header: 'Modificar dados',
       message: '<b>' + obj[this.nomeObjeto]['nome'] + '</b>',
       inputs: [
-        { name: 'frequecia',        type: 'text', value: obj.frequecia,        placeholder: 'Frequência' },
+        { name: 'descricao',        type: 'text', value: obj.descricao,        placeholder: 'Descrição' },
         { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
       ],
       buttons: [
@@ -92,7 +92,7 @@ export class PessoalDrogasPage implements OnInit {
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
-            obj['frequecia']         = data['frequecia'];
+            obj['descricao']         = data['descricao'];
             obj['observacao']        = data['observacao'];
             this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
           }
@@ -113,8 +113,45 @@ export class PessoalDrogasPage implements OnInit {
     }
 
   adicionarRegistro() {
-    this.navCtrl.navigateForward('pessoal-drogas-add');
+    //this.navCtrl.navigateForward('pessoal-drogas-add');
+    this.alertAdicionarItem();
   }
+
+  async alertAdicionarItem() {
+
+    let obj = { descricao: "" ,  observacao: ""} ;
+    let pos = 0;
+
+    console.log(obj);
+
+    const alert = await this.alertController.create({
+      header: 'Adicionar  dados',
+      message: '<b>' + obj[this.nomeObjeto]['descricao'] + '</b>',
+      inputs: [
+        { name: 'descricao',        type: 'text', value: obj.descricao,        placeholder: 'Descrição' },
+        { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
+      ],
+      buttons: [
+        {
+          text: 'Cancel', role: 'cancel', cssClass: 'secondary',
+          handler: () => {
+            //console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: ( data = Response ) => {
+            obj['descricao']         = data['descricao'];
+            obj['observacao']        = data['observacao'];
+
+            //this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
+            
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
 
   cancelarEdicao() {
     this.irParaTelaHome();
@@ -125,11 +162,11 @@ export class PessoalDrogasPage implements OnInit {
   }
 
   irParaTelaAnterior() {
-    this.navCtrl.navigateBack(['pessoal-alergias', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateBack(['pessoal-drogas', {modoCRUD: this.modoCRUD}]);
   }
 
   irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-cirurgias', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateForward(['pessoal-dependentes', {modoCRUD: this.modoCRUD}]);
   }
 
 }

@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: 'pessoal-alergias-add', loadChildren: './pessoal-alergias-add/pessoal-alergias-add.module#PessoalAlergiasAddPageModule' },
   { path: 'pessoal-drogas', loadChildren: './pessoal-drogas/pessoal-drogas.module#PessoalDrogasPageModule' },
   { path: 'pessoal-drogas-add', loadChildren: './pessoal-drogas-add/pessoal-drogas-add.module#PessoalDrogasAddPageModule' },
-  { path: 'pessoal-dependentes', loadChildren: './pessoal-dependentes/pessoal-dependentes.module#PessoalDependentesPageModule' }
+  { path: 'pessoal-dependentes', loadChildren: './pessoal-dependentes/pessoal-dependentes.module#PessoalDependentesPageModule' },
+  { path: 'pessoal-cirurgias', loadChildren: './pessoal-cirurgias/pessoal-cirurgias.module#PessoalCirurgiasPageModule' }
 
 
 
