@@ -59,20 +59,31 @@
       <ion-label>Alergias</ion-label>
     </ion-item>
 
-    <ion-item class="activated" (click)="exibirPessoalDependentes()">
-      <ion-icon name="people" slot="start"></ion-icon>
-      <ion-label>Dependentes</ion-label>
-    </ion-item>   
+    <ion-item class="activated" (click)="exibirPessoalDrogas()">
+      <!-- <ion-icon name="jet" slot="start"></ion-icon> -->
+      <ion-icon name="leaf" slot="start"></ion-icon>
+      <ion-label>Drogas</ion-label>
+    </ion-item> 
   
     <ion-item (click)="exibirPessoalCirurgias()">
       <ion-icon name="pulse" slot="start"></ion-icon>
       <ion-label>Cirurgias</ion-label>
     </ion-item>
 
-    <ion-item class="activated" (click)="exibirPessoalPermissoes()">
+    <ion-item class="activated" (click)="exibirPessoalDependentes()">
+      <ion-icon name="people" slot="start"></ion-icon>
+      <ion-label>Dependentes</ion-label>
+    </ion-item>
+
+    <ion-item (click)="exibirPessoalPermissoes()">
       <ion-icon name="lock" slot="start"></ion-icon>
       <ion-label>Permissões</ion-label>
-    </ion-item> 
+    </ion-item>
+
+    <ion-item class="activated" (click)="exibirFichaMedica()">
+      <ion-icon name="medical" slot="start"></ion-icon>
+      <ion-label>Ficha médica</ion-label>
+    </ion-item>
 
   </ion-card>
 

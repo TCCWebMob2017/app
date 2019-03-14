@@ -65,7 +65,6 @@ export class PessoalService {
 
   getMedicamentosPorNome(nome : string) {
     let url =  `${API_CONFIG.baseUrl}/api/v1/medicamento/nome?value=${nome}`;
-    console.log(url);
     return this.http.get<any>(url);
   }
 
@@ -76,10 +75,14 @@ export class PessoalService {
 
   getDoencasPorNome(nome : string) {
     let url =  `${API_CONFIG.baseUrl}/api/v1/doenca/nome?value=${nome}`;
-    console.log(url);
     return this.http.get<any>(url);
   }
   
+  getAlergiasPorNome(nome : string) {
+    let url =  `${API_CONFIG.baseUrl}/api/v1/alergia/nome?value=${nome}`;
+    return this.http.get<any>(url);
+  }
+
   filterItems(obj: any, searchTerm){
     return obj.filter((item) => {
         return item.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;

@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'pessoal-doencas', loadChildren: './pessoal-doencas/pessoal-doencas.module#PessoalDoencasPageModule' },
   { path: 'pessoal-doenca-det', loadChildren: './pessoal-doenca-det/pessoal-doenca-det.module#PessoalDoencaDetPageModule' },
   { path: 'pessoal-medicamentos-add', loadChildren: './pessoal-medicamentos-add/pessoal-medicamentos-add.module#PessoalMedicamentosAddPageModule' },
-  { path: 'pessoal-alergias', loadChildren: './pessoal-alergias/pessoal-alergias.module#PessoalAlergiasPageModule' },  { path: 'pessoal-doencas-add', loadChildren: './pessoal-doencas-add/pessoal-doencas-add.module#PessoalDoencasAddPageModule' }
+  { path: 'pessoal-alergias', loadChildren: './pessoal-alergias/pessoal-alergias.module#PessoalAlergiasPageModule' },  { path: 'pessoal-doencas-add', loadChildren: './pessoal-doencas-add/pessoal-doencas-add.module#PessoalDoencasAddPageModule' },
+  { path: 'pessoal-alergias-add', loadChildren: './pessoal-alergias-add/pessoal-alergias-add.module#PessoalAlergiasAddPageModule' }
 
 
 

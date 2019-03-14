@@ -45,9 +45,7 @@ export class PessoalPage implements OnInit {
           this.storage.setLocalUsuarioDados(this.usuario);
         },
         error => { 
-          if (error.status == 403) {
-            this.navCtrl.navigateRoot('login');
-          }
+          if (error.status == 403) { this.navCtrl.navigateRoot('login'); }
         });
       }
     }
@@ -64,50 +62,16 @@ export class PessoalPage implements OnInit {
     //https://api-qlife.herokuapp.com/api/v1/pessoal/000/avatar
   }
 
-  showFichaMedica() {
-    //this.navCtrl.navigateRoot('ficha-medica'); //, this.pessoal );
-    this.navCtrl.navigateForward('ficha-medica');
-    //this.router.navigateByUrl(path);
-  }
-
-  showFichaMedicaForward() {
-    this.navCtrl.navigateForward('ficha-medica');
-  }
-
-  addPerfilPessoal() {
-    this.navCtrl.navigateForward(['pessoal-base', {modoCRUD: 'C'}]);
-  }
-
-  exibirPessoalBase() {
-    this.navCtrl.navigateForward(['pessoal-base', {modoCRUD: 'R'}]);
-  }
-
-  modificarPessoalBase() {
-    this.navCtrl.navigateForward(['pessoal-base', {modoCRUD: 'U'}]);
-  }
-
-  exibirPessoalMedicamentos() {
-    this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: 'R'}]);
-  }
-
-  exibirPessoalDoencas() {
-    this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: 'R'}]);
-  }
-
-  exibirPessoalAlergias() {
-    this.navCtrl.navigateForward(['pessoal-alergias', {modoCRUD: 'R'}]);
-  }
-
-  exibirPessoalDependentes() {
-    this.navCtrl.navigateForward(['pessoal-dependentes', {modoCRUD: 'R'}]);
-  }
-
-  exibirPessoalCirurgias() {
-    this.navCtrl.navigateForward(['pessoal-cirurgias', {modoCRUD: 'R'}]);
-  }
-
-  exibirPessoalPermissoes() {
-    this.navCtrl.navigateForward(['pessoal-permissoes', {modoCRUD: 'R'}]);
-  }  
+  addPerfilPessoal()          { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'C'}]); }
+  exibirPessoalBase()         { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'R'}]); }
+  modificarPessoalBase()      { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'U'}]); }
+  exibirPessoalMedicamentos() { this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: 'R'}]); }
+  exibirPessoalDoencas()      { this.navCtrl.navigateForward(['pessoal-doencas',      {modoCRUD: 'R'}]); }
+  exibirPessoalAlergias()     { this.navCtrl.navigateForward(['pessoal-alergias',     {modoCRUD: 'R'}]); }
+  exibirPessoalDrogas()       { this.navCtrl.navigateForward(['pessoal-drogas',       {modoCRUD: 'R'}]); }
+  exibirPessoalCirurgias()    { this.navCtrl.navigateForward(['pessoal-cirurgias',    {modoCRUD: 'R'}]); }
+  exibirPessoalDependentes()  { this.navCtrl.navigateForward(['pessoal-dependentes',  {modoCRUD: 'R'}]); }
+  exibirPessoalPermissoes()   { this.navCtrl.navigateForward(['pessoal-permissoes',   {modoCRUD: 'R'}]); }
+  exibirFichaMedica()         { this.navCtrl.navigateForward(['ficha-medica'])}
 
 }

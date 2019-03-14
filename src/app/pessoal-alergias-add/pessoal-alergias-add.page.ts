@@ -6,15 +6,15 @@ import { PessoalService } from '../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 
 @Component({
-  selector: 'app-pessoal-doencas-add',
-  templateUrl: './pessoal-doencas-add.page.html',
-  styleUrls: ['./pessoal-doencas-add.page.scss'],
+  selector: 'app-pessoal-alergias-add',
+  templateUrl: './pessoal-alergias-add.page.html',
+  styleUrls: ['./pessoal-alergias-add.page.scss'],
 })
-export class PessoalDoencasAddPage implements OnInit {
-  public  tituloJanela      : string = "Adicionar doença";
-  public  nomeObjetoLista   : string = "doencas";
-  public  nomeObjeto        : string = "doenca";
-  public  paginaAnterior    : string = "pessoal-doencas";
+export class PessoalAlergiasAddPage implements OnInit {
+  public  tituloJanela      : string = "Adicionar alergia";
+  public  nomeObjetoLista   : string = "alergias";
+  public  nomeObjeto        : string = "alergia";
+  public  paginaAnterior    : string = "pessoal-alergias";
   public  lista_items       : any;
           searchTerm        : string = '';
   private modoCRUD          : string;
@@ -92,7 +92,7 @@ export class PessoalDoencasAddPage implements OnInit {
   }
 
   search(nome : string) {
-    this.pessoalService.getDoencasPorNome(nome)
+    this.pessoalService.getAlergiasPorNome(nome)
     .subscribe(Response => {
       this.lista_items = Response;
     },
