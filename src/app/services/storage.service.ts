@@ -56,7 +56,6 @@ export class StorageService {
     localStorage.removeItem(STORAGE_KEY.localProfile);
   }
 
-
   getPerfilPessoal(): any {
     let _usuario = this.getLocalUsuarioDados();
     if (_usuario == null) {
@@ -71,10 +70,8 @@ export class StorageService {
   clearPerfilPessoal() {
     let _usuario = this.getLocalUsuarioDados();
     if (_usuario != null) {
-
       _usuario['perfilPessoal'] = null;
       this.setLocalUsuarioDados(_usuario);
-
     }
   }
 
@@ -114,43 +111,35 @@ export class StorageService {
 
   setMedicamentos(value : any) {
     let _usuario = this.getLocalUsuarioDados();
-    console.log(_usuario);
     if (_usuario == null) { 
-      return; 
+      return;
     }
     let _perfilPessoal = _usuario['perfilPessoal'];
-    if (_perfilPessoal == null) { 
-      return; 
+    if (_perfilPessoal == null) {
+      return;
     }
-
     _perfilPessoal['medicamentos'] = value;
-
     _usuario['perfilPessoal'] = _perfilPessoal;
     this.setLocalUsuarioDados(_usuario);
   }
 
-
-  addRegistroAhLista(obj : any, nome_obj : string) {
+  addRegistroAhLista(obj : any, nomeObj : string) {
     let _usuario = this.getLocalUsuarioDados();
     if (_usuario != null) {
       let _perfilPessoal = _usuario['perfilPessoal'];
       if (_perfilPessoal != null) {
-        let _listaObj = _perfilPessoal[nome_obj];
+        let _listaObj = _perfilPessoal[nomeObj];
         if (_listaObj == null) { 
           _listaObj = [];
         }
         if (obj != null) {
           _listaObj.push(obj);
-          _perfilPessoal[nome_obj] = _listaObj;
+          _perfilPessoal[nomeObj] = _listaObj;
           _usuario['perfilPessoal'] = _perfilPessoal;
           this.setLocalUsuarioDados(_usuario);
         }
       }  
     }
-
-
-    console.log('_usuario oooooooooooooooooooooooooo');
-    console.log(_usuario);
   }
 
 }

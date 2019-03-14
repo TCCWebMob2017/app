@@ -23,12 +23,14 @@
     <ion-item-sliding *ngFor="let item of listaItens; index as pos" #slidingItem text-wrap>
       <ion-item (click)="exibirRegistro(item)">
         <ion-label text-wrap>
-          <h2>{{ item?.doenca?.nome }}</h2>
+
+          <h2><b>{{ item?.doenca?.nome }}</b></h2>
           <h3>CID: {{ item?.doenca?.cid }}</h3>
           <h3 *ngIf="(item?.doenca?.nomesPopulares != null && item?.doenca?.nomesPopulares != '')">  
             Nomes Populares: {{ item?.doenca?.nomesPopulares }} </h3>
           <h3 *ngIf="(item?.observacao != null && item?.observacao != '')">  
             Observação: {{ item?.observacao }} </h3>
+
         </ion-label>
       </ion-item>
       <ion-item-options side="end" 
