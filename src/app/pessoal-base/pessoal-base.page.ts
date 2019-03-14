@@ -55,7 +55,6 @@ export class PessoalBasePage implements OnInit {
   }
   obterParametrosRecebidos() {
     this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    console.log('modoCRUD: ' + this.modoCRUD);
     if (this.modoCRUD == 'R') {
       this.somenteLeitura = true;
     }
