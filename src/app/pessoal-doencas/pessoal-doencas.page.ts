@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, IonItemSliding } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { PessoalService } from '../services/pessoal.service';
@@ -11,10 +11,12 @@ import { UsuarioService } from '../services/usuario.service';
   styleUrls: ['./pessoal-doencas.page.scss'],
 })
 export class PessoalDoencasPage implements OnInit {
-  public  tituloJanela  : string = "Doenças";
-  public  listaItens       : any;
-  private modoCRUD      : string;
-  public  somenteLeitura: boolean;
+  public  tituloJanela    : string = "Doenças";
+  public  nomeObjetoLista : string = "doencas";
+  public  nomeObjeto      : string = "doenca";
+  public  listaItens      : any;
+  private modoCRUD        : string;
+  public  somenteLeitura  : boolean;
 
   constructor(public  navCtrl         : NavController, 
               public  alertController : AlertController,
@@ -24,8 +26,21 @@ export class PessoalDoencasPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    this.listaItens = this.storage.getMedicamentos();
+    console.log('PessoalDoencasPage | ngOnInit');
+    this.obterListaDoencas();
   }
+
+  ionViewWillEnter(){
+    console.log('PessoalDoencasPage | Will Enter');
+    this.obterParametrosRecebidos();
+    this.obterListaDoencas();
+  }
+
+  ionViewDidLoad(){}
+  ionViewDidEnter(){}
+  ionViewWillLeave(){}
+  ionViewDidLeave(){}
+  ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
     this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
@@ -40,7 +55,7 @@ export class PessoalDoencasPage implements OnInit {
   obterListaDoencas() {
     let _localProfile   = this.storage.getLocalUsuarioDados();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
-    this.listaItens     = _perfilPessoal['doencas'];
+    this.listaItens     = _perfilPessoal[this.nomeObjetoLista];
   }
 
   exibirRegistro() {
@@ -54,31 +69,19 @@ export class PessoalDoencasPage implements OnInit {
     this.irParaTelaHome();
   }
 
-  ionViewWillEnter(){
-    this.obterParametrosRecebidos();
-    this.obterListaDoencas();
-  }
-
-  ionViewDidLoad(){}
-  ionViewDidEnter(){}
-  ionViewWillLeave(){}
-  ionViewDidLeave(){}
-  ionViewWillUnload(){}
-
-  editRow(pos : number, value: any) {
-    if (value!= null) { 
-      this.alertModificarItem(pos, value);
+  async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
+    await slidingItem.close();
+    if (item!= null) {
+      this.alertModificarItem(pos, item);
     }    
   }
 
   async alertModificarItem(pos: number , obj : any) {
     const alert = await this.alertController.create({
       header: 'Modificar dados',
-      message: '<b>' + obj['medicamento']['nome'] + '</b>',
+      message: '<b>' + obj[this.nomeObjeto]['nome'] + '</b>',
       inputs: [
-        { name: 'frequencia',       type: 'text', value: obj.frequencia,       placeholder: 'Frequência de uso' },
-        { name: 'dosagem',          type: 'text', value: obj.dosagem,          placeholder: 'Dosagem' },
-        { name: 'viaAdministracao', type: 'text', value: obj.viaAdministracao, placeholder: 'Via de administração' },
+        //{ name: 'dosagem',          type: 'text', value: obj.dosagem,          placeholder: 'Dosagem' },
         { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
       ],
       buttons: [
@@ -90,11 +93,9 @@ export class PessoalDoencasPage implements OnInit {
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
-            obj['frequencia']        = data['frequencia'];
-            obj['dosagem']           = data['dosagem'];
-            obj['viaAdministracao']  = data['viaAdministracao'];
+            //obj['dosagem']           = data['dosagem'];
             obj['observacao']        = data['observacao'];
-            this.storage.modificarMedicamento(pos, obj);
+            this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
           }
         }
       ]
@@ -102,26 +103,15 @@ export class PessoalDoencasPage implements OnInit {
     await alert.present();
   }
 
-  async deleteRow(position) {
-    const alert = await this.alertController.create({
-      header:  'Eliminar registro',
-      message: 'O medicamento será eliminado.',
-      buttons: [
-        {
-          text: 'Cancelar', role: 'cancel', cssClass: 'secondary',
-          handler: () => { }
-        },
-        {
-          text: 'Ok',
-          handler: () => {
-            this.storage.removeMedicamento(position);
-            this.obterListaDoencas();
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }    
+  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
+    await slidingItem.close();
+      console.log('deleteRow');
+      if(index > -1){
+        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
+        this.obterListaDoencas();
+        console.log(this.listaItens);
+      }
+    }
 
   adicionarRegistro() {
     this.navCtrl.navigateForward('pessoal-doencas-add');
