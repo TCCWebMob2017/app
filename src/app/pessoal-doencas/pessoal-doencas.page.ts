@@ -43,7 +43,7 @@ export class PessoalDoencasPage implements OnInit {
     this.listaItens     = _perfilPessoal['doencas'];
   }
 
-  exibirMedicamento() {
+  exibirRegistro() {
 
   }
 

@@ -67,7 +67,7 @@ export class PessoalDoencasAddPage implements OnInit {
       header: 'Adicionar doença',
       message: 'A doença <b>' + value['nome'] + '</b> será adicionada.',
       inputs: [
-        { name: 'desde',            type: 'text', value: '', placeholder: 'Desde' },
+      //{ name: 'desde',            type: 'text', value: '', placeholder: 'Desde' },
         { name: 'observacao',       type: 'text', value: '', placeholder: 'Observação' }
       ],
       buttons: [
@@ -89,15 +89,24 @@ export class PessoalDoencasAddPage implements OnInit {
   }
 
   addRegistro(value : any, data : any) : any {
-    let _novoRegistro = value;
-    let _medicamento = { };
-    _medicamento['privacidade']       = { };
-    _medicamento['desde']             = data['desde'];
-    _medicamento['observacao']        = data['observacao'];
-    _medicamento['medicamento']       = _novoRegistro;
-    this.storage.addMedicamentos(_medicamento);
-    return _medicamento;
-  }    
+
+    console.log('value eeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+    console.log(value);
+    console.log(data);
+
+
+    let _obj = { };
+    _obj['privacidade'] = { };
+  //_obj['desde']       = data['desde'];
+    _obj['desde']       = null;
+    _obj['observacao']  = data['observacao'];
+    _obj['doenca']      = value;
+    this.storage.addRegistroAhLista(_obj, "doencas");
+
+    console.log('_obj jjjjjjjjjjjjjjjjjjjjjjj');
+    console.log(_obj);
+    return _obj;
+  }
 
   search(nome : string) {
     this.pessoalService.getDoencasPorNome(nome)

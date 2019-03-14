@@ -20,26 +20,26 @@
   </ion-fab>
 
   <ion-list lines>
-    <!-- (click)="selecionarMedicamento(item)
-    -->
-      <ion-item *ngFor="let item of listaItens; index as pos" text-wrap  
-                (click)="exibirMedicamento(item)">
-        <ion-label>
+    <ion-item-sliding *ngFor="let item of listaItens; index as pos" #slidingItem text-wrap>
+      <ion-item (click)="exibirRegistro(item)">
+        <ion-label text-wrap>
           <h2>{{ item?.doenca?.nome }}</h2>
-          <p>CID: {{ item?.doenca?.cid }}</p>
-          <p>Forma Farm: {{ item?.doenca?.formaFarmaceutica }}</p>
-          <p *ngIf="(item?.nomesPopulares != null && item?.nomesPopulares != '')">  
-            Nomes Populares: {{ item?.nomesPopulares }} 
-          </p>
+          <h3>CID: {{ item?.doenca?.cid }}</h3>
+          <h3 *ngIf="(item?.doenca?.nomesPopulares != null && item?.doenca?.nomesPopulares != '')">  
+            Nomes Populares: {{ item?.doenca?.nomesPopulares }} </h3>
+          <h3 *ngIf="(item?.observacao != null && item?.observacao != '')">  
+            Observação: {{ item?.observacao }} </h3>
         </ion-label>
-        <ion-button slot="end" fill="clear" (click)="editRow(pos, item)" *ngIf="somenteLeitura != true">
-          <ion-icon slot="icon-only" name="create"></ion-icon>
-        </ion-button>
-        <ion-button slot="end" fill="clear" (click)="deleteRow(pos)" *ngIf="somenteLeitura != true">
-          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
-        </ion-button>
       </ion-item>
-    </ion-list>
+      <ion-item-options side="end" 
+                        (ionSwipe)="deleteRow(slidingItem, $event, item, pos)" 
+                        *ngIf="somenteLeitura != true">
+        <ion-item-option (click)="editRow(slidingItem, item, pos)">Modificar</ion-item-option>
+        <ion-item-option color="danger" expandable (click)="deleteRow(slidingItem, $event, item, pos)">Excluir</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>  
+  </ion-list>
+
 </ion-content>
 <!------------------------------------------------------------------------------>
 <ion-footer>

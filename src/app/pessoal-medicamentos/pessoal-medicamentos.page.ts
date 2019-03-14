@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PessoalMedicamentosPage implements OnInit {  
   public  tituloJanela  : string = "Medicamentos";
-  public  medicamentos  : any;
+  public  listaItens    : any;
   private modoCRUD      : string;
   public  somenteLeitura: boolean;
 
@@ -53,14 +53,14 @@ export class PessoalMedicamentosPage implements OnInit {
   
   obterListaMedicamentos() {
     console.log('obterListaMedicamentos');
-    this.medicamentos = this.storage.getMedicamentos();
-    console.log(this.medicamentos);
+    this.listaItens = this.storage.getMedicamentos();
+    console.log(this.listaItens);
   }
 
-  exibirMedicamento(item : any) {
+  exibirRegistro(item : any) {
     console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
     console.log(item);
-    console.log(this.medicamentos);
+    console.log(this.listaItens);
   }
 
   gravarDados() {
@@ -126,7 +126,7 @@ export class PessoalMedicamentosPage implements OnInit {
       //this.medicamentos.splice(index, 1);
       this.storage.removeMedicamento(index);
       this.obterListaMedicamentos();
-      console.log(this.medicamentos);
+      console.log(this.listaItens);
     }
   }
 

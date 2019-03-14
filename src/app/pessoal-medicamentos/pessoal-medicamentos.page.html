@@ -21,20 +21,76 @@
 
 
   <ion-list lines>
-    <ion-item-sliding *ngFor="let item of medicamentos; index as pos" #slidingItem text-wrap>
+    <ion-item-sliding *ngFor="let item of listaItens; index as pos" #slidingItem text-wrap>
       <!-- <ion-item *ngFor="let item of medicamentos; index as pos" text-wrap  (click)="exibirMedicamento(item)"> -->
-      <ion-item (click)="exibirMedicamento(item)">
-        <ion-label>
-          <h2>{{ item?.medicamento?.nome }}</h2>
-          <p>Concentracao: {{ item?.medicamento?.concentracao }}</p>
-          <p>Código ATC: {{ item?.medicamento?.codigoATC }}</p>
-          <p>Forma Farm: {{ item?.medicamento?.formaFarmaceutica }}</p>
-          <p *ngIf="(item?.dosagem != null && item?.dosagem != '')">  
-            Dosagem: {{ item?.dosagem }} 
-          </p>
-          <p *ngIf="(item?.frequencia != null && item?.frequencia != '')">  
-            Frequência: {{ item?.frequencia }}
-          </p>
+      <ion-item (click)="exibirRegistro(item)">
+        <ion-label text-wrap>
+          <h2><b> {{ item?.medicamento?.nome }} </b></h2>
+
+          <h3 *ngIf="(item?.medicamento?.nomeComercial != null && 
+                      item?.medicamento?.nomeComercial != '')"> 
+          Nome comercial: {{ item?.medicamento?.nomeComercial }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.laboratorio != null && 
+                      item?.medicamento?.laboratorio != '')"> 
+          Laboratorio: {{ item?.medicamento?.laboratorio }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.indicacao != null && 
+                      item?.medicamento?.indicacao != '')"> 
+          Indicação: {{ item?.medicamento?.indicacao }} </h3>
+          
+          <h3 *ngIf="(item?.medicamento?.concentracao != null && 
+                      item?.medicamento?.concentracao != '')"> 
+          Concentração: {{ item?.medicamento?.concentracao }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.codigoATC != null && 
+                      item?.medicamento?.codigoATC != '')"> 
+          Código ATC: {{ item?.medicamento?.codigoATC }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.formaFarmaceutica != null && 
+                      item?.medicamento?.formaFarmaceutica != '')"> 
+          Forma farmaceutica: {{ item?.medicamento?.formaFarmaceutica }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.composicao != null && 
+                      item?.medicamento?.composicao != '')"> 
+          Composição: {{ item?.medicamento?.composicao }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.contraindicacao != null && 
+                      item?.medicamento?.contraindicacao != '')"> 
+          Contraindicação: {{ item?.medicamento?.contraindicacao }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.contraindicacoes != null && 
+                      item?.medicamento?.contraindicacoes != '')"> 
+          Contraindicações: {{ item?.medicamento?.contraindicacoes }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.efeitosColaterais != null && 
+                      item?.medicamento?.efeitosColaterais != '')"> 
+          Efeitos colaterais: {{ item?.medicamento?.efeitosColaterais }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.reacoesAdversas != null && 
+                      item?.medicamento?.reacoesAdversas != '')"> 
+          Reações adversas: {{ item?.medicamento?.reacoesAdversas }} </h3>
+
+          <h3 *ngIf="(item?.medicamento?.principioAtivo != null && 
+                      item?.medicamento?.principioAtivo != '')"> 
+          Principio ativo: {{ item?.medicamento?.principioAtivo }} </h3>
+
+          <!--
+          dosagemAdultos
+          dosagemPediatrica
+          generico: false
+          gravidez
+          lactacao
+          -->          
+          
+          <h3 *ngIf="(item?.dosagem != null && item?.dosagem != '')"> 
+          Dosagem: {{ item?.dosagem }} </h3>
+          <h3 *ngIf="(item?.frequencia != null && item?.frequencia != '')">  
+          Frequência: {{ item?.frequencia }} </h3>
+          <h3 *ngIf="(item?.viaAdministracao != null && item?.viaAdministracao != '')">  
+          Via administracao: {{ item?.viaAdministracao }} </h3>
+          <h3 *ngIf="(item?.observacao != null && item?.observacao != '')"> 
+          Observação: {{ item?.observacao }} </h3>
 
         </ion-label>
         <!--

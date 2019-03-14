@@ -130,4 +130,27 @@ export class StorageService {
   }
 
 
+  addRegistroAhLista(obj : any, nome_obj : string) {
+    let _usuario = this.getLocalUsuarioDados();
+    if (_usuario != null) {
+      let _perfilPessoal = _usuario['perfilPessoal'];
+      if (_perfilPessoal != null) {
+        let _listaObj = _perfilPessoal[nome_obj];
+        if (_listaObj == null) { 
+          _listaObj = [];
+        }
+        if (obj != null) {
+          _listaObj.push(obj);
+          _perfilPessoal[nome_obj] = _listaObj;
+          _usuario['perfilPessoal'] = _perfilPessoal;
+          this.setLocalUsuarioDados(_usuario);
+        }
+      }  
+    }
+
+
+    console.log('_usuario oooooooooooooooooooooooooo');
+    console.log(_usuario);
+  }
+
 }
