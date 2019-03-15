@@ -93,7 +93,6 @@ export class StorageService {
       _medicamentos.push(obj); 
     }
     this.setMedicamentos(_medicamentos);
-    console.log(_medicamentos);
   }
 
   modificarMedicamento(index : number, obj : any) {

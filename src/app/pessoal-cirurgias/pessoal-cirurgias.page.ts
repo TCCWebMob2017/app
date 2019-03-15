@@ -72,13 +72,13 @@ export class PessoalCirurgiasPage implements OnInit {
     await slidingItem.close();
     if (item!= null) {
       this.alertModificarItem(pos, item);
-    }    
+    }
   }
 
   async alertModificarItem(pos: number , obj : any) {
     const alert = await this.alertController.create({
       header: 'Modificar dados',
-      message: '<b>' + obj[this.nomeObjeto]['nome'] + '</b>',
+      //message: '<b>' + obj[this.nomeObjeto]['descricao'] + '</b>',
       inputs: [
         { name: 'descricao',        type: 'text', value: obj.descricao,        placeholder: 'Descrição' },
         { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
@@ -86,9 +86,7 @@ export class PessoalCirurgiasPage implements OnInit {
       buttons: [
         {
           text: 'Cancel', role: 'cancel', cssClass: 'secondary',
-          handler: () => {
-            //console.log('Confirm Cancel');
-          }
+          handler: () => { }
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
@@ -104,52 +102,70 @@ export class PessoalCirurgiasPage implements OnInit {
 
   async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
     await slidingItem.close();
-      console.log('deleteRow');
       if(index > -1){
         this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
         this.obterListaItens();
-        console.log(this.listaItens);
       }
     }
 
   adicionarRegistro() {
-    //this.navCtrl.navigateForward('pessoal-drogas-add');
     this.alertAdicionarItem();
+    //this.teste();
   }
 
   async alertAdicionarItem() {
-
-    let obj = { descricao: "" ,  observacao: ""} ;
-    let pos = 0;
-
-    console.log(obj);
-
+    let obj = { data: null, descricao: null, observacao: null } ;
     const alert = await this.alertController.create({
-      header: 'Adicionar  dados',
-      message: '<b>' + obj[this.nomeObjeto]['descricao'] + '</b>',
+      header: 'Adicionar  cirurgia',
+      //message: '<b>' + obj['descricao'] + '</b>',
       inputs: [
-        { name: 'descricao',        type: 'text', value: obj.descricao,        placeholder: 'Descrição' },
-        { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
+        { name: 'data',       type: 'text', value: '',  placeholder: 'Data' },
+        { name: 'descricao',  type: 'text', value: '',  placeholder: 'Descrição' },
+        { name: 'observacao', type: 'text', value: '',  placeholder: 'Observação' }
       ],
       buttons: [
         {
           text: 'Cancel', role: 'cancel', cssClass: 'secondary',
-          handler: () => {
-            //console.log('Confirm Cancel');
-          }
+          handler: () => { }
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
-            obj['descricao']         = data['descricao'];
-            obj['observacao']        = data['observacao'];
 
-            //this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
-            
+            let validateObj = this.validaData(data);
+            if (!validateObj.isValid) {
+                console.log('Your validation message');
+                return false;
+            } else {
+              obj['data']         = data['data'];
+              obj['descricao']    = data['descricao'];
+              obj['observacao']   = data['observacao'];
+              this.addRegistro(obj);
+            }
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  validaData(data) {
+    if( /(.+)@(.+){2,}\.(.+){2,}/.test(data.data) ){
+      return {
+        isValid: true,
+        message: ''
+      };
+    } else {
+       return {
+          isValid: false,
+          message: 'Email address is required'
+       }
+    }
+  }
+
+  addRegistro(obj : any) {
+    obj['privacidade']   = { };
+    this.storage.addRegistroAhLista(obj, this.nomeObjetoLista);
+    this.obterListaItens();
   }
 
 
