@@ -64,7 +64,9 @@ export class PessoalPage implements OnInit {
 
   addPerfilPessoal()          { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'C'}]); }
   exibirPessoalBase()         { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'R'}]); }
-  modificarPessoalBase()      { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'U'}]); }
+  
+  modificarPessoalBase()      { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'U', footerNav: 'T'} ]); }
+  
   exibirPessoalMedicamentos() { this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: 'R'}]); }
   exibirPessoalDoencas()      { this.navCtrl.navigateForward(['pessoal-doencas',      {modoCRUD: 'R'}]); }
   exibirPessoalAlergias()     { this.navCtrl.navigateForward(['pessoal-alergias',     {modoCRUD: 'R'}]); }

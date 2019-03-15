@@ -13,8 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 export class PessoalMedicamentosPage implements OnInit {  
   public  tituloJanela  : string = "Medicamentos";
   public  listaItens    : any;
-  private modoCRUD      : string;
+  public  modoCRUD      : string;
   public  somenteLeitura: boolean;
+  public  footerNav     : boolean;
 
   constructor(public  navCtrl         : NavController, 
               public  alertController : AlertController,
@@ -42,12 +43,7 @@ export class PessoalMedicamentosPage implements OnInit {
 
   obterParametrosRecebidos() {
     this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
+    this.setModoCrudRegistro(this.modoCRUD, '');
     console.log('PessoalMedicamentosPage | modoCRUD: ' + this.modoCRUD);
   }
   
@@ -59,6 +55,28 @@ export class PessoalMedicamentosPage implements OnInit {
 
   exibirRegistro(item : any) {
     console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
+  }
+
+  setModoCrudRegistro(parCrud : string, footerNav : string) {
+    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { parCrud = 'R';
+    }
+    this.somenteLeitura = (parCrud == 'R' ? true : false); 
+    this.footerNav = ((footerNav == 'S' || this.modoCRUD == 'C') ? true : false);
+  }
+  
+  editarRegistro() {
+    if (this.modoCRUD == 'R') {
+      this.modoCRUD       = 'U';
+      this.somenteLeitura = false;
+    }
+  }
+
+  slidingClose(slidingItem : IonItemSliding) {
+    //if (!item.canSwipe) {
+    if (this.somenteLeitura == true) {
+      slidingItem.close();
+      //ev.close();
+    }
   }
 
   gravarDados() {
@@ -115,14 +133,16 @@ export class PessoalMedicamentosPage implements OnInit {
   }
 
   async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
-  await slidingItem.close();
-    //let indexx = this.medicamentos.indexOf(item); 
-    console.log('deleteRow');
-    if(index > -1){
-      //this.medicamentos.splice(index, 1);
-      this.storage.removeMedicamento(index);
-      this.obterListaItens();
-      console.log(this.listaItens);
+    if (this.somenteLeitura != true) {
+      await slidingItem.close();
+      //let indexx = this.medicamentos.indexOf(item); 
+      console.log('deleteRow');
+      if(index > -1){
+        //this.medicamentos.splice(index, 1);
+        this.storage.removeMedicamento(index);
+        this.obterListaItens();
+        console.log(this.listaItens);
+      }  
     }
   }
 
