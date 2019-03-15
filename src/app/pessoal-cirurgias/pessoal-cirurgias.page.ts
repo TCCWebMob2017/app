@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { PessoalService } from '../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-pessoal-cirurgias',
@@ -76,12 +77,16 @@ export class PessoalCirurgiasPage implements OnInit {
   }
 
   async alertModificarItem(pos: number , obj : any) {
+
+    let _data = this.formataData(obj['data'], '');
+
     const alert = await this.alertController.create({
       header: 'Modificar dados',
       //message: '<b>' + obj[this.nomeObjeto]['descricao'] + '</b>',
       inputs: [
-        { name: 'descricao',        type: 'text', value: obj.descricao,        placeholder: 'Descrição' },
-        { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
+        { name: 'data',       type: 'date', value: _data,           placeholder: 'Data' },
+        { name: 'descricao',  type: 'text', value: obj.descricao,   placeholder: 'Descrição' },
+        { name: 'observacao', type: 'text', value: obj.observacao,  placeholder: 'Observação' }
       ],
       buttons: [
         {
@@ -90,8 +95,10 @@ export class PessoalCirurgiasPage implements OnInit {
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
-            obj['descricao']         = data['descricao'];
-            obj['observacao']        = data['observacao'];
+            let _data = this.formataData(data['data'], 'pt-br');         
+            obj['data']       = _data;
+            obj['descricao']  = data['descricao'];
+            obj['observacao'] = data['observacao'];
             this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
           }
         }
@@ -113,13 +120,22 @@ export class PessoalCirurgiasPage implements OnInit {
     //this.teste();
   }
 
+  formataData(data, formato) {
+    if (data == null) { data = ''; }
+    if (formato == 'pt-br') {
+      return (data.substr(0, 10).split('-').reverse().join('/'));
+    } else {
+      return (data.substr(0, 10).split('/').reverse().join('-'));
+    }
+  }
+
   async alertAdicionarItem() {
     let obj = { data: null, descricao: null, observacao: null } ;
     const alert = await this.alertController.create({
       header: 'Adicionar  cirurgia',
       //message: '<b>' + obj['descricao'] + '</b>',
       inputs: [
-        { name: 'data',       type: 'text', value: '',  placeholder: 'Data' },
+        { name: 'data',       type: 'date', value: '',  placeholder: 'Data' },
         { name: 'descricao',  type: 'text', value: '',  placeholder: 'Descrição' },
         { name: 'observacao', type: 'text', value: '',  placeholder: 'Observação' }
       ],
@@ -130,17 +146,16 @@ export class PessoalCirurgiasPage implements OnInit {
         }, {
           text: 'Ok',
           handler: ( data = Response ) => {
+            let _data = this.formataData(data['data'], 'pt-br');
+            obj['data']         = _data;
+            obj['descricao']    = data['descricao'];
+            obj['observacao']   = data['observacao'];
+            this.addRegistro(obj);
 
-            let validateObj = this.validaData(data);
-            if (!validateObj.isValid) {
-                console.log('Your validation message');
-                return false;
-            } else {
-              obj['data']         = data['data'];
-              obj['descricao']    = data['descricao'];
-              obj['observacao']   = data['observacao'];
-              this.addRegistro(obj);
-            }
+
+            console.log(this.formataData(data['data'], ''));
+            console.log(this.formataData(data['data'], 'pt-br'));
+
           }
         }
       ]
@@ -148,26 +163,11 @@ export class PessoalCirurgiasPage implements OnInit {
     await alert.present();
   }
 
-  validaData(data) {
-    if( /(.+)@(.+){2,}\.(.+){2,}/.test(data.data) ){
-      return {
-        isValid: true,
-        message: ''
-      };
-    } else {
-       return {
-          isValid: false,
-          message: 'Email address is required'
-       }
-    }
-  }
-
   addRegistro(obj : any) {
     obj['privacidade']   = { };
     this.storage.addRegistroAhLista(obj, this.nomeObjetoLista);
     this.obterListaItens();
   }
-
 
   cancelarEdicao() {
     this.irParaTelaHome();

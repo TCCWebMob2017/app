@@ -139,6 +139,7 @@ export class StorageService {
         }
       }  
     }
+    console.log(_usuario);
   }
 
   removeRegistroDaLista(index : number, nome_obj : string) {
