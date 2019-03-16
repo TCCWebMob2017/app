@@ -12,16 +12,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./pessoal-base.page.scss']
 })
 export class PessoalBasePage implements OnInit {
-
   formGroup: FormGroup;
   submitted: boolean;
   position:  string;
   minSelectableDate = '1900-01-01';
   maxSelectableDate;
   myDate;
-  public  usuario       : UsuarioDTO;
-  private modoCRUD      : string;
-  public  somenteLeitura: boolean;
+  public  tituloJanela            : string = "Informações pessoais";
+  public  usuario                 : UsuarioDTO;
+  private modoCRUD                : string;
+  public  somenteLeitura          : boolean;
+  public  exibirBarraDeNavegacao  : boolean;
 
   constructor(
     private navCtrl         : NavController,
@@ -54,6 +55,7 @@ export class PessoalBasePage implements OnInit {
     });
   }
   obterParametrosRecebidos() {
+    /*
     this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
     if (this.modoCRUD == 'R') {
       this.somenteLeitura = true;
@@ -61,6 +63,20 @@ export class PessoalBasePage implements OnInit {
     else {
       this.somenteLeitura = false;
     }
+    */
+    let _gd = this.storage.getLocalParametros();
+    this.modoCRUD               = _gd['modoCRUD'];
+    this.somenteLeitura         = _gd['somenteLeitura'];
+    this.exibirBarraDeNavegacao = _gd['exibirBarraDeNavegacao'];
+    console.log(_gd);
+  }
+
+  setModoCrudRegistro(parCrud : string) {
+    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { 
+      parCrud = 'R';
+    }
+    this.modoCRUD       = parCrud;
+    this.somenteLeitura = (this.modoCRUD == 'R' ? true : false); 
   }
 
   generoDescricao() : string {
@@ -226,11 +242,7 @@ export class PessoalBasePage implements OnInit {
     if (this.somenteLeitura != true) {
       this.moverValoresFormParaSotage(value);
     }
-    this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: this.modoCRUD}]);
-  }
-
-  _irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateForward(['pessoal-medicamentos']);
   }
 
 

@@ -52,9 +52,11 @@
 </ion-content>
 <!------------------------------------------------------------------------------>
 <ion-footer>
-  <ion-toolbar *ngIf="somenteLeitura != true">
+  <ion-toolbar *ngIf="exibirBarraDeNavegacao == true">
     <ion-buttons slot="start">
-      <ion-back-button  icon="arrow-back" text="Anterior" defaultHref="/pessoal-medicamentos">
+      <ion-back-button  icon="arrow-back" 
+                        text="Anterior" 
+                        defaultHref="/pessoal-medicamentos">
       </ion-back-button>
     </ion-buttons>
     <ion-buttons slot="primary">

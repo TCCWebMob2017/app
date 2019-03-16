@@ -1,13 +1,27 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">     
+    <ion-buttons slot="start" *ngIf="exibirBarraDeNavegacao == true">
       <ion-button (click)="cancelarEdicao()" *ngIf="somenteLeitura != true">Cancelar</ion-button>
     </ion-buttons>
-    <ion-title>Informações pessoais</ion-title>
-    <ion-buttons slot="primary">
+    <ion-buttons  slot="primary" *ngIf="exibirBarraDeNavegacao == true">
       <ion-button (click)="gravarDados(form.value)" *ngIf="somenteLeitura != true">OK</ion-button>
       <ion-button (click)="irParaTelaHome()"        *ngIf="somenteLeitura == true">OK</ion-button>
     </ion-buttons>
+    <ion-buttons slot="start" *ngIf="exibirBarraDeNavegacao != true">
+      <ion-back-button  icon="arrow-back" 
+                        text="Voltar" 
+                        defaultHref="/pessoal" 
+                        *ngIf="somenteLeitura == true">
+      </ion-back-button>
+      <ion-button   (click)="setModoCrudRegistro('R')" 
+                    *ngIf="somenteLeitura != true">Cancelar
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="exibirBarraDeNavegacao != true">
+      <ion-button (click)="gravarDados(form.value)"   *ngIf="somenteLeitura != true">OK</ion-button>
+      <ion-button (click)="setModoCrudRegistro('U')"  *ngIf="somenteLeitura == true">Editar</ion-button>
+    </ion-buttons>
+    <ion-title>{{ tituloJanela }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -181,15 +195,16 @@
   
     </ion-list>
 
-
   </form>
 </ion-content>
 
 <!------------------------------------------------------------------------------>
 <ion-footer>
-  <ion-toolbar *ngIf="somenteLeitura != true">
+    <ion-toolbar *ngIf="exibirBarraDeNavegacao == true">
     <ion-buttons slot="start">
-      <ion-back-button  icon="arrow-back" text="Anterior" defaultHref="/pessoal">
+      <ion-back-button  icon="arrow-back" 
+                        text="Anterior" 
+                        defaultHref="/pessoal">
       </ion-back-button>
     </ion-buttons>
     <ion-buttons slot="primary">

@@ -11,11 +11,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./pessoal-medicamentos.page.scss'],
 })
 export class PessoalMedicamentosPage implements OnInit {  
-  public  tituloJanela  : string = "Medicamentos";
-  public  listaItens    : any;
-  public  modoCRUD      : string;
-  public  somenteLeitura: boolean;
-  public  footerNav     : boolean;
+  public  tituloJanela            : string = "Medicamentos";
+  public  nomeObjetoLista         : string = "medicamentos";
+  public  nomeObjeto              : string = "medicamento";
+  public  listaItens              : any;
+  public  modoCRUD                : string;
+  public  somenteLeitura          : boolean;
+  public  exibirBarraDeNavegacao  : boolean;
 
   constructor(public  navCtrl         : NavController, 
               public  alertController : AlertController,
@@ -42,9 +44,18 @@ export class PessoalMedicamentosPage implements OnInit {
   ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    this.setModoCrudRegistro(this.modoCRUD, '');
-    console.log('PessoalMedicamentosPage | modoCRUD: ' + this.modoCRUD);
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD               = _parametros['modoCRUD'];
+    this.somenteLeitura         = _parametros['somenteLeitura'];
+    this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
+  }
+
+  setModoCrudRegistro(parCrud : string) {
+    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { 
+      parCrud = 'R';
+    }
+    this.modoCRUD       = parCrud;
+    this.somenteLeitura = (this.modoCRUD == 'R' ? true : false); 
   }
   
   obterListaItens() {
@@ -56,20 +67,15 @@ export class PessoalMedicamentosPage implements OnInit {
   exibirRegistro(item : any) {
     console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
   }
-
-  setModoCrudRegistro(parCrud : string, footerNav : string) {
-    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { parCrud = 'R';
-    }
-    this.somenteLeitura = (parCrud == 'R' ? true : false); 
-    this.footerNav = ((footerNav == 'S' || this.modoCRUD == 'C') ? true : false);
-  }
   
+  /*
   editarRegistro() {
     if (this.modoCRUD == 'R') {
       this.modoCRUD       = 'U';
       this.somenteLeitura = false;
     }
   }
+  */
 
   slidingClose(slidingItem : IonItemSliding) {
     //if (!item.canSwipe) {
@@ -168,7 +174,7 @@ export class PessoalMedicamentosPage implements OnInit {
   }    
 
   adicionarRegistro() {
-    this.navCtrl.navigateForward(['pessoal-medicamentos-add', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateForward(['pessoal-medicamentos-add']);
   }
 
   cancelarEdicao() {
@@ -180,11 +186,11 @@ export class PessoalMedicamentosPage implements OnInit {
   }
 
   irParaTelaAnterior() {
-    this.navCtrl.navigateBack(['pessoal-base', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateBack(['pessoal-base']);
   }
 
   irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
+    this.navCtrl.navigateForward(['pessoal-doencas']);
   }
 
 }

@@ -52,6 +52,28 @@ export class StorageService {
     }
   }
 
+  getLocalParametros() : any {
+    let _parametros = localStorage.getItem(STORAGE_KEY.localParametros);
+    if(_parametros == null) {
+      return null;
+    }
+    else {
+      return JSON.parse(_parametros);
+    }
+  }
+
+  setLocalParametros(chave : string, valor : any) {
+    let _parametros = this.getLocalParametros();
+    if (_parametros == null) { _parametros = { }; }
+    if(chave == null && valor == null) {
+      //localStorage.removeItem(STORAGE_KEY.localParametros);
+    }
+    else {
+      _parametros[chave] = valor;
+      localStorage.setItem(STORAGE_KEY.localParametros, JSON.stringify(_parametros));
+    }
+  }
+  
   clearLocalUsuarioDados() {
     localStorage.removeItem(STORAGE_KEY.localProfile);
   }

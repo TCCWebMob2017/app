@@ -11,12 +11,13 @@ import { UsuarioService } from '../services/usuario.service';
   styleUrls: ['./pessoal-doencas.page.scss'],
 })
 export class PessoalDoencasPage implements OnInit {
-  public  tituloJanela    : string = "Doenças";
-  public  nomeObjetoLista : string = "doencas";
-  public  nomeObjeto      : string = "doenca";
-  public  listaItens      : any;
-  private modoCRUD        : string;
-  public  somenteLeitura  : boolean;
+  public  tituloJanela            : string = "Doenças";
+  public  nomeObjetoLista         : string = "doencas";
+  public  nomeObjeto              : string = "doenca";
+  public  listaItens              : any;
+  public  modoCRUD                : string;
+  public  somenteLeitura          : boolean;
+  public  exibirBarraDeNavegacao  : boolean;  
 
   constructor(public  navCtrl         : NavController, 
               public  alertController : AlertController,
@@ -41,13 +42,19 @@ export class PessoalDoencasPage implements OnInit {
   ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD               = _parametros['modoCRUD'];
+    this.somenteLeitura         = _parametros['somenteLeitura'];
+    this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
+    console.log(_parametros);
+  }
+
+  setModoCrudRegistro(parCrud : string) {
+    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { 
+      parCrud = 'R';
     }
-    else {
-      this.somenteLeitura = false;
-    }
+    this.modoCRUD       = parCrud;
+    this.somenteLeitura = (this.modoCRUD == 'R' ? true : false); 
   }
 
   obterListaItens() {
@@ -58,6 +65,12 @@ export class PessoalDoencasPage implements OnInit {
 
   exibirRegistro() {
 
+  }
+
+  slidingClose(slidingItem : IonItemSliding) {
+    if (this.somenteLeitura == true) {
+      slidingItem.close();
+    }
   }
 
   gravarDados() {
@@ -102,7 +115,8 @@ export class PessoalDoencasPage implements OnInit {
   }
 
   async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
-    await slidingItem.close();
+    if (this.somenteLeitura != true) {
+      await slidingItem.close();
       console.log('deleteRow');
       if(index > -1){
         this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
@@ -110,6 +124,7 @@ export class PessoalDoencasPage implements OnInit {
         console.log(this.listaItens);
       }
     }
+  }
 
   adicionarRegistro() {
     this.navCtrl.navigateForward('pessoal-doencas-add');

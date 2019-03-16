@@ -52,7 +52,6 @@ export class PessoalPage implements OnInit {
     else { this.navCtrl.navigateRoot('login'); }
   };
 
-
   getImageIfExist() {
     this.pessoalService.getImageFromBucket(this.prontuario.pessoal.id)
     .subscribe(Response => {
@@ -62,18 +61,75 @@ export class PessoalPage implements OnInit {
     //https://api-qlife.herokuapp.com/api/v1/pessoal/000/avatar
   }
 
-  addPerfilPessoal()          { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'C'}]); }
-  exibirPessoalBase()         { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'R'}]); }
+  addPerfilPessoal() {
+    this.storage.setLocalParametros('modoCRUD', 'C');
+    this.storage.setLocalParametros('somenteLeitura', false);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', true);
+    this.navCtrl.navigateForward(['pessoal-base']); 
+  }
+
+  exibirPessoalBase() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);    
+    this.navCtrl.navigateForward(['pessoal-base']); 
+  }
   
-  modificarPessoalBase()      { this.navCtrl.navigateForward(['pessoal-base',         {modoCRUD: 'U', footerNav: 'T'} ]); }
+  modificarPessoalBase() { 
+    this.storage.setLocalParametros('modoCRUD', 'U');
+    this.storage.setLocalParametros('somenteLeitura', false);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', true);
+    this.navCtrl.navigateForward(['pessoal-base']);
+  }
   
-  exibirPessoalMedicamentos() { this.navCtrl.navigateForward(['pessoal-medicamentos', {modoCRUD: 'R'}]); }
-  exibirPessoalDoencas()      { this.navCtrl.navigateForward(['pessoal-doencas',      {modoCRUD: 'R'}]); }
-  exibirPessoalAlergias()     { this.navCtrl.navigateForward(['pessoal-alergias',     {modoCRUD: 'R'}]); }
-  exibirPessoalDrogas()       { this.navCtrl.navigateForward(['pessoal-drogas',       {modoCRUD: 'R'}]); }
-  exibirPessoalCirurgias()    { this.navCtrl.navigateForward(['pessoal-cirurgias',    {modoCRUD: 'R'}]); }
-  exibirPessoalDependentes()  { this.navCtrl.navigateForward(['pessoal-dependentes',  {modoCRUD: 'R'}]); }
-  exibirPessoalPermissoes()   { this.navCtrl.navigateForward(['pessoal-permissoes',   {modoCRUD: 'R'}]); }
-  exibirFichaMedica()         { this.navCtrl.navigateForward(['ficha-medica'])}
+  exibirPessoalMedicamentos() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-medicamentos']); 
+  }
+
+  exibirPessoalDoencas() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-doencas']);
+  }
+
+  exibirPessoalAlergias() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-alergias']); 
+  }
+
+  exibirPessoalDrogas() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-drogas']); 
+  }
+
+  exibirPessoalCirurgias() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-cirurgias']); 
+  }
+
+  exibirPessoalDependentes() {
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-dependentes']); 
+  }
+
+  exibirPessoalPermissoes() { 
+    this.navCtrl.navigateForward(['pessoal-permissoes']); 
+  }
+
+  exibirFichaMedica() { 
+    this.navCtrl.navigateForward(['ficha-medica'])
+  }
 
 }
