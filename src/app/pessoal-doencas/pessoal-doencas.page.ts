@@ -64,7 +64,6 @@ export class PessoalDoencasPage implements OnInit {
   }
 
   exibirRegistro() {
-    
 
   }
 
