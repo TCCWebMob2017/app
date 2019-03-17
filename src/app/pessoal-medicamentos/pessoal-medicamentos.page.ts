@@ -18,6 +18,9 @@ export class PessoalMedicamentosPage implements OnInit {
   public  modoCRUD                : string;
   public  somenteLeitura          : boolean;
   public  exibirBarraDeNavegacao  : boolean;
+  public  navegacaoPaginaAnterior : string = "pessoal-base";
+  public  navegacaoProximaPagina  : string = "pessoal-doencas";
+  public  navegacaoPaginaAdd      : string = "pessoal-medicamentos-add";
 
   constructor(public  navCtrl         : NavController, 
               public  alertController : AlertController,
@@ -27,12 +30,9 @@ export class PessoalMedicamentosPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    console.log('PessoalMedicamentosPage | ngOnInit');
-    this.obterListaItens();
   }
 
   ionViewWillEnter() {
-    console.log('PessoalMedicamentosPage | Will Enter');
     this.obterParametrosRecebidos();
     this.obterListaItens();
   }
@@ -49,33 +49,28 @@ export class PessoalMedicamentosPage implements OnInit {
     this.somenteLeitura         = _parametros['somenteLeitura'];
     this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
   }
-
-  setModoCrudRegistro(parCrud : string) {
-    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { 
-      parCrud = 'R';
-    }
-    this.modoCRUD       = parCrud;
-    this.somenteLeitura = (this.modoCRUD == 'R' ? true : false); 
-  }
-  
+ 
   obterListaItens() {
     console.log('obterListaMedicamentos');
     this.listaItens = this.storage.getMedicamentos();
     console.log(this.listaItens);
   }
 
-  exibirRegistro(item : any) {
-    console.log('exibirMedicamento  [' + this.somenteLeitura + ']');
+  exibirRegistro(item : any) { }
+
+  setRegistroModoEditar() {
+    this.modoCRUD       = 'U';
+    this.somenteLeitura = false;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
-  
-  /*
-  editarRegistro() {
-    if (this.modoCRUD == 'R') {
-      this.modoCRUD       = 'U';
-      this.somenteLeitura = false;
-    }
+
+  setRegistroModoVisualizar() {
+    this.modoCRUD       = 'R';
+    this.somenteLeitura = true;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
-  */
 
   slidingClose(slidingItem : IonItemSliding) {
     //if (!item.canSwipe) {
@@ -85,13 +80,33 @@ export class PessoalMedicamentosPage implements OnInit {
     }
   }
 
-  gravarDados() {
-    //this.moverValoresFormParaSotage(value);
+  gravarDados(voltarParaTelaAnterior : boolean) {
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
     }
-    this.irParaTelaHome();
+    if (voltarParaTelaAnterior) {
+      this.irParaTelaHome();
+    }
+    else {
+      this.setRegistroModoVisualizar();
+    }
   }
+
+  adicionarRegistro() {
+    this.navCtrl.navigateForward([this.navegacaoPaginaAdd]);
+  }
+
+  irParaTelaHome() {
+    this.navCtrl.navigateBack('pessoal');
+  }
+
+  irParaTelaAnterior() {
+    this.navCtrl.navigateBack([this.navegacaoPaginaAnterior]);
+  }
+
+  irParaProximaTela() {
+    this.navCtrl.navigateForward([this.navegacaoProximaPagina]);
+  }  
 
   async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
     await slidingItem.close();
@@ -99,13 +114,6 @@ export class PessoalMedicamentosPage implements OnInit {
       this.alertModificarItem(pos, item);
     }    
   }
-
-  /*
-  async modificarItem(slidingItem: IonItemSliding) {
-    await slidingItem.close();
-    console.log('Modificar');
-  }  
-  */
 
   async alertModificarItem(pos: number , obj : any) {
     const alert = await this.alertController.create({
@@ -138,11 +146,10 @@ export class PessoalMedicamentosPage implements OnInit {
     await alert.present();
   }
 
-  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
-    if (this.somenteLeitura != true) {
+  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number, dele : boolean){
+    if (this.somenteLeitura != true && dele == true) {
       await slidingItem.close();
       //let indexx = this.medicamentos.indexOf(item); 
-      console.log('deleteRow');
       if(index > -1){
         //this.medicamentos.splice(index, 1);
         this.storage.removeMedicamento(index);
@@ -171,26 +178,6 @@ export class PessoalMedicamentosPage implements OnInit {
       ]
     });
     await alert.present();
-  }    
-
-  adicionarRegistro() {
-    this.navCtrl.navigateForward(['pessoal-medicamentos-add']);
-  }
-
-  cancelarEdicao() {
-    this.irParaTelaHome();
-  }
-
-  irParaTelaHome() {
-    this.navCtrl.navigateBack('pessoal');
-  }
-
-  irParaTelaAnterior() {
-    this.navCtrl.navigateBack(['pessoal-base']);
-  }
-
-  irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-doencas']);
   }
 
 }

@@ -13,18 +13,16 @@
                         defaultHref="/pessoal" 
                         *ngIf="somenteLeitura == true">
       </ion-back-button>
-      <ion-button   (click)="setModoCrudRegistro('R')" 
-                    *ngIf="somenteLeitura != true">Cancelar
-      </ion-button>
+      <ion-button (click)="setRegistroModoVisualizar()" *ngIf="somenteLeitura != true">Cancelar</ion-button>
     </ion-buttons>
     <ion-buttons slot="primary" *ngIf="exibirBarraDeNavegacao != true">
       <ion-button (click)="gravarDados(form.value)"   *ngIf="somenteLeitura != true">OK</ion-button>
-      <ion-button (click)="setModoCrudRegistro('U')"  *ngIf="somenteLeitura == true">Editar</ion-button>
+      <ion-button (click)="setRegistroModoEditar()"   *ngIf="somenteLeitura == true">Editar</ion-button>
     </ion-buttons>
     <ion-title>{{ tituloJanela }}</ion-title>
   </ion-toolbar>
 </ion-header>
-
+<!-- -------------------------------------------------------------------------------- -->
 <ion-content padding>
   <form #form="ngForm" (ngSubmit)="onSubmit(form.value)" novalidate>
     

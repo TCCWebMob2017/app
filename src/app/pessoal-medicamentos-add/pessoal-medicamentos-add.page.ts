@@ -1,6 +1,6 @@
 import { PessoalService } from './../services/pessoal.service';
-import { NavController, AlertController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { NavController, AlertController, Platform } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
   styleUrls: ['./pessoal-medicamentos-add.page.scss'],
 })
 export class PessoalMedicamentosAddPage implements OnInit {
+  @ViewChild('searchBar') myInput ;
 
   public  lista_items : any;
           searchTerm        : string = '';
@@ -28,6 +29,11 @@ export class PessoalMedicamentosAddPage implements OnInit {
   ionViewWillEnter() {
     console.log('Will Enter');
     this.obterParametrosRecebidos();
+
+    setTimeout(() => {
+      this.myInput.setFocus();
+    }, 150);
+     
   }
 
   ionViewDidLoad(){}
@@ -80,7 +86,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _value = this.addRegistro(value, data);
-            this.navCtrl.navigateBack(['pessoal-medicamentos', {modoCRUD: this.modoCRUD}]);
+            this.navCtrl.navigateBack(['pessoal-medicamentos']);
           }
         }
       ]
@@ -105,6 +111,11 @@ export class PessoalMedicamentosAddPage implements OnInit {
     this.pessoalService.getMedicamentosPorNome(nome)
     .subscribe(Response => {
       this.lista_items = Response;
+
+      setTimeout(() => {
+        this.myInput.setFocus();
+      }, 150);
+
     },
     error => {
       console.log(error);

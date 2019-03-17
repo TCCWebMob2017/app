@@ -57,26 +57,28 @@ export class PessoalBasePage implements OnInit {
   obterParametrosRecebidos() {
     /*
     this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
+    if (this.modoCRUD == 'R') { this.somenteLeitura = true; }
+    else { this.somenteLeitura = false; }
     */
-    let _gd = this.storage.getLocalParametros();
-    this.modoCRUD               = _gd['modoCRUD'];
-    this.somenteLeitura         = _gd['somenteLeitura'];
-    this.exibirBarraDeNavegacao = _gd['exibirBarraDeNavegacao'];
-    console.log(_gd);
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD               = _parametros['modoCRUD'];
+    this.somenteLeitura         = _parametros['somenteLeitura'];
+    this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
+    console.log(_parametros);
   }
 
-  setModoCrudRegistro(parCrud : string) {
-    if((parCrud != 'C') && (parCrud != 'R') && (parCrud != 'U') && (parCrud != 'D')) { 
-      parCrud = 'R';
-    }
-    this.modoCRUD       = parCrud;
-    this.somenteLeitura = (this.modoCRUD == 'R' ? true : false); 
+  setRegistroModoEditar() {
+    this.modoCRUD       = 'U';
+    this.somenteLeitura = false;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
+  }
+
+  setRegistroModoVisualizar() {
+    this.modoCRUD       = 'R';
+    this.somenteLeitura = true;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
   generoDescricao() : string {

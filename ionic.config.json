@@ -1,5 +1,7 @@
 {
   "name": "Q-Life",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

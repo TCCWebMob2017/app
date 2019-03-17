@@ -13,12 +13,16 @@ import { UsuarioService } from '../services/usuario.service';
 })
 
 export class PessoalAlergiasPage implements OnInit {
-  public  tituloJanela    : string = "Alergias";
-  public  nomeObjetoLista : string = "alergias";
-  public  nomeObjeto      : string = "alergia";
-  public  listaItens      : any;
-  private modoCRUD        : string;
-  public  somenteLeitura  : boolean;
+  public  tituloJanela            : string = "Alergias";
+  public  nomeObjetoLista         : string = "alergias";
+  public  nomeObjeto              : string = "alergia";
+  public  listaItens              : any;
+  private modoCRUD                : string;
+  public  somenteLeitura          : boolean;
+  public  exibirBarraDeNavegacao  : boolean;
+  public  navegacaoPaginaAnterior : string = "pessoal-doencas";
+  public  navegacaoProximaPagina  : string = "pessoal-drogas";
+  public  navegacaoPaginaAdd      : string = "pessoal-alergias-add";
 
   constructor(public  navCtrl         : NavController, 
               public  alertController : AlertController,
@@ -28,12 +32,11 @@ export class PessoalAlergiasPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    this.obterListaDoencas();
   }
 
   ionViewWillEnter(){
     this.obterParametrosRecebidos();
-    this.obterListaDoencas();
+    this.obterListaItens();
   }
 
   ionViewDidLoad(){}
@@ -43,31 +46,69 @@ export class PessoalAlergiasPage implements OnInit {
   ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD               = _parametros['modoCRUD'];
+    this.somenteLeitura         = _parametros['somenteLeitura'];
+    this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
   }
 
-  obterListaDoencas() {
+  obterListaItens() {
     let _localProfile   = this.storage.getLocalUsuarioDados();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
     this.listaItens     = _perfilPessoal[this.nomeObjetoLista];
   }
 
-  exibirRegistro() {
+  exibirRegistro() { }
 
+  setRegistroModoEditar() {
+    this.modoCRUD       = 'U';
+    this.somenteLeitura = false;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
-  gravarDados() {
+  setRegistroModoVisualizar() {
+    this.modoCRUD       = 'R';
+    this.somenteLeitura = true;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
+  }
+
+  slidingClose(slidingItem : IonItemSliding) {
+    if (this.somenteLeitura == true) {
+      slidingItem.close();
+    }
+  }
+
+
+
+  gravarDados(voltarParaTelaAnterior : boolean) {
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
     }
-    this.irParaTelaHome();
+    if (voltarParaTelaAnterior) {
+      this.irParaTelaHome();
+    }
+    else {
+      this.setRegistroModoVisualizar();
+    }
   }
+
+  adicionarRegistro() {
+    this.navCtrl.navigateForward(this.navegacaoPaginaAdd);
+  }
+
+  irParaTelaHome() {
+    this.navCtrl.navigateBack('pessoal');
+  }
+
+  irParaTelaAnterior() {
+    this.navCtrl.navigateBack([this.navegacaoPaginaAnterior]);
+  }
+
+  irParaProximaTela() {
+    this.navCtrl.navigateForward([this.navegacaoProximaPagina]);
+  }  
 
   async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
     await slidingItem.close();
@@ -76,6 +117,18 @@ export class PessoalAlergiasPage implements OnInit {
     }    
   }
 
+  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number, dele : boolean){    
+    if (this.somenteLeitura != true && dele == true) {
+      await slidingItem.close();
+      if(index > -1){
+        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
+        this.obterListaItens();
+        console.log(this.listaItens);
+      }
+    }
+  }
+
+  // ------------------------------------------------------------------------------
   async alertModificarItem(pos: number , obj : any) {
     const alert = await this.alertController.create({
       header: 'Modificar dados',
@@ -84,6 +137,8 @@ export class PessoalAlergiasPage implements OnInit {
       //{ name: 'dosagem',          type: 'text', value: obj.dosagem,          placeholder: 'Dosagem' },
         { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
       ],
+      
+      
       buttons: [
         {
           text: 'Cancel', role: 'cancel', cssClass: 'secondary',
@@ -95,6 +150,8 @@ export class PessoalAlergiasPage implements OnInit {
           handler: ( data = Response ) => {
             //obj['desde']           = data['desde'];
             obj['observacao']        = data['observacao'];
+
+            
             this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
           }
         }
@@ -102,35 +159,5 @@ export class PessoalAlergiasPage implements OnInit {
     });
     await alert.present();
   }
-
-  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
-    await slidingItem.close();
-      console.log('deleteRow');
-      if(index > -1){
-        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
-        this.obterListaDoencas();
-        console.log(this.listaItens);
-      }
-    }
-
-  adicionarRegistro() {
-    this.navCtrl.navigateForward('pessoal-alergias-add');
-  }
-
-  cancelarEdicao() {
-    this.irParaTelaHome();
-  }
-
-  irParaTelaHome() {
-    this.navCtrl.navigateBack('pessoal');
-  }
-
-  irParaTelaAnterior() {
-    this.navCtrl.navigateBack(['pessoal-doencas', {modoCRUD: this.modoCRUD}]);
-  }
-
-  irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-drogas', {modoCRUD: this.modoCRUD}]);
-  }
-
+  
 }

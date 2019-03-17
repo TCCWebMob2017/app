@@ -92,10 +92,17 @@ export class PessoalDoencasAddPage implements OnInit {
   }
 
   search(nome : string) {
-    this.pessoalService.getDoencasPorNome(nome)
-    .subscribe(Response => {
-      this.lista_items = Response;
-    },
-    error => {  });
+    if(nome.length >= 3) {
+      nome = nome.toLowerCase();
+      this.pessoalService.getDoencasPorNome(nome)
+      .subscribe(Response => {
+        this.lista_items = Response;
+      },
+      error => { });
+    }
+    else {
+      alert('informar no mínimo três caracteres.');
+    } 
   }
+
 }
