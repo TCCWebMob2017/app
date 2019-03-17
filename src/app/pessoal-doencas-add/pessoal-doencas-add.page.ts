@@ -17,21 +17,18 @@ export class PessoalDoencasAddPage implements OnInit {
   public  paginaAnterior    : string = "pessoal-doencas";
   public  lista_items       : any;
           searchTerm        : string = '';
-  private modoCRUD          : string;
-  public  somenteLeitura    : boolean;  
 
   constructor(public  navCtrl         : NavController,
               public  pessoalService  : PessoalService,
               private storage         : StorageService,
               private activatedRoute  : ActivatedRoute,
-              public  alertController : AlertController) { }
-
+              public  alertController : AlertController) { 
+  }
 
   ngOnInit() {
   }
 
   ionViewWillEnter() {
-    this.obterParametrosRecebidos();
   }
 
   ionViewDidLoad(){}
@@ -40,17 +37,7 @@ export class PessoalDoencasAddPage implements OnInit {
   ionViewDidLeave(){}
   ionViewWillUnload(){}
 
-  obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
-  }
-
- selecionarRegistro(value: any) {
+  selecionarRegistro(value: any) {
     if (value!= null) { 
       this.alertConfirmarAdicaoDeItem(value);
     }
@@ -72,7 +59,7 @@ export class PessoalDoencasAddPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _value = this.addRegistro(value, data);
-            this.navCtrl.navigateBack([ this.paginaAnterior, {modoCRUD: this.modoCRUD}]);
+            this.navCtrl.navigateBack([ this.paginaAnterior]);
           }
         }
       ]

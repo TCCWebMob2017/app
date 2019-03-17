@@ -17,38 +17,21 @@ export class PessoalDrogasAddPage implements OnInit {
   public  paginaAnterior    : string = "pessoal-drogas";
   public  lista_items       : any;
           searchTerm        : string = '';
-  private modoCRUD          : string;
-  public  somenteLeitura    : boolean;  
 
   constructor(public  navCtrl         : NavController ,
               public  pessoalService  : PessoalService,
               private storage         : StorageService,
               private activatedRoute  : ActivatedRoute,
-              public  alertController : AlertController) { }
-
-
-  ngOnInit() {
+              public  alertController : AlertController) { 
   }
 
-  ionViewWillEnter() {
-    this.obterParametrosRecebidos();
-  }
-
+  ngOnInit() {}
+  ionViewWillEnter() {}
   ionViewDidLoad(){}
   ionViewDidEnter(){}
   ionViewWillLeave(){}
   ionViewDidLeave(){}
   ionViewWillUnload(){}
-
-  obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
-  }
 
  selecionarRegistro(value: any) {
     if (value!= null) { 
@@ -72,7 +55,7 @@ export class PessoalDrogasAddPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _value = this.addRegistro(value, data);
-            this.navCtrl.navigateBack([ this.paginaAnterior, {modoCRUD: this.modoCRUD}]);
+            this.navCtrl.navigateBack([ this.paginaAnterior]);
           }
         }
       ]
@@ -91,6 +74,7 @@ export class PessoalDrogasAddPage implements OnInit {
   }
 
   search(nome : string) {
+    nome = nome.toLowerCase();
     this.pessoalService.getDrogasPorNome(nome)
     .subscribe(Response => {
       this.lista_items = Response;

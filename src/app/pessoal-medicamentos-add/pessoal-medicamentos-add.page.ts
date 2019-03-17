@@ -91,6 +91,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
   }    
 
   search(nome : string) {
+    nome = nome.toLowerCase();
     this.pessoalService.getMedicamentosPorNome(nome)
     .subscribe(Response => {
       this.lista_items = Response;

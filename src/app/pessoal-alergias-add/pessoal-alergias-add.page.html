@@ -8,25 +8,23 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-content>
-    <ion-searchbar  #q
-                    [(ngModel)]="searchTerm" 
-                    [showCancelButton]="false"
-                    (keyup.enter)="search(q.value)">
-    </ion-searchbar>
-    <div style="margin: 1px 1px 1px 12px">
-      <ion-button size="small" (click)=search(q.value)>Buscar</ion-button>
-    </div>
-
-    <ion-list lines>
-      <ion-item *ngFor="let item of lista_items" (click)="selecionarRegistro(item)">
-        <ion-label text-wrap>
-          <h2> {{ item?.nome }} </h2>
-          <p *ngIf="item?.cid != null"> CID: {{ item?.cid }}</p>
-          <p *ngIf="item?.descricao != null"> Descrição: {{ item?.descricao }} </p>
-          <p *ngIf="item?.nomesPopulares != null"> Nomes populares: {{ item?.nomesPopulares }} </p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </ion-content>
+  <ion-searchbar  #searchBar
+                  [(ngModel)]="searchTerm" 
+                  [showCancelButton]="false"
+                  type="search" 
+                  placeholder="alergia (mínimo 3 caracteres)"
+                  (keyup.enter)="search(searchBar.value)"
+                  [ngModelOptions]="{standalone: true}"
+                  >
+  </ion-searchbar>
+  <ion-list lines>
+    <ion-item *ngFor="let item of lista_items" (click)="selecionarRegistro(item)">
+      <ion-label text-wrap>
+        <h2> {{ item?.nome }} </h2>
+        <p *ngIf="item?.cid != null"> CID: {{ item?.cid }}</p>
+        <p *ngIf="item?.descricao != null"> Descrição: {{ item?.descricao }} </p>
+        <p *ngIf="item?.nomesPopulares != null"> Nomes populares: {{ item?.nomesPopulares }} </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
