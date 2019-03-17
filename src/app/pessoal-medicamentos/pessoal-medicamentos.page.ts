@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
-import { NavController, AlertController, IonItemSliding } from '@ionic/angular';
+import { NavController, AlertController, IonItemSliding, ActionSheetController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
 import { ActivatedRoute } from '@angular/router';
@@ -22,15 +22,15 @@ export class PessoalMedicamentosPage implements OnInit {
   public  navegacaoProximaPagina  : string = "pessoal-doencas";
   public  navegacaoPaginaAdd      : string = "pessoal-medicamentos-add";
 
-  constructor(public  navCtrl         : NavController, 
-              public  alertController : AlertController,
-              private activatedRoute  : ActivatedRoute,
-              public  pessoalService  : PessoalService,
-              private storage         : StorageService,
-              public  usuarioService  : UsuarioService) { }
+  constructor(public  navCtrl             : NavController, 
+              public  alertController     : AlertController,
+              private activatedRoute      : ActivatedRoute,
+              public  pessoalService      : PessoalService,
+              private storage             : StorageService,
+              public  usuarioService      : UsuarioService,
+              public actionSheetController: ActionSheetController) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ionViewWillEnter() {
     this.obterParametrosRecebidos();
@@ -149,10 +149,8 @@ export class PessoalMedicamentosPage implements OnInit {
       await slidingItem.close();
       //let indexx = this.medicamentos.indexOf(item); 
       if(index > -1){
-        //this.medicamentos.splice(index, 1);
-        this.storage.removeMedicamento(index);
-        this.obterListaItens();
-      }  
+        this.confirmarExcluirRegistro(index);
+      } 
     }
   }
 
@@ -175,6 +173,29 @@ export class PessoalMedicamentosPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+
+  async confirmarExcluirRegistro(index : number) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Confirmação',
+      buttons: [{
+        text: 'Excluir medicamento',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.storage.removeMedicamento(index);
+          this.obterListaItens();
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          //console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }

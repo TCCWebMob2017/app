@@ -13,8 +13,9 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class PessoalPage implements OnInit {
 
-  prontuario  : any;
-  usuario     : UsuarioDTO;
+  prontuario      : any;
+  usuario         : UsuarioDTO;
+  leituraUsuario  : boolean = false;
   
   constructor(public  navCtrl         : NavController,
               public  pessoalService  : PessoalService,
@@ -24,7 +25,7 @@ export class PessoalPage implements OnInit {
               public  alertController : AlertController) { }
 
   ngOnInit() { 
-    this.lerUsuarioDados();
+    //this.lerUsuarioDados();
   }
 
   ionViewWillEnter() {
@@ -40,6 +41,7 @@ export class PessoalPage implements OnInit {
         .subscribe(Response => {
           this.usuario = Response;
           this.storage.setLocalUsuarioDados(this.usuario);
+          this.leituraUsuario = true;
         },
         error => { 
           if (error.status == 403) { this.navCtrl.navigateRoot('login'); }

@@ -121,7 +121,7 @@
       </ion-item>      
 
       <ion-item-options side="end"
-                        (ionSwipe)="deleteRow(slidingItem, $event, item, pos, false)"
+                        (ionSwipe)="deleteRow(slidingItem, $event, item, pos, true)"
                         disabled = "somenteLeitura"
                         >
         <ion-item-option  (click)="editRow(slidingItem, item, pos)"
