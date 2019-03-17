@@ -45,6 +45,7 @@
       <ion-item (click)="exibirRegistro(item)">
         
         <ion-label text-wrap>
+          
           <h2><b> {{ item?.medicamento?.nome }} </b></h2>
 
           <h3 *ngIf="(item?.medicamento?.nomeComercial != null && 

@@ -32,8 +32,13 @@
   </ion-fab>
 
   <ion-list lines>
-    <ion-item-sliding *ngFor="let item of listaItens; index as pos" #slidingItem text-wrap>
+
+    <ion-item-sliding *ngFor="let item of listaItens; index as pos" 
+                      (ionDrag)="slidingClose(slidingItem)"
+                      #slidingItem text-wrap
+                      >
       <ion-item (click)="exibirRegistro(item)">
+
         <ion-label text-wrap>
 
           <h2><b>{{ item?.alergia?.nome }}</b></h2>
@@ -42,13 +47,15 @@
           <h3 *ngIf="(item?.alergia?.agenteCausador != null && item?.alergia?.agenteCausador != '')">  
             Agente causador: {{ item?.alergia?.agenteCausador }} </h3>
           
-          <h3 *ngIf="(item?.alergia?.descricao != null && item?.alergia?.descricao != '')">  
+          <h3 *ngIf="((item?.alergia?.descricao != null && item?.alergia?.descricao != '') ||
+                       somenteLeitura != true)">
             Descrição: {{ item?.alergia?.descricao }} </h3>
           
           <h3 *ngIf="(item?.alergia?.reacoesAdversas != null && item?.alergia?.reacoesAdversas != '')">  
             Reações adversas: {{ item?.alergia?.reacoesAdversas }} </h3>
           
-          <h3 *ngIf="(item?.observacao != null && item?.observacao != '')">  
+          <h3 *ngIf="((item?.observacao != null && item?.observacao != '') ||
+                       somenteLeitura != true)">
           Observação: {{ item?.observacao }} </h3>
 
         </ion-label>
@@ -67,6 +74,7 @@
                           (click)="deleteRow(slidingItem, $event, item, pos, true)" 
                           >Excluir
         </ion-item-option>
+        
       </ion-item-options> 
 
     </ion-item-sliding>  

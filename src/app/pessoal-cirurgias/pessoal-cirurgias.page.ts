@@ -5,20 +5,24 @@ import { Component, OnInit } from '@angular/core';
 import { PessoalService } from '../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { UsuarioService } from '../services/usuario.service';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-pessoal-cirurgias',
   templateUrl: './pessoal-cirurgias.page.html',
   styleUrls: ['./pessoal-cirurgias.page.scss'],
 })
+
 export class PessoalCirurgiasPage implements OnInit {
-  public  tituloJanela    : string = "Cirurgias";
-  public  nomeObjetoLista : string = "cirurgias";
-  public  nomeObjeto      : string = "cirurgia";
-  public  listaItens      : any;
-  private modoCRUD        : string;
-  public  somenteLeitura  : boolean;
+  public  tituloJanela            : string = "Cirurgias";
+  public  nomeObjetoLista         : string = "cirurgias";
+  public  nomeObjeto              : string = "cirurgia";
+  public  listaItens              : any;
+  private modoCRUD                : string;
+  public  somenteLeitura          : boolean;
+  public  exibirBarraDeNavegacao  : boolean;
+  public  navegacaoPaginaAnterior : string = "pessoal-drogas";
+  public  navegacaoProximaPagina  : string = "pessoal-dependentes";
+  public  navegacaoPaginaAdd      : string = "pessoal-cirurgias-add";    
 
   constructor(public  navCtrl         : NavController,
               public  alertController : AlertController,
@@ -28,7 +32,6 @@ export class PessoalCirurgiasPage implements OnInit {
               public  usuarioService  : UsuarioService) { }
 
   ngOnInit() {
-    this.obterListaItens();
   }
 
   ionViewWillEnter(){
@@ -43,30 +46,68 @@ export class PessoalCirurgiasPage implements OnInit {
   ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD               = _parametros['modoCRUD'];
+    this.somenteLeitura         = _parametros['somenteLeitura'];
+    this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
   }
 
   obterListaItens() {
     let _localProfile   = this.storage.getLocalUsuarioDados();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
     this.listaItens     = _perfilPessoal[this.nomeObjetoLista];
+    console.log(this.listaItens);
   }
 
-  exibirRegistro() {
+  exibirRegistro() { }
 
+  setRegistroModoEditar() {
+    this.modoCRUD       = 'U';
+    this.somenteLeitura = false;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
-  gravarDados() {
+  setRegistroModoVisualizar() {
+    this.modoCRUD       = 'R';
+    this.somenteLeitura = true;
+    this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
+    this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
+  }
+
+  slidingClose(slidingItem : IonItemSliding) {
+    if (this.somenteLeitura == true) {
+      slidingItem.close();
+    }
+  }
+
+
+  gravarDados(voltarParaTelaAnterior : boolean) {
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
     }
-    this.irParaTelaHome();
+    if (voltarParaTelaAnterior) {
+      this.irParaTelaHome();
+    }
+    else {
+      this.setRegistroModoVisualizar();
+    }
+  }
+
+  adicionarRegistro() {
+    this.alertAdicionarItem();
+  }
+
+  irParaTelaHome() {
+    this.navCtrl.navigateBack('pessoal');
+  }
+
+  irParaTelaAnterior() {
+    this.navCtrl.navigateBack([this.navegacaoPaginaAnterior]);
+  }
+
+  irParaProximaTela() {
+    this.navCtrl.navigateForward([this.navegacaoProximaPagina]);
   }
 
   async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
@@ -76,6 +117,17 @@ export class PessoalCirurgiasPage implements OnInit {
     }
   }
 
+  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number, dele : boolean){    
+    if (this.somenteLeitura != true && dele == true) {
+      await slidingItem.close();
+      if(index > -1){
+        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
+        this.obterListaItens();
+      }
+    }
+  }
+
+  
   async alertModificarItem(pos: number , obj : any) {
 
     let _data = this.formataData(obj['data'], '');
@@ -107,19 +159,6 @@ export class PessoalCirurgiasPage implements OnInit {
     await alert.present();
   }
 
-  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number){
-    await slidingItem.close();
-      if(index > -1){
-        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
-        this.obterListaItens();
-      }
-    }
-
-  adicionarRegistro() {
-    this.alertAdicionarItem();
-    //this.teste();
-  }
-
   formataData(data, formato) {
     if (data == null) { data = ''; }
     if (formato == 'pt-br') {
@@ -135,8 +174,8 @@ export class PessoalCirurgiasPage implements OnInit {
       header: 'Adicionar  cirurgia',
       //message: '<b>' + obj['descricao'] + '</b>',
       inputs: [
-        { name: 'data',       type: 'date', value: '',  placeholder: 'Data' },
         { name: 'descricao',  type: 'text', value: '',  placeholder: 'Descrição' },
+        { name: 'data',       type: 'date', value: '',  placeholder: 'Data' },
         { name: 'observacao', type: 'text', value: '',  placeholder: 'Observação' }
       ],
       buttons: [
@@ -147,8 +186,8 @@ export class PessoalCirurgiasPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _data = this.formataData(data['data'], 'pt-br');
-            obj['data']         = _data;
             obj['descricao']    = data['descricao'];
+            obj['data']         = _data;
             obj['observacao']   = data['observacao'];
             this.addRegistro(obj);
 
@@ -167,22 +206,6 @@ export class PessoalCirurgiasPage implements OnInit {
     obj['privacidade']   = { };
     this.storage.addRegistroAhLista(obj, this.nomeObjetoLista);
     this.obterListaItens();
-  }
-
-  cancelarEdicao() {
-    this.irParaTelaHome();
-  }
-
-  irParaTelaHome() {
-    this.navCtrl.navigateBack('pessoal');
-  }
-
-  irParaTelaAnterior() {
-    this.navCtrl.navigateBack(['pessoal-drogas', {modoCRUD: this.modoCRUD}]);
-  }
-
-  irParaProximaTela() {
-    this.navCtrl.navigateForward(['pessoal-dependentes', {modoCRUD: this.modoCRUD}]);
   }
 
 }

@@ -108,7 +108,7 @@ export class PessoalDrogasPage implements OnInit {
 
   irParaProximaTela() {
     this.navCtrl.navigateForward([this.navegacaoProximaPagina]);
-  }  
+  }
 
   async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
     await slidingItem.close();
@@ -123,7 +123,6 @@ export class PessoalDrogasPage implements OnInit {
       if(index > -1){
         this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
         this.obterListaItens();
-        console.log(this.listaItens);
       }
     }
   }

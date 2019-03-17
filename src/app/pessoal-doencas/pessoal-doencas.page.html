@@ -42,9 +42,13 @@
 
           <h2><b>{{ item?.doenca?.nome }}</b></h2>
           <h3>CID: {{ item?.doenca?.cid }}</h3>
-          <h3 *ngIf="(item?.doenca?.nomesPopulares != null && item?.doenca?.nomesPopulares != '')">  
+          
+          <h3 *ngIf="((item?.doenca?.nomesPopulares != null && item?.doenca?.nomesPopulares != '') ||
+                       somenteLeitura != true)">
             Nomes Populares: {{ item?.doenca?.nomesPopulares }} </h3>
-          <h3 *ngIf="(item?.observacao != null && item?.observacao != '')">  
+
+          <h3 *ngIf="((item?.observacao != null && item?.observacao != '') ||
+                       somenteLeitura != true)">
             Observação: {{ item?.observacao }} </h3>
 
         </ion-label>

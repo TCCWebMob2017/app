@@ -32,16 +32,23 @@
   </ion-fab>
 
   <ion-list lines>
-    <ion-item-sliding *ngFor="let item of listaItens; index as pos" #slidingItem text-wrap>
+
+    <ion-item-sliding *ngFor="let item of listaItens; index as pos" 
+                      (ionDrag)="slidingClose(slidingItem)"
+                      #slidingItem text-wrap
+                      >
       <ion-item (click)="exibirRegistro(item)">
+
         <ion-label text-wrap>
 
           <h2><b>{{ item?.descricao }}</b></h2>
           
-          <h3 *ngIf="(item?.data != null && item?.data != '')">
+          <h3 *ngIf="((item?.data != null && item?.data != '') ||
+                       somenteLeitura != true)">
             Data: {{ item?.data }} </h3>
             
-          <h3 *ngIf="(item?.observacao != null && item?.observacao != '')">  
+          <h3 *ngIf="((item?.observacao != null && item?.observacao != '') ||
+                       somenteLeitura != true)">
             Observação: {{ item?.observacao }} </h3>
 
         </ion-label>
@@ -60,6 +67,7 @@
                           (click)="deleteRow(slidingItem, $event, item, pos, true)" 
                           >Excluir
         </ion-item-option>
+
       </ion-item-options>
 
     </ion-item-sliding>

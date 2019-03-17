@@ -32,23 +32,36 @@
   </ion-fab>
 
   <ion-list lines>
-    <ion-item-sliding *ngFor="let item of listaItens; index as pos" #slidingItem text-wrap>
+
+    <ion-item-sliding *ngFor="let item of listaItens; index as pos" 
+                      (ionDrag)="slidingClose(slidingItem)"
+                      #slidingItem text-wrap
+                      >
       <ion-item (click)="exibirRegistro(item)">
+        
         <ion-label text-wrap>
 
           <h2><b>{{ item?.droga?.nome }}</b></h2>
           <h3 *ngIf="(item?.droga?.nomePopular != null && item?.droga?.nomePopular != '')">  
             Nomes Populares: {{ item?.droga?.nomePopular }} </h3>
-          <h3 *ngIf="(item?.droga?.descricao != null && item?.droga?.descricao != '')">  
+          
+          <h3 *ngIf="((item?.droga?.descricao != null && item?.droga?.descricao != '') ||
+                       somenteLeitura != true)">
             Descrição: {{ item?.droga?.descricao }} </h3>
+          
           <h3 *ngIf="(item?.droga?.efeitos != null && item?.droga?.efeitos != '')">  
             Efeitos: {{ item?.droga?.efeitos }} </h3>
+          
           <h3 *ngIf="(item?.droga?.consequenciasNegativas != null && item?.droga?.consequenciasNegativas != '')">  
             Consequencias negativas: {{ item?.droga?.consequenciasNegativas }} </h3>
-          <h3 *ngIf="(item?.frequecia != null && item?.frequecia != '')">  
-            Frequência: {{ item?.frequecia }} </h3>
-          <h3 *ngIf="(item?.observacao != null && item?.observacao != '')">  
-            Observação: {{ item?.observacao }} </h3>
+          
+          <h3 *ngIf="((item?.frequecia != null && item?.frequecia != '') ||
+                       somenteLeitura != true)">
+          Frequência: {{ item?.frequecia }} </h3>
+        
+          <h3 *ngIf="((item?.observacao != null && item?.observacao != '') ||
+                       somenteLeitura != true)">
+          Observação: {{ item?.observacao }} </h3>
 
         </ion-label>
       </ion-item>
@@ -66,6 +79,7 @@
                           (click)="deleteRow(slidingItem, $event, item, pos, true)" 
                           >Excluir
         </ion-item-option>
+        
       </ion-item-options>
 
     </ion-item-sliding>  
