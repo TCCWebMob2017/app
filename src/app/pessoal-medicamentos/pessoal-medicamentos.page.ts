@@ -51,9 +51,7 @@ export class PessoalMedicamentosPage implements OnInit {
   }
  
   obterListaItens() {
-    console.log('obterListaMedicamentos');
     this.listaItens = this.storage.getMedicamentos();
-    console.log(this.listaItens);
   }
 
   exibirRegistro(item : any) { }
@@ -154,7 +152,6 @@ export class PessoalMedicamentosPage implements OnInit {
         //this.medicamentos.splice(index, 1);
         this.storage.removeMedicamento(index);
         this.obterListaItens();
-        console.log(this.listaItens);
       }  
     }
   }

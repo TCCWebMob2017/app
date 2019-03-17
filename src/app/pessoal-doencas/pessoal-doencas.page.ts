@@ -123,7 +123,6 @@ export class PessoalDoencasPage implements OnInit {
       if(index > -1){
         this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
         this.obterListaItens();
-        console.log(this.listaItens);
       }
     }
   }

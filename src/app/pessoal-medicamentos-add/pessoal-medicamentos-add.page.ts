@@ -12,10 +12,8 @@ import { ActivatedRoute, NavigationExtras } from '@angular/router';
 export class PessoalMedicamentosAddPage implements OnInit {
   @ViewChild('searchBar') myInput ;
 
-  public  lista_items : any;
+  public  lista_items       : any;
           searchTerm        : string = '';
-  private modoCRUD          : string;
-  public  somenteLeitura    : boolean;  
 
   constructor(public  navCtrl         : NavController, 
               public  pessoalService  : PessoalService,
@@ -27,13 +25,9 @@ export class PessoalMedicamentosAddPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    console.log('Will Enter');
-    this.obterParametrosRecebidos();
-
     setTimeout(() => {
       this.myInput.setFocus();
-    }, 150);
-     
+    }, 150);     
   }
 
   ionViewDidLoad(){}
@@ -42,17 +36,6 @@ export class PessoalMedicamentosAddPage implements OnInit {
   ionViewDidLeave(){}
   ionViewWillUnload(){}
 
-  obterParametrosRecebidos() {
-    this.modoCRUD = this.activatedRoute.snapshot.paramMap.get('modoCRUD');
-    if (this.modoCRUD == 'R') {
-      this.somenteLeitura = true;
-    }
-    else {
-      this.somenteLeitura = false;
-    }
-    console.log('PessoalMedicamentosAddPage | modoCRUD: ' + this.modoCRUD);
-  }
-  
   /*
   setFilteredItems(ev: any) {
     let val = ev.target.value;
@@ -118,7 +101,7 @@ export class PessoalMedicamentosAddPage implements OnInit {
 
     },
     error => {
-      console.log(error);
+      //console.log(error);
     });
   }
 

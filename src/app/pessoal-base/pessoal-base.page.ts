@@ -64,7 +64,6 @@ export class PessoalBasePage implements OnInit {
     this.modoCRUD               = _parametros['modoCRUD'];
     this.somenteLeitura         = _parametros['somenteLeitura'];
     this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
-    console.log(_parametros);
   }
 
   setRegistroModoEditar() {
@@ -177,20 +176,15 @@ export class PessoalBasePage implements OnInit {
           text: 'Ok',
           handler: () => {
             let _idUsuario = this.usuario['id'];
-            console.log(_idUsuario);
             if (_idUsuario != null) {
               this.usuarioService.excluirPerfilPessoal(_idUsuario)
               .subscribe(Response => {
-                console.log('PessoalBasePage | excluirPerfilPessoal');
-                console.log(Response);
-
                 this.storage.clearPerfilPessoal();
-
                 this.deletePresentToast();
                 this.irParaTelaAnterior();
               },
               error => {
-                console.log(error);
+                //console.log(error);
               });
             }
             //console.log('Confirm Ok');

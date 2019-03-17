@@ -21,7 +21,7 @@ export class PessoalCirurgiasPage implements OnInit {
   public  somenteLeitura          : boolean;
   public  exibirBarraDeNavegacao  : boolean;
   public  navegacaoPaginaAnterior : string = "pessoal-drogas";
-  public  navegacaoProximaPagina  : string = "pessoal-dependentes";
+  public  navegacaoProximaPagina  : string = "";
   public  navegacaoPaginaAdd      : string = "pessoal-cirurgias-add";    
 
   constructor(public  navCtrl         : NavController,
@@ -56,7 +56,6 @@ export class PessoalCirurgiasPage implements OnInit {
     let _localProfile   = this.storage.getLocalUsuarioDados();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
     this.listaItens     = _perfilPessoal[this.nomeObjetoLista];
-    console.log(this.listaItens);
   }
 
   exibirRegistro() { }
@@ -190,11 +189,6 @@ export class PessoalCirurgiasPage implements OnInit {
             obj['data']         = _data;
             obj['observacao']   = data['observacao'];
             this.addRegistro(obj);
-
-
-            console.log(this.formataData(data['data'], ''));
-            console.log(this.formataData(data['data'], 'pt-br'));
-
           }
         }
       ]
