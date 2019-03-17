@@ -23,7 +23,6 @@ export class UsuarioService {
       this.getLoggedInUser()
       .subscribe(Response => {
         let _usuario : UsuarioDTO = Response;
-        //console.log(_usuario);
         this.storage.setLocalUsuarioDados(_usuario);
       },
       error => { 
@@ -76,11 +75,6 @@ export class UsuarioService {
   }
 
   adicionarPerfilPessoal(id: string, body: any) {
-
-    console.clear;
-    console.log('adicionarPerfilPessoal llllllllllllllllll');
-    console.log(body);
-
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
     return this.http.post(url, body, { observe: 'response', responseType: 'text'});
   }
@@ -94,6 +88,5 @@ export class UsuarioService {
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
     return this.http.delete(url, { observe: 'response', responseType: 'text'});
   }
-
 
 }

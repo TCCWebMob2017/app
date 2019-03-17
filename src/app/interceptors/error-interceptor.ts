@@ -25,15 +25,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             .pipe(
                 map((event: HttpEvent<any>) => {
                   if (event instanceof HttpResponse) {
-                    console.log('event--->>>', event);
                   }
                   return event;      
                   
                 }),
                 catchError((error: HttpErrorResponse) => {
-                    console.log('errorrrrrrr');
-                    console.log(error.status);
-                    console.log(error);
                     if (error.status === 401) {
                         //console.log(error.error);
                         //if (error.error.success === false) {

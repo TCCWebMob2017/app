@@ -46,7 +46,6 @@ export class AuthService {
       creds.email = "afelix@softquim.com.br";
       creds.password = "123456";
     }
-
     return this.http.post(url, creds, { observe: 'response', responseType: 'text' });
   }
 
@@ -59,8 +58,6 @@ export class AuthService {
 
   signup(value: any) {
     let url = API_CONFIG.baseUrl + "/api/v1/usuario";
-    console.log('url ------------> ' + url);
-    console.log(value);
     return this.http.post(url, value, { observe: 'response', responseType: 'text' });
   }
 
