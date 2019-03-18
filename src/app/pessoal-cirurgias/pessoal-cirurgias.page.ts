@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, IonItemSliding } from '@ionic/angular';
+import { AlertController, IonItemSliding, ActionSheetController } from '@ionic/angular';
 import { NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from '../services/pessoal.service';
@@ -24,12 +24,13 @@ export class PessoalCirurgiasPage implements OnInit {
   public  navegacaoProximaPagina  : string = "";
   public  navegacaoPaginaAdd      : string = "pessoal-cirurgias-add";    
 
-  constructor(public  navCtrl         : NavController,
-              public  alertController : AlertController,
-              private activatedRoute  : ActivatedRoute,
-              public  pessoalService  : PessoalService,
-              private storage         : StorageService,
-              public  usuarioService  : UsuarioService) { }
+  constructor(public  navCtrl             : NavController,
+              public  alertController     : AlertController,
+              private activatedRoute      : ActivatedRoute,
+              public  pessoalService      : PessoalService,
+              private storage             : StorageService,
+              public  usuarioService      : UsuarioService,
+              public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
   }
@@ -120,8 +121,7 @@ export class PessoalCirurgiasPage implements OnInit {
     if (this.somenteLeitura != true && dele == true) {
       await slidingItem.close();
       if(index > -1){
-        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
-        this.obterListaItens();
+        this.confirmarExcluirRegistro(index);
       }
     }
   }
@@ -202,4 +202,26 @@ export class PessoalCirurgiasPage implements OnInit {
     this.obterListaItens();
   }
 
+  async confirmarExcluirRegistro(index : number) {
+    const actionSheet = await this.actionSheetController.create({
+      //header: 'Confirmação',
+      buttons: [{
+        text: 'Excluir cirurgia',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
+          this.obterListaItens();
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          //console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }  
 }

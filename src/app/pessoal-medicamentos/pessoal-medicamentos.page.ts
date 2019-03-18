@@ -177,7 +177,7 @@ export class PessoalMedicamentosPage implements OnInit {
 
   async confirmarExcluirRegistro(index : number) {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Confirmação',
+      //header: 'Confirmação',
       buttons: [{
         text: 'Excluir medicamento',
         role: 'destructive',

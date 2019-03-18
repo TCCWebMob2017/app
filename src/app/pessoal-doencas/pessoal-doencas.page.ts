@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, IonItemSliding } from '@ionic/angular';
+import { NavController, AlertController, IonItemSliding, ActionSheetController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
 import { ActivatedRoute } from '@angular/router';
 import { PessoalService } from '../services/pessoal.service';
@@ -24,12 +24,13 @@ export class PessoalDoencasPage implements OnInit {
   public  navegacaoProximaPagina  : string = "pessoal-alergias";
   public  navegacaoPaginaAdd      : string = "pessoal-doencas-add";
 
-  constructor(public  navCtrl         : NavController, 
-              public  alertController : AlertController,
-              private activatedRoute  : ActivatedRoute,
-              public  pessoalService  : PessoalService,
-              private storage         : StorageService,
-              public  usuarioService  : UsuarioService) { }
+  constructor(public  navCtrl             : NavController, 
+              public  alertController     : AlertController,
+              private activatedRoute      : ActivatedRoute,
+              public  pessoalService      : PessoalService,
+              private storage             : StorageService,
+              public  usuarioService      : UsuarioService,
+              public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
   }
@@ -121,8 +122,7 @@ export class PessoalDoencasPage implements OnInit {
     if (this.somenteLeitura != true && dele == true) {
       await slidingItem.close();
       if(index > -1){
-        this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
-        this.obterListaItens();
+        this.confirmarExcluirRegistro(index);
       }
     }
   }
@@ -158,5 +158,28 @@ export class PessoalDoencasPage implements OnInit {
     });
     await alert.present();
   }
+
+  async confirmarExcluirRegistro(index : number) {
+    const actionSheet = await this.actionSheetController.create({
+      //header: 'Confirmação',
+      buttons: [{
+        text: 'Excluir doença',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
+          this.obterListaItens();          
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          //console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }  
 
 }
