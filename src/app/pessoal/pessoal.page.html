@@ -14,24 +14,37 @@
   
 <ion-content padding>
 
-  <ion-avatar>
-    <img class="circle" [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
-  </ion-avatar>
 
+  
+  <ion-item *ngIf="usuarioCarregado == true">
+    <ion-avatar slot="start">
+      <img [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
+    </ion-avatar>
+    <ion-label text-wrap><h2>{{ usuario?.nome }}</h2></ion-label>
+  </ion-item>
+
+  <!--
+  <ion-avatar *ngIf="usuarioCarregado == true">
+    <img class="circle" [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
+  </ion-avatar>  
   <h2 text-center>{{ usuario?.nome }}</h2>
-  <p text-center *ngIf="usuario?.perfilPessoal == null">{{ usuario?.email }}</p>
-  <ion-item *ngIf="usuario?.perfilPessoal == null">
-    <ion-label position="stacked">Telefone</ion-label>
-    <ion-input readonly>{{ usuario?.tefefone }}</ion-input>
-  </ion-item>
-  <ion-item *ngIf="usuario?.perfilPessoal == null">
-    <ion-label position="stacked">CPF:</ion-label>
-    <ion-input readonly>{{ usuario?.cpf }}</ion-input>
-  </ion-item>
-  <ion-item *ngIf="usuario?.perfilPessoal == null">
-    <ion-label position="stacked">RG</ion-label>
-    <ion-input readonly>{{ usuario?.rg }}</ion-input>
-  </ion-item>
+  -->
+
+  <div *ngIf="usuario?.perfilPessoal == null && usuarioCarregado == true">
+    <p text-center>{{ usuario?.email }}</p>
+    <ion-item>
+      <ion-label position="stacked">Telefone</ion-label>
+      <ion-input readonly>{{ usuario?.tefefone }}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">CPF:</ion-label>
+      <ion-input readonly>{{ usuario?.cpf }}</ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">RG</ion-label>
+      <ion-input readonly>{{ usuario?.rg }}</ion-input>
+    </ion-item>
+  </div>
 
 
   <ion-card *ngIf="usuario?.perfilPessoal != null">
@@ -85,7 +98,7 @@
   </ion-card>
 
 
-  <div *ngIf="usuario?.perfilPessoal == null && leituraUsuario == true">
+  <div *ngIf="usuario?.perfilPessoal == null && usuarioCarregado == true">
     <br>
     <br>
     <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
@@ -96,7 +109,7 @@
             horizontal="end" 
             slot="fixed" 
             *ngIf="usuario?.perfilPessoal == null && 
-                   leituraUsuario == true && leituraUsuario == false">
+            usuarioCarregado == true && usuarioCarregado == false">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

@@ -12,10 +12,9 @@ import { NavController, ToastController } from '@ionic/angular';
   styleUrls: ['./pessoal.page.scss'],
 })
 export class PessoalPage implements OnInit {
-
-  prontuario      : any;
-  usuario         : UsuarioDTO;
-  leituraUsuario  : boolean = false;
+          prontuario        : any;
+          usuario           : UsuarioDTO;
+  public  usuarioCarregado  : boolean;
   
   constructor(public  navCtrl         : NavController,
               public  pessoalService  : PessoalService,
@@ -29,8 +28,14 @@ export class PessoalPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.obterParametrosRecebidos();
     this.lerUsuarioDados();
   }  
+
+  obterParametrosRecebidos() {
+    let _parametros = this.storage.getLocalParametros();
+    this.usuarioCarregado = _parametros['usuarioCarregado'];
+  }
 
   lerUsuarioDados() {
     let _localUser = this.storage.getLocalUser();
@@ -39,9 +44,10 @@ export class PessoalPage implements OnInit {
       if (this.usuario == null) {
         this.usuarioService.getLoggedInUser()
         .subscribe(Response => {
+          this.usuarioCarregado = true;
           this.usuario = Response;
           this.storage.setLocalUsuarioDados(this.usuario);
-          this.leituraUsuario = true;
+          this.storage.setLocalParametros("usuarioCarregado", this.usuarioCarregado);
         },
         error => { 
           if (error.status == 403) { this.navCtrl.navigateRoot('login'); }
@@ -120,11 +126,14 @@ export class PessoalPage implements OnInit {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
-    this.navCtrl.navigateForward(['pessoal-dependentes']); 
+    //this.navCtrl.navigateForward(['pessoal-dependentes']); 
   }
 
   exibirPessoalPermissoes() { 
-    this.navCtrl.navigateForward(['pessoal-permissoes']); 
+    this.storage.setLocalParametros('modoCRUD', 'R');
+    this.storage.setLocalParametros('somenteLeitura', true);
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    //this.navCtrl.navigateForward(['pessoal-permissoes']); 
   }
 
   exibirFichaMedica() { 
