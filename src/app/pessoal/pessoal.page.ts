@@ -140,4 +140,8 @@ export class PessoalPage implements OnInit {
     this.navCtrl.navigateForward(['ficha-medica'])
   }
 
+  atualizarDadosUsuario() {
+    this.navCtrl.navigateForward(['signup']); 
+  }
+
 }
