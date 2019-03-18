@@ -11,7 +11,7 @@ export class SobrePage implements OnInit {
   segment: number;
   @ViewChild("slides") slides;
 
-  public list: string[] = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'];
+  public list: string[] = ['A', 'B', 'C', 'D', 'E']; //, 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'];
 
   constructor() { 
     this.segment = 0;
@@ -49,25 +49,19 @@ export class SobrePage implements OnInit {
     console.log(par2);
   }
 
-async del(slidingItem: IonItemSliding, event, item: any, index: number){
+  async del(slidingItem: IonItemSliding, event, item: any, index: number){
 
- 	await slidingItem.close();
-  let indexx = this.list.indexOf(item);
-  
-  console.log('Item: ' + item + ' / Index: ' + index);
-  console.log(slidingItem);
-  console.log(event);
+    await slidingItem.close();
+    let indexx = this.list.indexOf(item);
+    
+    console.log('Item: ' + item + ' / Index: ' + index);
+    console.log(slidingItem);
+    console.log(event);
 
-  if(index > -1){
-      this.list.splice(index, 1);
+    if(index > -1){
+        this.list.splice(index, 1);
+    }
   }
-}
 
-
-
-
-search(q: string) { 
-  console.log(q); 
-}
 
 }
