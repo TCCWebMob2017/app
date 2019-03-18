@@ -28,8 +28,9 @@ export class LoginPage implements OnInit {
 
 
   ngOnInit() {
-    this.storage.clearLocalUser();
-    this.storage.clearLocalUsuarioDados();
+    this.storage.limparUsuarioCredenciais();
+    this.storage.limparUsuarioDados();
+    this.storage.limparUsuarioPerfilPessoal();
     this.storage.setLocalParametros("usuarioCarregado", false);
   }
 

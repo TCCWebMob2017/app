@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { NgModel } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-signup',
@@ -11,18 +12,29 @@ import { AuthService } from '../services/auth.service';
 })
 export class SignupPage implements OnInit {
 
-  usernameModel: NgModel;
+  usernameModel : NgModel;
+  usuario       : any;
 
-  constructor(public navCtrl: NavController,
-              public auth : AuthService,
+  constructor(public  navCtrl         : NavController,
+              public  auth            : AuthService,
               //private readonly authService: AuthService,
               //private readonly loadingCtrl: LoadingController,
               //private readonly toastCtrl: ToastController,
               //public formBuilder: FormBuilder,
-              public alertCtrl: AlertController
+              private storage         : StorageService,
+              public  alertCtrl       : AlertController
               ) { 
 
   }
+
+  ngOnInit() {
+    this.lerUsuarioDados();
+  }
+
+  lerUsuarioDados() {
+    this.usuario = this.storage.getLocalUsuarioDadosB();
+    console.log(this.usuario );
+  };
 
 
   async signup(value: any) {
@@ -54,9 +66,6 @@ export class SignupPage implements OnInit {
         jwt => this.showSuccesToast(jwt),
         err => this.handleError(err));
         */
-  }  
-
-  ngOnInit() {
-  }
+  } 
 
 }

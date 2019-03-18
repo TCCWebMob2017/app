@@ -16,7 +16,7 @@ export class FichaMedicaPage implements OnInit {
 
   ngOnInit() {
 
-    this.fichaMedica = this.storage.getLocalUsuarioDados();
+    this.fichaMedica = this.storage.getLocalUsuarioPessoal();
     if ( this.fichaMedica == null) {
       this.buscaFichaMedica();
     }

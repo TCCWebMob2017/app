@@ -28,12 +28,25 @@ export class StorageService {
     }
   }
 
-  clearLocalUser() {
+  limparUsuarioCredenciais() {
     localStorage.removeItem(STORAGE_KEY.localUsuarioCredenciais);
   }
 
+  limparUsuarioDados() {
+    localStorage.removeItem(STORAGE_KEY.localUsuarioDados);
+  }
 
-  getLocalUsuarioDados() : any {
+  getLocalUsuarioDadosB() : any {
+    let _profile = localStorage.getItem(STORAGE_KEY.localUsuarioDados);
+    if(_profile == null) {
+      return null;
+    }
+    else {
+      return JSON.parse(_profile);
+    }
+  }
+
+  getLocalUsuarioPessoal() : any {
     let profile = localStorage.getItem(STORAGE_KEY.localUsuarioPessoal);
     if(profile == null) {
       return null;
@@ -74,12 +87,12 @@ export class StorageService {
     }
   }
   
-  clearLocalUsuarioDados() {
+  limparUsuarioPerfilPessoal() {
     localStorage.removeItem(STORAGE_KEY.localUsuarioPessoal);
   }
 
   getPerfilPessoal(): any {
-    let _usuario = this.getLocalUsuarioDados();
+    let _usuario = this.getLocalUsuarioPessoal();
     if (_usuario == null) {
       return null;
     }
@@ -90,7 +103,7 @@ export class StorageService {
   }
 
   clearPerfilPessoal() {
-    let _usuario = this.getLocalUsuarioDados();
+    let _usuario = this.getLocalUsuarioPessoal();
     if (_usuario != null) {
       _usuario['perfilPessoal'] = null;
       this.setLocalUsuarioDados(_usuario);
@@ -131,7 +144,7 @@ export class StorageService {
   }
 
   setMedicamentos(value : any) {
-    let _usuario = this.getLocalUsuarioDados();
+    let _usuario = this.getLocalUsuarioPessoal();
     if (_usuario == null) { 
       return;
     }
@@ -145,7 +158,7 @@ export class StorageService {
   }
 
   addRegistroAhLista(obj : any, nomeObj : string) {
-    let _usuario = this.getLocalUsuarioDados();
+    let _usuario = this.getLocalUsuarioPessoal();
     if (_usuario != null) {
       let _perfilPessoal = _usuario['perfilPessoal'];
       if (_perfilPessoal != null) {
@@ -164,7 +177,7 @@ export class StorageService {
   }
 
   removeRegistroDaLista(index : number, nome_obj : string) {
-    let _usuario = this.getLocalUsuarioDados();
+    let _usuario = this.getLocalUsuarioPessoal();
     if (_usuario != null) {
       let _perfilPessoal = _usuario['perfilPessoal'];
       if (_perfilPessoal != null) {
@@ -180,7 +193,7 @@ export class StorageService {
   }
 
   modificarRegistroNaLista(index : number, obj : any, nome_obj : string) {
-    let _usuario = this.getLocalUsuarioDados();
+    let _usuario = this.getLocalUsuarioPessoal();
     if (_usuario != null) {
       let _perfilPessoal = _usuario['perfilPessoal'];
       if (_perfilPessoal != null) {
