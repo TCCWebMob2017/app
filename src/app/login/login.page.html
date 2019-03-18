@@ -8,7 +8,8 @@
 <br>
 <br>
 <form #form="ngForm" (ngSubmit)="login(form.value)" novalidate>
-  <ion-list>     
+  <ion-list>    
+    <ion-img src="/assets/q-life.jpg"></ion-img> 
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
       <ion-input [(ngModel)]="creds.email" type="text" name="email" ngModel required #email="ngModel"
