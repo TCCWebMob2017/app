@@ -5,15 +5,18 @@
 </ion-header>
 
 <ion-content padding>
-<br>
-<br>
-<form #form="ngForm" (ngSubmit)="login(form.value)" novalidate>
+
+  <form #form="ngForm" (ngSubmit)="login(form.value)" novalidate>
   <ion-list>    
     <ion-img src="/assets/q-life.jpg"></ion-img>
+    
+    <!--
     <ion-card-header>
-        <ion-card-subtitle>Bem vindo(a) ao</ion-card-subtitle>
-        <ion-card-title>Q-life</ion-card-title>
-      </ion-card-header>
+      <ion-card-subtitle>Bem vindo(a) ao</ion-card-subtitle>
+      <ion-card-title>Q-life</ion-card-title>
+    </ion-card-header>
+    -->
+    <br>
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
       <ion-input [(ngModel)]="creds.email" type="text" name="email" ngModel required #email="ngModel"
@@ -28,7 +31,7 @@
     -->
 
     <ion-item>
-      <ion-label position="stacked">Password</ion-label>
+      <ion-label position="stacked">Senha</ion-label>
       <ion-input [(ngModel)]="creds.password" type="password" name="password" ngModel required #password="ngModel"
                  [class.invalid]="password.errors && password.dirty"></ion-input>
     </ion-item>
