@@ -10,7 +10,7 @@ export class StorageService {
   constructor() { }
 
   getLocalUser() : LocalUser {
-    let usr = localStorage.getItem(STORAGE_KEY.localUser);
+    let usr = localStorage.getItem(STORAGE_KEY.localUsuarioCredenciais);
     if(usr == null) {
       return null;
     }
@@ -21,15 +21,15 @@ export class StorageService {
 
   setLocalUser(obj : LocalUser) {
     if(obj == null) {
-      localStorage.removeItem(STORAGE_KEY.localUser);
+      localStorage.removeItem(STORAGE_KEY.localUsuarioCredenciais);
     }
     else {
-      localStorage.setItem(STORAGE_KEY.localUser, JSON.stringify(obj));
+      localStorage.setItem(STORAGE_KEY.localUsuarioCredenciais, JSON.stringify(obj));
     }
   }
 
   clearLocalUser() {
-    localStorage.removeItem(STORAGE_KEY.localUser);
+    localStorage.removeItem(STORAGE_KEY.localUsuarioCredenciais);
   }
 
 

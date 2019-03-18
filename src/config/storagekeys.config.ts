@@ -1,6 +1,8 @@
 export const STORAGE_KEY = {
-    localUser           : "localUsuarioCredenciais",
-//  localProfile        : "localUsuarioDados",
-    localUsuarioPessoal : "localUsuarioDados",
-    localParametros     : "localParametros"
+    localUsuarioCredenciais     : "localUsuarioCredenciais",
+    localUsuarioDados           : "localUsuarioDados",
+    localUsuarioPessoal         : "localUsuarioPerfilPessoal",
+    localUsuarioProfissional    : "localUsuarioPerfilProfissional",
+    localUsuarioInstitucional   : "localUsuarioPerfilInstitucional",
+    localParametros             : "localParametros"
 }
