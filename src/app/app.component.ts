@@ -11,12 +11,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 })
 export class AppComponent {
   public appPages = [
-    { title: 'Home', url: '/home', icon: 'home' },
-    { title: 'Pessoal', url: '/pessoal', icon: 'finger-print' },
-    //{ title: 'Pessoal', url: '/pessoal', icon: 'contact' },
-    //{ title: 'List', url: '/list', icon: 'list' },
-    { title: 'Ficha médica', url: '/ficha-medica', icon: 'medical' },
-    { title: 'Logout', url: '/login', icon: 'log-out' }
+    { title: 'Dados do usuário',    url: '/home',         icon: 'person' },
+    { title: 'Perfil pessoal',      url: '/pessoal',      icon: 'finger-print' },
+  //{ title: 'Perfil profissional', url: '/pessoal',      icon: 'contact' },
+  //{ title: 'List',                url: '/list',         icon: 'list' },
+    { title: 'Ficha médica',        url: '/ficha-medica', icon: 'medical' },
+    { title: 'Logout',              url: '/login',        icon: 'log-out' }
     //{ title: 'Logout', component: ''}
   ];
 
