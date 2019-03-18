@@ -9,7 +9,11 @@
 <br>
 <form #form="ngForm" (ngSubmit)="login(form.value)" novalidate>
   <ion-list>    
-    <ion-img src="/assets/q-life.jpg"></ion-img> 
+    <ion-img src="/assets/q-life.jpg"></ion-img>
+    <ion-card-header>
+        <ion-card-subtitle>Bem vindo(a) ao</ion-card-subtitle>
+        <ion-card-title>Q-life</ion-card-title>
+      </ion-card-header>
     <ion-item>
       <ion-label position="stacked">E-mail</ion-label>
       <ion-input [(ngModel)]="creds.email" type="text" name="email" ngModel required #email="ngModel"
@@ -44,7 +48,7 @@
       <br>
       <ion-button expand="block" fill="outline" type="button" (click)="signup()">Registrar</ion-button>
       <br>
-      <ion-button expand="block" fill="outline" type="button" (click)="sobre()">Testes</ion-button>
+      <!-- <ion-button expand="block" fill="outline" type="button" (click)="sobre()">Testes</ion-button> -->
     </div>
 
   </ion-list>
