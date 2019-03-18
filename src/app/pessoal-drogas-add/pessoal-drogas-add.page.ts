@@ -17,6 +17,7 @@ export class PessoalDrogasAddPage implements OnInit {
   public  paginaAnterior    : string = "pessoal-drogas";
   public  lista_items       : any;
           searchTerm        : string = '';
+  public  exibirSearchBar   : boolean = false;
 
   constructor(public  navCtrl         : NavController ,
               public  pessoalService  : PessoalService,
@@ -25,7 +26,16 @@ export class PessoalDrogasAddPage implements OnInit {
               public  alertController : AlertController) { 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.exibirSearchBar != true) {
+      this.pessoalService.getDrogasPorNome("")
+      .subscribe(Response => {
+        this.lista_items = Response;
+      },
+      error => { });
+    }
+  }
+
   ionViewWillEnter() {}
   ionViewDidLoad(){}
   ionViewDidEnter(){}

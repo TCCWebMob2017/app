@@ -12,10 +12,10 @@
                   [(ngModel)]="searchTerm" 
                   [showCancelButton]="false"
                   type="search" 
-                  placeholder="medicamento (mínimo 3 caracteres)"
+                  placeholder="droga (mínimo 3 caracteres)"
                   (keyup.enter)="search(searchBar.value)"
                   [ngModelOptions]="{standalone: true}"
-                  >
+                  *ngIf="exibirSearchBar == true">
   </ion-searchbar>
   <ion-list lines>
     <ion-item *ngFor="let item of lista_items" (click)="selecionarRegistro(item)">

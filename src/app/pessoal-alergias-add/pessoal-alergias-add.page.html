@@ -11,7 +11,7 @@
   <ion-searchbar  #searchBar
                   [(ngModel)]="searchTerm" 
                   [showCancelButton]="false"
-                  type="search" 
+                  type="search"
                   placeholder="alergia (mínimo 3 caracteres)"
                   (keyup.enter)="search(searchBar.value)"
                   [ngModelOptions]="{standalone: true}"

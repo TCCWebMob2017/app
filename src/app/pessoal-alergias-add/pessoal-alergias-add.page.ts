@@ -75,7 +75,7 @@ export class PessoalAlergiasAddPage implements OnInit {
   }
 
   search(nome : string) {
-    if(nome.length >= 3) {
+    if(nome.length >= 0) {
       nome = nome.toLowerCase();
       this.pessoalService.getAlergiasPorNome(nome)
       .subscribe(Response => {
