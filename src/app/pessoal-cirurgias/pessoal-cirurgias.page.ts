@@ -135,8 +135,8 @@ export class PessoalCirurgiasPage implements OnInit {
       header: 'Modificar dados',
       //message: '<b>' + obj[this.nomeObjeto]['descricao'] + '</b>',
       inputs: [
-        { name: 'data',       type: 'date', value: _data,           placeholder: 'Data' },
         { name: 'descricao',  type: 'text', value: obj.descricao,   placeholder: 'Descrição' },
+        { name: 'data',       type: 'date', value: _data,           placeholder: 'Data' },
         { name: 'observacao', type: 'text', value: obj.observacao,  placeholder: 'Observação' }
       ],
       buttons: [
@@ -147,8 +147,8 @@ export class PessoalCirurgiasPage implements OnInit {
           text: 'Ok',
           handler: ( data = Response ) => {
             let _data = this.formataData(data['data'], 'pt-br');         
-            obj['data']       = _data;
             obj['descricao']  = data['descricao'];
+            obj['data']       = _data;
             obj['observacao'] = data['observacao'];
             this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
           }
