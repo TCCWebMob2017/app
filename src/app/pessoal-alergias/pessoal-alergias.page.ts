@@ -54,7 +54,7 @@ export class PessoalAlergiasPage implements OnInit {
   }
 
   obterListaItens() {
-    let _localProfile   = this.storage.getLocalUsuarioPessoal();
+    let _localProfile   = this.storage.getLocalUsuarioDados();
     let _perfilPessoal  = _localProfile['perfilPessoal'];
     this.listaItens     = _perfilPessoal[this.nomeObjetoLista];
   }

@@ -32,8 +32,8 @@ export class SignupPage implements OnInit {
   }
 
   lerUsuarioDados() {
-    this.usuario = this.storage.getLocalUsuarioDadosB();
-    console.log(this.usuario );
+    this.usuario = this.storage.getLocalUsuarioDados();
+    console.log(this.usuario);
   };
 
 

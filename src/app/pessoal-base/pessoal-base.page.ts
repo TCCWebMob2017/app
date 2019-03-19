@@ -42,7 +42,7 @@ export class PessoalBasePage implements OnInit {
   ngOnInit() {
 
     this.obterParametrosRecebidos();
-    this.usuario    = this.storage.getLocalUsuarioPessoal();
+    this.usuario    = this.storage.getLocalUsuarioDados();
     this.formGroup  = this.formBuilder.group({
       nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       peso:       ['', [Validators.required, Validators.min(10)]],

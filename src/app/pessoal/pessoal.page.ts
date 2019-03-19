@@ -40,7 +40,7 @@ export class PessoalPage implements OnInit {
   lerUsuarioDados() {
     let _localUser = this.storage.getLocalUser();
     if(_localUser && _localUser.email) {
-      this.usuario = this.storage.getLocalUsuarioPessoal();
+      this.usuario = this.storage.getLocalUsuarioDados();
       if (this.usuario == null) {
         this.usuarioService.getLoggedInUser()
         .subscribe(Response => {

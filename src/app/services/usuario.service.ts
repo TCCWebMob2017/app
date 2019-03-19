@@ -36,7 +36,7 @@ export class UsuarioService {
 
   enviarDadosDoStorageParaApi() : boolean {
 
-    let _usuario          = this.storage.getLocalUsuarioPessoal();
+    let _usuario          = this.storage.getLocalUsuarioDados();
     let _idUsuario        = _usuario['id'];
     let _body             = _usuario['perfilPessoal'];
     let _idPerfilPessoal  = _usuario['perfilPessoal']['id'];
