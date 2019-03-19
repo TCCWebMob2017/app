@@ -91,7 +91,7 @@ export class PessoalPage implements OnInit {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
-    this.navCtrl.navigateForward(['pessoal-medicamentos']); 
+    this.navCtrl.navigateForward(['pessoal-medicamentos']);
   }
 
   exibirPessoalDoencas() {

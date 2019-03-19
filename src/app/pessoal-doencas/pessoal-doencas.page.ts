@@ -47,7 +47,7 @@ export class PessoalDoencasPage implements OnInit {
   ionViewWillUnload(){}
 
   obterParametrosRecebidos() {
-    let _parametros = this.storage.getLocalParametros();
+    let _parametros             = this.storage.getLocalParametros();
     this.modoCRUD               = _parametros['modoCRUD'];
     this.somenteLeitura         = _parametros['somenteLeitura'];
     this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];

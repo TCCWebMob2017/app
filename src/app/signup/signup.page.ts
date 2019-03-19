@@ -66,19 +66,10 @@ export class SignupPage implements OnInit {
       let _perfilPessoal : any = { "id": null };
       this.usuario['perfilPessoal'] = _perfilPessoal;
     }
-    this.usuario['perfilPessoal']['nome']           = value.nome,
-    this.usuario['perfilPessoal']['tipoPerfil']     = "PESSOAL",
-    this.usuario['perfilPessoal']['telefone']       = value.telefone,
-    this.usuario['perfilPessoal']['nascimento']     = value.nascimento,
-    this.usuario['perfilPessoal']['sexo']           = value.sexo,
-    this.usuario['perfilPessoal']['praticaEsporte'] = value.praticaEsporte,
-    this.usuario['perfilPessoal']['doadorOrgao']    = value.doadorOrgao,
-    this.usuario['perfilPessoal']['doadorSangue']   = value.doadorSangue,
-    this.usuario['perfilPessoal']['tipoSangue']     = value.tipoSangue,
-    this.usuario['perfilPessoal']['altura']         = value.altura,
-    this.usuario['perfilPessoal']['peso']           = value.peso,
-    this.usuario['perfilPessoal']['rg']             = value.rg,
-    this.usuario['perfilPessoal']['cpf']            = value.cpf
+    this.usuario['nome']           = value.nome,
+    this.usuario['tefefone']       = value.telefone,
+    this.usuario['rg']             = value.rg,
+    this.usuario['cpf']            = value.cpf
 
     //this.storage.setLocalUsuarioDados(this.usuario);
     
