@@ -141,6 +141,8 @@ export class PessoalPage implements OnInit {
   }
 
   atualizarDadosUsuario() {
+    this.storage.setLocalParametros('modoCRUD', 'U');
+    this.storage.setLocalParametros('somenteLeitura', true);
     this.navCtrl.navigateForward(['signup']); 
   }
 

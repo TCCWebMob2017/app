@@ -56,6 +56,8 @@ export class LoginPage implements OnInit {
   };
 
   signup() { 
+    this.storage.setLocalParametros('modoCRUD', 'C');
+    this.storage.setLocalParametros('somenteLeitura', false);
     this.navCtrl.navigateForward('signup');
   };
 
