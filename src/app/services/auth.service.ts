@@ -24,7 +24,7 @@ export class AuthService {
     }
     else if((creds.email + "" == "b") && (creds.password+"" == "")) { 
       creds.email = "enzorafaeldasilva@carubelli.com.br";
-      creds.password = "D5EWaFJ2ZY";
+      creds.password = "123456";
     }
     else if((creds.email + "" == "c") && (creds.password+"" == "")) { 
       creds.email = "ggustavomiguellima@yahoo.it";

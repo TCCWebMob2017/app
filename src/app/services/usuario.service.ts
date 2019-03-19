@@ -74,6 +74,12 @@ export class UsuarioService {
     }
   }
 
+  modificarUsuarioDados(body: any) {
+    let id = body['id'];
+    let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id;
+    return this.http.put(url, body, { observe: 'response', responseType: 'text'});
+  }
+
   adicionarPerfilPessoal(id: string, body: any) {
     let url = API_CONFIG.baseUrl + '/api/v1/usuario/' + id + '/perfil/pessoal';
     return this.http.post(url, body, { observe: 'response', responseType: 'text'});

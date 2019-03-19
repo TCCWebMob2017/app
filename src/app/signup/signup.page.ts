@@ -1,4 +1,4 @@
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { NgModel } from '@angular/forms';
@@ -26,7 +26,8 @@ export class SignupPage implements OnInit {
               //public formBuilder: FormBuilder,
               public  usuarioService  : UsuarioService,
               private storage         : StorageService,
-              public  alertCtrl       : AlertController
+              public  alertCtrl       : AlertController,
+              public  toastController : ToastController
               ) { 
 
   }
@@ -36,11 +37,11 @@ export class SignupPage implements OnInit {
     let _parametros     = this.storage.getLocalParametros();
     this.modoCRUD       = _parametros['modoCRUD'];
     this.somenteLeitura = _parametros['somenteLeitura'];
-    console.log(this.modoCRUD);
   }
 
   lerUsuarioDados() {
     this.usuario = this.storage.getLocalUsuarioDados();
+    this.usuario['password'] = "";
     console.log(this.usuario);
   };
 
@@ -58,26 +59,40 @@ export class SignupPage implements OnInit {
   } 
 
   gravarDados(value : any) {
-    
-    console.log(value);
-    console.log(this.usuario);
 
-    if (this.usuario['perfilPessoal'] == null) {
-      let _perfilPessoal : any = { "id": null };
-      this.usuario['perfilPessoal'] = _perfilPessoal;
+    if (this.usuario != null) {
+
+      if(value.password == '') {
+        alert('Informar a senha');
+        return;
+      }
+      this.usuario['nome']      = value.nome;
+      this.usuario['password']  = value.password;
+      this.usuario['tefefone']  = value.telefone;
+      this.usuario['rg']        = value.rg;
+      delete this.usuario['tipos'];            
+      this.usuarioService.modificarUsuarioDados(this.usuario)
+      .subscribe(Response => {
+        console.log(Response);
+        this.usuario.password = "";
+        this.storage.setLocalUsuarioDados(this.usuario);
+        this.toastGravarSucesso();
+        this.irParaTelaHome();
+      },
+      error => {
+        alert(error);
+      });
     }
-    this.usuario['nome']           = value.nome,
-    this.usuario['tefefone']       = value.telefone,
-    this.usuario['rg']             = value.rg,
-    this.usuario['cpf']            = value.cpf
+    
+  }
 
-    //this.storage.setLocalUsuarioDados(this.usuario);
-    
-    
-    //if (this.usuarioService.enviarDadosDoStorageParaApi()) {
-    //  //this.gravaDadosPresentToast();
-    //}
-    this.irParaTelaHome();
+  async toastGravarSucesso() {
+    const toast = await this.toastController.create({
+      message: 'Dados gravados com sucesso !',
+      position: 'bottom',
+      duration: 2000
+    });
+    toast.present();
   }
 
   irParaTelaHome() {
