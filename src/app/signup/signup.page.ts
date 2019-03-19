@@ -41,8 +41,9 @@ export class SignupPage implements OnInit {
 
   lerUsuarioDados() {
     this.usuario = this.storage.getLocalUsuarioDados();
-    this.usuario['password'] = "";
-    console.log(this.usuario);
+    if (this.usuario != null) {
+      this.usuario['password'] = "";
+    }
   };
 
 
