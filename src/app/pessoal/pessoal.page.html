@@ -101,14 +101,6 @@
 
   </ion-card>
 
-
-  <div *ngIf="usuario?.perfilPessoal == null && usuarioCarregado == true">
-    <br>
-    <br>
-    <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
-  </div>
-
-  
   <ion-fab  vertical="top" 
             horizontal="end" 
             slot="fixed" 
@@ -131,7 +123,5 @@
     </ion-fab-list>
     -->
   </ion-fab>
-
-  <ion-button (click)=atualizarDadosUsuario()>Atualizar dados</ion-button>
 
 </ion-content>

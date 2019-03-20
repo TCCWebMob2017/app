@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-img src="/assets/q-life.jpg"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>Bem vindo ao</ion-card-subtitle>
+      <ion-card-title>Q-life</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p></p>
+    </ion-card-content>
+  </ion-card>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Opções</ion-label>
+    </ion-list-header>
+    <ion-item href="">
+      <ion-icon slot="start" color="medium" name="brush"></ion-icon>
+      <ion-label>Atualizar dados</ion-label>
+    </ion-item>
+    <ion-item href="">
+      <ion-icon slot="start" color="medium" name="unlock"></ion-icon>
+      <ion-label>Alterar senha</ion-label>
+    </ion-item>
+    
+  </ion-list>
+</ion-content>

@@ -30,7 +30,7 @@ export class PessoalPage implements OnInit {
   ionViewWillEnter() {
     this.obterParametrosRecebidos();
     this.lerUsuarioDados();
-  }  
+  }
 
   obterParametrosRecebidos() {
     let _parametros = this.storage.getLocalParametros();
@@ -42,20 +42,28 @@ export class PessoalPage implements OnInit {
     if(_localUser && _localUser.email) {
       this.usuario = this.storage.getLocalUsuarioDados();
       if (this.usuario == null) {
-        this.usuarioService.getLoggedInUser()
-        .subscribe(Response => {
-          this.usuarioCarregado = true;
-          this.usuario = Response;
-          this.storage.setLocalUsuarioDados(this.usuario);
-          this.storage.setLocalParametros("usuarioCarregado", this.usuarioCarregado);
-        },
-        error => { 
-          if (error.status == 403) { this.navCtrl.navigateRoot('login'); }
-        });
+        this.navCtrl.navigateRoot('/login');
+      }
+      else {
+        if(this.usuario['perfilPessoal'] == null) {
+          this.presentToast();
+          this.navCtrl.navigateRoot('/home');
+        }
       }
     }
-    else { this.navCtrl.navigateRoot('login'); }
+    else { 
+      this.navCtrl.navigateRoot('/login');
+    }
   };
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'O usuário não possui Perfil Pessoal.',
+      duration: 2000
+    });
+    toast.present();
+  }
+
 
   getImageIfExist() {
     this.pessoalService.getImageFromBucket(this.prontuario.pessoal.id)
@@ -138,12 +146,6 @@ export class PessoalPage implements OnInit {
 
   exibirFichaMedica() { 
     this.navCtrl.navigateForward(['ficha-medica'])
-  }
-
-  atualizarDadosUsuario() {
-    this.storage.setLocalParametros('modoCRUD', 'U');
-    this.storage.setLocalParametros('somenteLeitura', true);
-    this.navCtrl.navigateForward(['signup']); 
   }
 
 }

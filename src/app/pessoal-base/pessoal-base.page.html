@@ -32,15 +32,16 @@
         <ion-input  type="text" 
                     name="nome" 
                     required
-                    readonly={{somenteLeitura}}
+                    readonly=true
                     [ngModel]="usuario?.nome"
                     [ngModel] required #nome="ngModel"
                     [class.invalid]="nome.errors && nome.dirty"
                     >
         </ion-input>
       </ion-item>
+      <br>
 
-      <ion-item>
+      <ion-item *ngIf="modoCRUD == 'X'">
         <ion-label  position="stacked">Telefone</ion-label>
         <ion-input  type="text" 
                     name="telefone" 
@@ -49,7 +50,7 @@
                     ngModel required #telefone="ngModel"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="modoCRUD == 'X'">
         <ion-label  position="stacked">CPF</ion-label>
         <ion-input  type="text" 
                     name="cpf" 
@@ -58,7 +59,7 @@
                     ngModel required #cpf="ngModel"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="modoCRUD == 'X'">
         <ion-label  position="stacked">RG</ion-label>
         <ion-input  type="text" 
                     name="rg" 
@@ -89,16 +90,17 @@
       </ion-item>     
 
 
-      <ion-item>
+      <ion-item *ngIf="usuario?.perfilPessoal?.nascimento != '' || somenteLeitura == false">
         <ion-label  position="stacked">Data de nascimento</ion-label>
         <ion-input  type="text" 
                     name="nascimento"
+                    placeholder="dd/mm/yyyy"
                     readonly={{somenteLeitura}}
                     [ngModel]="usuario?.perfilPessoal?.nascimento"
                     ngModel required #nascimento="ngModel"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item *ngIf="usuario?.perfilPessoal?.altura != '' || somenteLeitura == false">
         <ion-label  position="stacked">Altura</ion-label>
         <ion-input  type="number" 
                     name="altura"
@@ -107,7 +109,7 @@
                     ngModel required #altura="ngModel"></ion-input>
       </ion-item>      
 
-      <ion-item>
+      <ion-item *ngIf="usuario?.perfilPessoal?.peso != '' || somenteLeitura == false">
         <ion-label  position="stacked">Peso</ion-label>
         <ion-input  type="number" 
                     name="peso"

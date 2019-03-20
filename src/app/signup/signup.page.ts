@@ -97,7 +97,7 @@ export class SignupPage implements OnInit {
   }
 
   irParaTelaHome() {
-    this.navCtrl.navigateBack('pessoal');
+    this.navCtrl.navigateBack('/home');
   }  
 
 }

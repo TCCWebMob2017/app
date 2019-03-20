@@ -20,7 +20,7 @@ export class PessoalBasePage implements OnInit {
   myDate;
   public  tituloJanela            : string = "Informações pessoais";
   public  usuario                 : UsuarioDTO;
-  private modoCRUD                : string;
+  public  modoCRUD                : string;
   public  somenteLeitura          : boolean;
   public  exibirBarraDeNavegacao  : boolean;
 

@@ -3,33 +3,93 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    
+    <ion-buttons slot="primary">
+      <ion-button (click)="editarUsuarioDados()">Editar</ion-button>
+    </ion-buttons>
+
+    <ion-title>Dados do usuário</ion-title>
   </ion-toolbar>
+
+  <!--
+  <ion-toolbar>
+    <ion-buttons slot="start" *ngIf="exibirBarraDeNavegacao == true">
+      <ion-button (click)="irParaTelaHome()" *ngIf="somenteLeitura != true">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-buttons  slot="primary" *ngIf="exibirBarraDeNavegacao == true">
+      <ion-button (click)="gravarDados(true)"       *ngIf="somenteLeitura != true">OK</ion-button>
+      <ion-button (click)="irParaTelaHome()"        *ngIf="somenteLeitura == true">OK</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="exibirBarraDeNavegacao != true">
+      <ion-back-button  icon="arrow-back" 
+                        text="Voltar" 
+                        defaultHref="/pessoal"
+                        *ngIf="somenteLeitura == true">
+      </ion-back-button>
+      <ion-button (click)="setRegistroModoVisualizar()" *ngIf="somenteLeitura != true">Cancelar</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary" *ngIf="exibirBarraDeNavegacao != true">
+      <ion-button (click)="gravarDados(false)"        *ngIf="somenteLeitura != true">OK</ion-button>
+      <ion-button (click)="setRegistroModoEditar()"   *ngIf="somenteLeitura == true">Editar</ion-button>
+    </ion-buttons>
+    <ion-title>{{ tituloJanela }}</ion-title>
+  </ion-toolbar>
+  -->
 </ion-header>
 
-<ion-content>
-    <ion-card class="welcome-card">
-      <ion-img src="/assets/q-life.jpg"></ion-img>
-      <ion-card-header>
-        <ion-card-subtitle>Bem vindo ao</ion-card-subtitle>
-        <ion-card-title>Q-life</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p></p>
-      </ion-card-content>
-    </ion-card>
-    <ion-list lines="none">
-      <ion-list-header>
-        <ion-label>Opções</ion-label>
-      </ion-list-header>
-      <ion-item href="">
-        <ion-icon slot="start" color="medium" name="brush"></ion-icon>
-        <ion-label>Atualizar dados</ion-label>
-      </ion-item>
-      <ion-item href="">
-        <ion-icon slot="start" color="medium" name="unlock"></ion-icon>
-        <ion-label>Alterar senha</ion-label>
-      </ion-item>
-     
-    </ion-list>
+
+<ion-content padding>
+  <ion-item *ngIf="usuarioCarregado == true">
+    <ion-avatar slot="start">
+      <img [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
+    </ion-avatar>
+    <ion-label text-wrap><h2>{{ usuario?.nome }}</h2></ion-label>
+  </ion-item>
+
+  <p text-center>{{ usuario?.email }}</p>
+  <br>
+  <ion-item>
+    <ion-label position="stacked">Telefone</ion-label>
+    <ion-input readonly>{{ usuario?.tefefone }}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">CPF:</ion-label>
+    <ion-input readonly>{{ usuario?.cpf }}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="stacked">RG</ion-label>
+    <ion-input readonly>{{ usuario?.rg }}</ion-input>
+  </ion-item>
+
+
+  <div *ngIf="usuario?.perfilPessoal == null && usuarioCarregado == true">
+    <br>
+    <br>
+    <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
+  </div>
+
+
+  <ion-fab  vertical="top" 
+            horizontal="end" 
+            slot="fixed" 
+            *ngIf="usuario?.perfilPessoal == null && 
+            usuarioCarregado == true && usuarioCarregado == false">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="bottom">
+      <ion-fab-button color="primary" (click)=addPerfilPessoal()><ion-icon name="finger-print"></ion-icon></ion-fab-button>
+      <!--
+      <ion-fab-button color="danger"><ion-icon name="business"></ion-icon></ion-fab-button>
+      <ion-fab-button color="dark"><ion-icon name="medkit"></ion-icon></ion-fab-button>
+      <ion-fab-button color="secondary"><ion-icon name="contacts"></ion-icon></ion-fab-button>
+      -->
+    </ion-fab-list>
+    <!--
+    <ion-fab-list side="start">
+      <ion-fab-button color="light"><ion-icon name="medical"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    -->
+  </ion-fab>
+
 </ion-content>
