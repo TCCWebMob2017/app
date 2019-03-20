@@ -8,7 +8,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
 <!--
   <ion-avatar item-left>
     <img class="circle" [src]="usuario?.perfilPessoal?.imageUrl || 'assets/img/avatar-blank.png'">
@@ -17,17 +17,23 @@
   <p text-center>{{pessoal?.email}}</p>
   <p text-center>{{pessoal?.telefone}}</p>
 -->
-    
 
 
-<ion-item>
-  <ion-avatar slot="start">
+  <ion-avatar class="avatar-center"> 
     <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
   </ion-avatar>
-  <ion-label>{{ fichaMedica?.nome }}</ion-label>
-</ion-item>
 
-<br>
+  <ion-item class="center">
+    <ion-label text-wrap >
+      <ion-text >
+        <h3> {{ fichaMedica?.nome }}</h3>
+      </ion-text>
+    </ion-label>
+  </ion-item>
+
+
+
+
 
 
 
@@ -39,27 +45,13 @@
 <div *ngIf="fichaMedica.perfilPessoal != null">
 
   <ion-item>
-    <ion-label position="stacked">Data de nascimento:</ion-label>
-    <ion-input value="{{ fichaMedica?.perfilPessoal?.nascimento }}" readonly></ion-input>
+    <ion-label position="stacked">Data de nascimento:<b> {{ fichaMedica?.perfilPessoal?.nascimento }}</b></ion-label>
+    <ion-label position="stacked">Telefone:<b> {{ fichaMedica?.tefefone }}</b></ion-label>
+    <ion-label position="stacked">Grupo sanguíneo:<b> {{ fichaMedica?.perfilPessoal?.tipoSangue }}</b></ion-label>
+    <ion-label position="stacked">Peso:<b> {{ fichaMedica?.perfilPessoal?.peso }} Kg</b></ion-label>
+    <ion-label position="stacked">Altura: <b>{{ fichaMedica?.perfilPessoal?.altura }} m </b></ion-label>
+    <br>
   </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Telefone:</ion-label>
-    <ion-input value="{{ fichaMedica?.tefefone }}" readonly></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Grupo sanguíneo:</ion-label>
-    <ion-input value="{{ fichaMedica?.perfilPessoal?.tipoSangue }}" readonly></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Peso:</ion-label>
-    <ion-input value="{{ fichaMedica?.perfilPessoal?.peso }} Kg" readonly></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label position="stacked">Altura:</ion-label>
-    <ion-input value="{{ fichaMedica?.perfilPessoal?.altura }} m" readonly></ion-input>
-  </ion-item>
-
-
 
   <ion-card class="item item-text-wrap" *ngIf="fichaMedica.perfilPessoal.medicamentos != null">
     <ion-item class="activated">
