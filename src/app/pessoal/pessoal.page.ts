@@ -13,7 +13,7 @@ import { NavController, ToastController } from '@ionic/angular';
 })
 export class PessoalPage implements OnInit {
           prontuario        : any;
-          usuario           : UsuarioDTO;
+          usuario           : any;
   public  usuarioCarregado  : boolean;
   
   constructor(public  navCtrl         : NavController,
