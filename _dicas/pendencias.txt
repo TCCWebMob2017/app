@@ -1,3 +1,4 @@
+A. APP
 1. Ficha médica;
 2. Dependentes;
 3. Permissões;
@@ -6,3 +7,7 @@
 6. Criar funcionalidade "Recuperar senha";
 7. Validações da tela Registrar;
 8. Informar o campo "confirmar senha" na tela "Registrar usuário";
+
+
+B. API
+1.Documentação da API para login;

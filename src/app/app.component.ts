@@ -16,7 +16,7 @@ export class AppComponent {
   //{ title: 'Perfil profissional', url: '/pessoal',      icon: 'contact' },
   //{ title: 'List',                url: '/list',         icon: 'list' },
     { title: 'Ficha médica',        url: '/ficha-medica', icon: 'medical' },
-    { title: 'Logout',              url: '/login',        icon: 'log-out' }
+    { title: 'Sair',                url: '/login',        icon: 'log-out' }
     //{ title: 'Logout', component: ''}
   ];
 
