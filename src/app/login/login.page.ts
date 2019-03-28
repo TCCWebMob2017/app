@@ -47,6 +47,7 @@ export class LoginPage implements OnInit {
   login() {    
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
+        console.log(Response);
         this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
         this.lerUsuarioDados();
         //this.navCtrl.navigateRoot('/home');

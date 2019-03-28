@@ -1,0 +1,8 @@
+1. Ficha médica
+2. Dependentes
+3. Permissões
+4. Alteração dados do usuário / senha
+5. Trocar senha
+6. Recuperar senha
+7. Validações da tela Registrar
+8. Confirmar senha na tela "Registrar usuário"
