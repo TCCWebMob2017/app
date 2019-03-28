@@ -1,8 +1,8 @@
-1. Ficha médica
-2. Dependentes
-3. Permissões
-4. Alteração dados do usuário / senha
-5. Trocar senha
-6. Recuperar senha
-7. Validações da tela Registrar
-8. Confirmar senha na tela "Registrar usuário"
+1. Ficha médica;
+2. Dependentes;
+3. Permissões;
+4. Em Alteração dados do usuário (não solicitar senha);
+5. Criar funcionalidade "Trocar senha";
+6. Criar funcionalidade "Recuperar senha";
+7. Validações da tela Registrar;
+8. Informar o campo "confirmar senha" na tela "Registrar usuário";
