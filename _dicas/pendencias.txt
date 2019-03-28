@@ -7,7 +7,7 @@ A. APP
 6. Criar funcionalidade "Recuperar senha";
 7. Validações da tela Registrar;
 8. Informar o campo "confirmar senha" na tela "Registrar usuário";
-
+9. Imagens / Avatar;
 
 B. API
 1.Documentação da API para login;
