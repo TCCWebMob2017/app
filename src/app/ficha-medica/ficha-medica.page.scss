@@ -28,6 +28,8 @@ page-ficha-medica {
   .wrapping {
       margin-bottom: 0;
       margin-top:0;
-      //word-wrap: break-word;
+      word-wrap: break-word;
       background: yellow;
+      text-align: left;
+      text-align-last: left;
   }

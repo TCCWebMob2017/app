@@ -38,16 +38,24 @@ Alt + Shift + F (indentar)
 			<br>
 		</ion-item>
 
-		<ion-card class="item item-text-wrap" *ngIf="fichaMedica.perfilPessoal.medicamentos != null">
+		<!-- <ion-card class="item item-text-wrap" *ngIf="fichaMedica.perfilPessoal.medicamentos != null"> -->
+		<ion-card *ngIf="fichaMedica.perfilPessoal.medicamentos != null">
+			
 			<ion-item class="activated">
 				<!-- <ion-icon name="pin" slot="start"></ion-icon> -->
 				<ion-icon name="medkit" slot="start"></ion-icon>
 				<ion-label>MEDICAMENTOS</ion-label>
 			</ion-item>
 			<ion-item text-wrap *ngFor="let medic of fichaMedica?.perfilPessoal?.medicamentos">
-				<ion-label text-wrap position="stacked">
-					<p class="wrapping">Nome: <strong> {{ medic?.medicamento?.nome }} </strong></p>
-				</ion-label>
+				
+				
+				<span position="stacked" class="wrapping">Nome: <strong>{{ medic?.medicamento?.nome }} .............................................. </strong></span>
+
+				<span position="stacked">Nome 2: <strong>{{ medic?.medicamento?.nome }} </strong></span>
+
+
+
+
 				<ion-label position="stacked" *ngIf="medic?.medicamento?.nomeComercial != null">Nome Comercial: <strong>
 						{{ medic?.medicamento?.nomeComercial }} </strong></ion-label>
 				<ion-label position="stacked" *ngIf="medic?.medicamento?.codigoATC != null">Código ATC: <b>
@@ -136,7 +144,7 @@ Alt + Shift + F (indentar)
 			
 			<ion-item *ngFor="let item of fichaMedica?.perfilPessoal?.alergias">
 				
-				<ion-label position="stacked">Nome: <strong> {{ item?.alergia?.nome }} </strong></ion-label>
+				<!-- <ion-label position="stacked">Nome: <strong> {{ item?.alergia?.nome }} </strong></ion-label> -->
 				
 				<span class="descricao">
 					Nome: <strong>{{ item?.alergia?.nome }}</strong>
