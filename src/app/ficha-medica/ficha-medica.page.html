@@ -1,147 +1,181 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pessoal"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Ficha médica</ion-title>
-  </ion-toolbar>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button defaultHref="/pessoal"></ion-back-button>
+		</ion-buttons>
+		<ion-title>Ficha médica</ion-title>
+	</ion-toolbar>
 </ion-header>
 
-
-<ion-content>
-<!--<img class="circle" [src]="usuario?.perfilPessoal?.imageUrl || 'assets/img/avatar-blank.png'">-->
-
-  <ion-avatar class="avatar-center"> 
-    <img src="../../assets/img/avatar-blank.png">
-  </ion-avatar>
-
-  <ion-item class="center">
-    <ion-label text-wrap >
-      <ion-text >
-        <h3><b> {{ fichaMedica?.nome }}</b></h3>
-      </ion-text>
-    </ion-label>
-  </ion-item>
-
-
-<div *ngIf="fichaMedica.perfilPessoal != null">
-
-  <ion-item>
-    <ion-label position="stacked">Data de nascimento:<b> {{ fichaMedica?.perfilPessoal?.nascimento }}</b></ion-label>
-    <ion-label position="stacked">Telefone:<b> {{ fichaMedica?.tefefone }}</b></ion-label>
-    <ion-label position="stacked">Grupo sanguíneo:<b> {{ fichaMedica?.perfilPessoal?.tipoSangue }}</b></ion-label>
-    <ion-label position="stacked">Peso:<b> {{ fichaMedica?.perfilPessoal?.peso }} Kg</b></ion-label>
-    <ion-label position="stacked">Altura: <b>{{ fichaMedica?.perfilPessoal?.altura }} m </b></ion-label>
-    <br>
-  </ion-item>
-
-  <ion-card class="item item-text-wrap" *ngIf="fichaMedica.perfilPessoal.medicamentos != null">
-    <ion-item class="activated">
-      <!-- <ion-icon name="pin" slot="start"></ion-icon> -->
-      <ion-icon name="medkit" slot="start"></ion-icon>
-      <ion-label>MEDICAMENTOS</ion-label>
-    </ion-item>
-    <ion-item text-wrap *ngFor="let medic of fichaMedica?.perfilPessoal?.medicamentos" >
-      <ion-label text-wrap position="stacked">
-       <p class="wrapping">Nome: <strong> {{ medic?.medicamento?.nome }} </strong></p>
-      </ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.nomeComercial != null"   >Nome Comercial: <strong> {{ medic?.medicamento?.nomeComercial }} </strong></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.codigoATC != null"         >Código ATC: <b> {{ medic?.medicamento?.codigoATC }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.composicao != null"        >Composição: <b> {{ medic?.medicamento?.composicao }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.concentracao != null"      >Concentração: <b> {{ medic?.medicamento?.concentracao }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.contraindicacao != null"   >Contraindicação: <b> {{ medic?.medicamento?.contraindicacao }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.contraindicacoes != null"  >Contraindicações: <b> {{ medic?.medicamento?.contraindicacoes }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.dosagemAdultos != null"    >Dosagem Adultos: <b> {{ medic?.medicamento?.dosagemAdultos }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.dosagemPediatrica != null" >Dosagem Pediatrica: <b> {{ medic?.medicamento?.dosagemPediatrica }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.efeitosColaterais != null" >Efeitos Colaterais: <b> {{ medic?.medicamento?.efeitosColaterais }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.formaFarmaceutica != null" >Forma Farmaceutica: <b> {{ medic?.medicamento?.formaFarmaceutica }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.generico != null"          >generico: <b> {{ medic?.medicamento?.generico }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.gravidez != null"          >gravidez: <b> {{ medic?.medicamento?.gravidez }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.indicacao != null"         >indicacao: <b> {{ medic?.medicamento?.indicacao }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.laboratorio != null"       >laboratorio: <b> {{ medic?.medicamento?.laboratorio }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.lactacao != null"          >lactacao: <b> {{ medic?.medicamento?.lactacao }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.principioAtivo != null"    >principioAtivo: <b> {{ medic?.medicamento?.principioAtivo }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.medicamento?.reacoesAdversas != null"   >reacoesAdversas: <b> {{ medic?.medicamento?.reacoesAdversas }} </b></ion-label> 
-      <ion-label position="stacked" *ngIf="medic?.dosagem != null"                        >Dosagem: <b> {{ medic?.dosagem }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.frequencia != null"                     >Frequência: <b> {{ medic?.frequencia }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.viaAdministracao != null"               >Via administracao: <b> {{ medic?.viaAdministracao }} </b></ion-label>
-      <ion-label position="stacked" *ngIf="medic?.observacao != null  && medic?.observacao != ''" >Observação: <b> {{ medic?.observacao }} </b></ion-label>
-      <!--
-      <ion-label position="stacked"><b> Observação:</b> </ion-label>
-          Keep close to Nature's heart... and break clear away, once in awhile.
-      -->
-      <br>
-    </ion-item>
-  </ion-card>
-
-  
-  <ion-card *ngIf="fichaMedica.perfilPessoal.doencas != null">
-    <ion-item class="activated">
-      <ion-icon name="nuclear" slot="start"></ion-icon>
-      <ion-label>DOENÇAS</ion-label>
-    
-    </ion-item>
-
-    <!--
-    <ion-card-content class="item item-text-wrap"
-                      style="color: black;"
-                      *ngFor="let item of fichaMedica?.perfilPessoal?.doencas"
-                      >
-    -->
-      <ion-item *ngFor="let item of fichaMedica?.perfilPessoal?.doencas"
-      >
-      <p>Nome: <strong>{{ item?.doenca?.nome }}</strong></p>
-
-
-      <p *ngIf="item?.doenca?.cid != null">CID: <strong>{{ item?.doenca?.cid }}</strong></p>
-      <p *ngIf="item?.doenca?.descricao != null"> Descrição: <strong>{{ item?.doenca?.descricao }}</strong> </p>
-      <p *ngIf="item?.doenca?.nomesPopulares != null"> Nomes populares: <strong>{{ item?.doenca?.nomesPopulares }}</strong></p>
-      <p *ngIf="item?.observacao != null && item?.observacao != ''"> Observação: <strong>{{ item?.observacao }}</strong></p>
-
-    </ion-item>
-  
-    <!-- </ion-card-content> -->
-
-  </ion-card>
-
-
-
-  <ion-card *ngIf="fichaMedica.perfilPessoal.alergias != null">
-    <ion-item class="activated">
-      <ion-icon name="snow" slot="start"></ion-icon>
-      <ion-label>ALERGIAS</ion-label>
-    </ion-item>
-    <ion-item *ngFor="let item of fichaMedica?.perfilPessoal?.alergias">
-      <ion-label position="stacked">Nome: <strong> {{ item?.alergia?.nome }} </strong></ion-label>
-      <ion-label position="stacked" *ngIf="item?.alergia?.categoria != null"                    >Categoria: <strong> {{ item?.alergia?.categoria }} </strong></ion-label>
-      <ion-label position="stacked" *ngIf="item?.alergia?.descricao != null"                    >Descrição: <strong> {{ item?.alergia?.descricao }} </strong></ion-label>
-      <ion-label position="stacked" *ngIf="item?.alergia?.agenteCausador != null"               >Agente causador: <strong> {{ item?.alergia?.agenteCausador }} </strong></ion-label>
-      <ion-label position="stacked" *ngIf="item?.alergia?.reacoesAdversas != null"              >Reações adversas: <strong> {{ item?.alergia?.reacoesAdversas }} </strong></ion-label>
-      <ion-label position="stacked" *ngIf="item?.observacao != null && item?.observacao != ''"  >Observação: <b> {{ item?.observacao }} </b></ion-label>
-      <br>
-    </ion-item>
-  </ion-card>
-
-
-
-
-
-</div>
-
-
-
-
-
 <!--
+Alt + Shift + F (indentar)
+-->
+
 <ion-content>
-  <ion-list inset>
-    <ion-item *ngFor="let medic of fichaMedica?.perfilPessoal?.medicamentos">
-      <h2> {{ medic.medicamento.nome }}</h2>
-      <p>BBBBBBBBBBBBBBB</p>
-    </ion-item>
-  </ion-list>
+	<!--<img class="circle" [src]="usuario?.perfilPessoal?.imageUrl || 'assets/img/avatar-blank.png'">-->
+
+	<ion-avatar class="avatar-center">
+		<img src="../../assets/img/avatar-blank.png">
+	</ion-avatar>
+
+	<ion-item class="center">
+		<ion-label text-wrap>
+			<ion-text>
+				<h3><b> {{ fichaMedica?.nome }}</b></h3>
+			</ion-text>
+		</ion-label>
+	</ion-item>
+
+
+	<div *ngIf="fichaMedica.perfilPessoal != null">
+
+		<ion-item>
+			<ion-label position="stacked">Data de nascimento:<b> {{ fichaMedica?.perfilPessoal?.nascimento }}</b></ion-label>
+			<ion-label position="stacked">Telefone:<b> {{ fichaMedica?.tefefone }}</b></ion-label>
+			<ion-label position="stacked">Grupo sanguíneo:<b> {{ fichaMedica?.perfilPessoal?.tipoSangue }}</b></ion-label>
+			<ion-label position="stacked">Peso:<b> {{ fichaMedica?.perfilPessoal?.peso }} Kg</b></ion-label>
+			<ion-label position="stacked">Altura: <b>{{ fichaMedica?.perfilPessoal?.altura }} m </b></ion-label>
+			<br>
+		</ion-item>
+
+		<ion-card class="item item-text-wrap" *ngIf="fichaMedica.perfilPessoal.medicamentos != null">
+			<ion-item class="activated">
+				<!-- <ion-icon name="pin" slot="start"></ion-icon> -->
+				<ion-icon name="medkit" slot="start"></ion-icon>
+				<ion-label>MEDICAMENTOS</ion-label>
+			</ion-item>
+			<ion-item text-wrap *ngFor="let medic of fichaMedica?.perfilPessoal?.medicamentos">
+				<ion-label text-wrap position="stacked">
+					<p class="wrapping">Nome: <strong> {{ medic?.medicamento?.nome }} </strong></p>
+				</ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.nomeComercial != null">Nome Comercial: <strong>
+						{{ medic?.medicamento?.nomeComercial }} </strong></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.codigoATC != null">Código ATC: <b>
+						{{ medic?.medicamento?.codigoATC }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.composicao != null">Composição: <b>
+						{{ medic?.medicamento?.composicao }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.concentracao != null">Concentração: <b>
+						{{ medic?.medicamento?.concentracao }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.contraindicacao != null">Contraindicação: <b>
+						{{ medic?.medicamento?.contraindicacao }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.contraindicacoes != null">Contraindicações: <b>
+						{{ medic?.medicamento?.contraindicacoes }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.dosagemAdultos != null">Dosagem Adultos: <b>
+						{{ medic?.medicamento?.dosagemAdultos }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.dosagemPediatrica != null">Dosagem Pediatrica: <b>
+						{{ medic?.medicamento?.dosagemPediatrica }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.efeitosColaterais != null">Efeitos Colaterais: <b>
+						{{ medic?.medicamento?.efeitosColaterais }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.formaFarmaceutica != null">Forma Farmaceutica: <b>
+						{{ medic?.medicamento?.formaFarmaceutica }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.generico != null">generico: <b>
+						{{ medic?.medicamento?.generico }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.gravidez != null">gravidez: <b>
+						{{ medic?.medicamento?.gravidez }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.indicacao != null">indicacao: <b>
+						{{ medic?.medicamento?.indicacao }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.laboratorio != null">laboratorio: <b>
+						{{ medic?.medicamento?.laboratorio }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.lactacao != null">lactacao: <b>
+						{{ medic?.medicamento?.lactacao }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.principioAtivo != null">principioAtivo: <b>
+						{{ medic?.medicamento?.principioAtivo }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.medicamento?.reacoesAdversas != null">reacoesAdversas: <b>
+						{{ medic?.medicamento?.reacoesAdversas }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.dosagem != null">Dosagem: <b> {{ medic?.dosagem }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.frequencia != null">Frequência: <b> {{ medic?.frequencia }} </b>
+				</ion-label>
+				<ion-label position="stacked" *ngIf="medic?.viaAdministracao != null">Via administracao: <b>
+						{{ medic?.viaAdministracao }} </b></ion-label>
+				<ion-label position="stacked" *ngIf="medic?.observacao != null  && medic?.observacao != ''">Observação: <b>
+						{{ medic?.observacao }} </b></ion-label>
+				<!--
+			<ion-label position="stacked"><b> Observação:</b> </ion-label>
+					Keep close to Nature's heart... and break clear away, once in awhile.
+			-->
+				<br>
+			</ion-item>
+		</ion-card>
+
+
+		<ion-card *ngIf="fichaMedica.perfilPessoal.doencas != null">
+			<ion-item class="activated">
+				<ion-icon name="nuclear" slot="start"></ion-icon>
+				<ion-label>DOENÇAS</ion-label>
+
+			</ion-item>
+
+			<!--
+		<ion-card-content class="item item-text-wrap"
+											style="color: black;"
+											*ngFor="let item of fichaMedica?.perfilPessoal?.doencas"
+											>
+		-->
+			<ion-item *ngFor="let item of fichaMedica?.perfilPessoal?.doencas">
+				<p>Nome: <strong>{{ item?.doenca?.nome }}</strong></p>
+
+
+				<p *ngIf="item?.doenca?.cid != null">CID: <strong>{{ item?.doenca?.cid }}</strong></p>
+				<p *ngIf="item?.doenca?.descricao != null"> Descrição: <strong>{{ item?.doenca?.descricao }}</strong> </p>
+				<p *ngIf="item?.doenca?.nomesPopulares != null"> Nomes populares:
+					<strong>{{ item?.doenca?.nomesPopulares }}</strong></p>
+				<p *ngIf="item?.observacao != null && item?.observacao != ''"> Observação:
+					<strong>{{ item?.observacao }}</strong></p>
+
+			</ion-item>
+
+			<!-- </ion-card-content> -->
+
+		</ion-card>
+
+		<ion-card *ngIf="fichaMedica.perfilPessoal.alergias != null">
+			<ion-item class="activated">
+				<ion-icon name="snow" slot="start"></ion-icon>
+				<ion-label>ALERGIAS</ion-label>
+			</ion-item>
+			
+			<ion-item *ngFor="let item of fichaMedica?.perfilPessoal?.alergias">
+				
+				<ion-label position="stacked">Nome: <strong> {{ item?.alergia?.nome }} </strong></ion-label>
+				
+				<span class="descricao">
+					Nome: <strong>{{ item?.alergia?.nome }}</strong>
+				</span>
+
+				<ion-label position="stacked" *ngIf="item?.alergia?.categoria != null">Categoria: <strong>
+						{{ item?.alergia?.categoria }} </strong></ion-label>
+				<ion-label position="stacked" *ngIf="item?.alergia?.descricao != null">Descrição: <strong>
+						{{ item?.alergia?.descricao }} </strong></ion-label>
+				<ion-label position="stacked" *ngIf="item?.alergia?.agenteCausador != null">Agente causador: <strong>
+						{{ item?.alergia?.agenteCausador }} </strong></ion-label>
+				<ion-label position="stacked" *ngIf="item?.alergia?.reacoesAdversas != null">Reações adversas: <strong>
+						{{ item?.alergia?.reacoesAdversas }} </strong></ion-label>
+				<span position="stacked" *ngIf="item?.observacao != null && item?.observacao != ''">Observação: <b>
+						{{ item?.observacao }} </b></span>
+				<br>
+			</ion-item>
+		</ion-card>
+
+
+
+
+
+	</div>
+
+
+
+
+
+	<!--
+<ion-content>
+	<ion-list inset>
+		<ion-item *ngFor="let medic of fichaMedica?.perfilPessoal?.medicamentos">
+			<h2> {{ medic.medicamento.nome }}</h2>
+			<p>BBBBBBBBBBBBBBB</p>
+		</ion-item>
+	</ion-list>
 </ion-content>
 -->
-  
-  
+
+
 </ion-content>

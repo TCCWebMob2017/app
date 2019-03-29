@@ -4,6 +4,12 @@ page-ficha-medica {
         border-radius: 100%;
         //margin: 25px auto 0 auto;
     }
+
+    ion-card .descricao, 
+    ion-card .descricao strong {
+        font-size: 12px;
+        background: red;
+    }
 }
 
 .avatar-center {
@@ -22,4 +28,6 @@ page-ficha-medica {
   .wrapping {
       margin-bottom: 0;
       margin-top:0;
+      //word-wrap: break-word;
+      background: yellow;
   }

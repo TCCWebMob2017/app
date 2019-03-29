@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
     this.menu.enable(true);
   }
 
-  login() {    
+  login() {
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
         console.log(Response);
