@@ -68,13 +68,14 @@ export class SignupPage implements OnInit {
         return;
       }
       this.usuario['nome']      = value.nome;
-      this.usuario['password']  = value.password;
+      //this.usuario['password']  = value.password;
       this.usuario['tefefone']  = value.telefone;
       this.usuario['rg']        = value.rg;
-      delete this.usuario['tipos'];            
+      delete this.usuario['password'];
+      delete this.usuario['tipos'];
+
       this.usuarioService.modificarUsuarioDados(this.usuario)
       .subscribe(Response => {
-        console.log(Response);
         this.usuario.password = "";
         this.storage.setLocalUsuarioDados(this.usuario);
         this.toastGravarSucesso();
