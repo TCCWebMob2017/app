@@ -1,29 +1,40 @@
 import { UsuarioService } from './../services/usuario.service';
-import { UsuarioDTO } from './../models/usuario';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { NavController, ToastController } from '@ionic/angular';
+import { MenuUsuarioComponent } from './../component/menu-usuario/menu-usuario.component';
 
 @Component({
   selector: 'app-pessoal',
   templateUrl: './pessoal.page.html',
   styleUrls: ['./pessoal.page.scss'],
+
+  // template: `
+  //   <ion-list>
+  //     <ion-list-header>Ionic</ion-list-header>
+  //     <button ion-item (click)="close()">Learn Ionic</button>
+  //     <button ion-item (click)="close()">Documentation</button>
+  //     <button ion-item (click)="close()">Showcase</button>
+  //     <button ion-item (click)="close()">GitHub Repo</button>
+  //   </ion-list>
+  // `
 })
 export class PessoalPage implements OnInit {
-          prontuario        : any;
-          usuario           : any;
-  public  usuarioCarregado  : boolean;
-  
-  constructor(public  navCtrl         : NavController,
-              public  pessoalService  : PessoalService,
-              public  usuarioService  : UsuarioService,
-              private storage         : StorageService,
-              public  toastController : ToastController,
-              public  alertController : AlertController) { }
+  prontuario: any;
+  usuario: any;
+  public usuarioCarregado: boolean;
 
-  ngOnInit() { 
+  constructor(public navCtrl: NavController,
+    public pessoalService: PessoalService,
+    public usuarioService: UsuarioService,
+    private storage: StorageService,
+    public toastController: ToastController,
+    public alertController: AlertController,
+    public popoverCtrl: PopoverController) { }
+
+  ngOnInit() {
     //this.lerUsuarioDados();
   }
 
@@ -39,19 +50,19 @@ export class PessoalPage implements OnInit {
 
   lerUsuarioDados() {
     let _localUser = this.storage.getLocalUser();
-    if(_localUser && _localUser.email) {
+    if (_localUser && _localUser.email) {
       this.usuario = this.storage.getLocalUsuarioDados();
       if (this.usuario == null) {
         this.navCtrl.navigateRoot('/login');
       }
       else {
-        if(this.usuario['perfilPessoal'] == null) {
+        if (this.usuario['perfilPessoal'] == null) {
           this.presentToast();
           this.navCtrl.navigateRoot('/home');
         }
       }
     }
-    else { 
+    else {
       this.navCtrl.navigateRoot('/login');
     }
   };
@@ -67,10 +78,10 @@ export class PessoalPage implements OnInit {
 
   getImageIfExist() {
     this.pessoalService.getImageFromBucket(this.prontuario.pessoal.id)
-    .subscribe(Response => {
-      this.prontuario.pessoal.imageUrl = "";
-    },
-    error => {});
+      .subscribe(Response => {
+        this.prontuario.pessoal.imageUrl = "";
+      },
+        error => { });
     //https://api-qlife.herokuapp.com/api/v1/pessoal/000/avatar
   }
 
@@ -78,23 +89,23 @@ export class PessoalPage implements OnInit {
     this.storage.setLocalParametros('modoCRUD', 'C');
     this.storage.setLocalParametros('somenteLeitura', false);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', true);
-    this.navCtrl.navigateForward(['pessoal-base']); 
+    this.navCtrl.navigateForward(['pessoal-base']);
   }
 
   exibirPessoalBase() {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
-    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);    
-    this.navCtrl.navigateForward(['pessoal-base']); 
+    this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
+    this.navCtrl.navigateForward(['pessoal-base']);
   }
-  
-  modificarPessoalBase() { 
+
+  modificarPessoalBase() {
     this.storage.setLocalParametros('modoCRUD', 'U');
     this.storage.setLocalParametros('somenteLeitura', false);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', true);
     this.navCtrl.navigateForward(['pessoal-base']);
   }
-  
+
   exibirPessoalMedicamentos() {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
@@ -113,21 +124,21 @@ export class PessoalPage implements OnInit {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
-    this.navCtrl.navigateForward(['pessoal-alergias']); 
+    this.navCtrl.navigateForward(['pessoal-alergias']);
   }
 
   exibirPessoalDrogas() {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
-    this.navCtrl.navigateForward(['pessoal-drogas']); 
+    this.navCtrl.navigateForward(['pessoal-drogas']);
   }
 
   exibirPessoalCirurgias() {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
-    this.navCtrl.navigateForward(['pessoal-cirurgias']); 
+    this.navCtrl.navigateForward(['pessoal-cirurgias']);
   }
 
   exibirPessoalDependentes() {
@@ -137,15 +148,41 @@ export class PessoalPage implements OnInit {
     //this.navCtrl.navigateForward(['pessoal-dependentes']); 
   }
 
-  exibirPessoalPermissoes() { 
+  exibirPessoalPermissoes() {
     this.storage.setLocalParametros('modoCRUD', 'R');
     this.storage.setLocalParametros('somenteLeitura', true);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', false);
     //this.navCtrl.navigateForward(['pessoal-permissoes']); 
   }
 
-  exibirFichaMedica() { 
+  exibirFichaMedica() {
     this.navCtrl.navigateForward(['ficha-medica'])
   }
 
+  public async showPopover($ev: Event): Promise<void> {
+    await this.popoverCtrl.create({
+      component: MenuUsuarioComponent,
+      event: $ev,
+      translucent: true,
+      showBackdrop: true,
+      //cssClass: 'ion-popover',
+      componentProps: { popoverController: this.popoverCtrl }
+    })
+      .then(popover => {
+        popover.present()
+        popover.onDidDismiss().then((dataReturned) => {
+          if (dataReturned !== null) {
+            if (dataReturned['data'] == 'dadosDoUsuario') {
+              this.navCtrl.navigateForward(['/home']);
+            }
+            else if (dataReturned['data'] == 'alterarSenha') {
+              this.navCtrl.navigateForward(['/home']);
+            }
+            else if (dataReturned['data'] == 'logOff') {
+              this.navCtrl.navigateForward(['/login']);
+            }
+          }
+        })
+      });
+  }
 }

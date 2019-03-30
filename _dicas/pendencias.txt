@@ -1,14 +1,14 @@
 A. APP
-1. Ficha médica;
-2. Dependentes;
-3. Permissões;
-4. Em Alteração dados do usuário (não solicitar senha);
-5. Criar funcionalidade "Trocar senha";
-6. Criar funcionalidade "Recuperar senha";
-7. Validações da tela Registrar;
-8. Informar o campo "confirmar senha" na tela "Registrar usuário";
-9. Imagens / Avatar;
-10. Opção para excluir usuário;
+01.[OK] Ficha médica;
+02.[  ] Dependentes;
+03.[  ] Permissões;
+04.[  ] Em Alteração dados do usuário (não solicitar senha);
+05.[  ] Criar funcionalidade "Trocar senha";
+06.[  ] Criar funcionalidade "Recuperar senha";
+07.[  ] Validações da tela Registrar;
+08.[  ] Informar o campo "confirmar senha" na tela "Registrar usuário";
+09.[  ] Imagens / Avatar;
+10.[  ] Opção para excluir usuário;
 
 B. API
-1.Documentação da API para login;
+01.[  ] Documentação da API para login;

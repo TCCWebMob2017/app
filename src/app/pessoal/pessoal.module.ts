@@ -1,3 +1,4 @@
+import { MenuUsuarioComponent } from './../component/menu-usuario/menu-usuario.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -19,6 +20,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [PessoalPage]
+  declarations: [PessoalPage, MenuUsuarioComponent],
+  entryComponents: [MenuUsuarioComponent]
 })
 export class PessoalPageModule {}

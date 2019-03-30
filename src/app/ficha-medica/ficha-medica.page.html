@@ -17,10 +17,11 @@
 	<ion-item class="center">
 		<ion-label text-wrap>
 			<ion-text>
-				<h3><b> {{ fichaMedica?.nome }}</b></h3>
+				<h2><b>{{ fichaMedica?.nome }}</b></h2>
 			</ion-text>
 		</ion-label>
 	</ion-item>
+
 	<div *ngIf="fichaMedica.perfilPessoal != null">
 		<ion-item>
 			<span class="wrapping">Data de nascimento: <strong> {{ fichaMedica?.perfilPessoal?.nascimento }} </strong></span>

@@ -12,21 +12,21 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class LoginPage implements OnInit {
 
-  creds : CredenciaisDTO = {
+  creds: CredenciaisDTO = {
     email: "",
     password: ""
   };
 
-  public  userOnLine        : any;
-  public  usuario           : any;
-  public  usuarioCarregado  : boolean;
+  public userOnLine: any;
+  public usuario: any;
+  public usuarioCarregado: boolean;
 
   constructor(
-    public  navCtrl         : NavController, 
-    public  menu            : MenuController,
-    public  auth            : AuthService,
-    public  usuarioService  : UsuarioService,
-    private storage         : StorageService) { }
+    public navCtrl: NavController,
+    public menu: MenuController,
+    public auth: AuthService,
+    public usuarioService: UsuarioService,
+    private storage: StorageService) { }
 
 
   ngOnInit() {
@@ -36,51 +36,49 @@ export class LoginPage implements OnInit {
     this.storage.setLocalParametros("usuarioCarregado", false);
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.menu.enable(false);  //this.menu.swipeEnable(false);
   }
 
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     this.menu.enable(true);
   }
 
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(Response => {
-        console.log(Response);
+        // console.log(Response);
         this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
         this.lerUsuarioDados();
-        //this.navCtrl.navigateRoot('/home');
-        //this.navCtrl.navigateRoot('/pessoal');
       },
-      error => {
-        console.log(error);
-      }
-    )
+        error => {
+          // console.log(error);
+        }
+      )
   };
 
   lerUsuarioDados() {
     this.usuarioService.getLoggedInUser()
-    .subscribe(Response => {
-      this.usuarioCarregado = true;
-      this.usuario = Response;
-      this.storage.setLocalUsuarioDados(this.usuario);
-      this.storage.setLocalParametros("usuarioCarregado", this.usuarioCarregado);
-      if (this.usuario['perfilPessoal'] == null) {
-        this.navCtrl.navigateRoot('/home');
-      }
-      else {
-        this.navCtrl.navigateRoot('/pessoal');
-      }     
-    },
-    error => { 
-      if (error.status == 403) {
-        this.navCtrl.navigateRoot('login');
-      }
-    });
+      .subscribe(Response => {
+        this.usuarioCarregado = true;
+        this.usuario = Response;
+        this.storage.setLocalUsuarioDados(this.usuario);
+        this.storage.setLocalParametros("usuarioCarregado", this.usuarioCarregado);
+        if (this.usuario['perfilPessoal'] == null) {
+          this.navCtrl.navigateRoot('/home');
+        }
+        else {
+          this.navCtrl.navigateRoot('/pessoal');
+        }
+      },
+        error => {
+          if (error.status == 403) {
+            this.navCtrl.navigateRoot('login');
+          }
+        });
   };
-  
-  signup() { 
+
+  signup() {
     this.storage.setLocalParametros('modoCRUD', 'C');
     this.storage.setLocalParametros('somenteLeitura', false);
     this.navCtrl.navigateForward('signup');
