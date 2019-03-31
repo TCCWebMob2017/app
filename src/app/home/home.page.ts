@@ -64,10 +64,4 @@ export class HomePage {
     this.storage.setLocalParametros('somenteLeitura', true);
     this.navCtrl.navigateForward(['signup']); 
   }
-
-  alterarSenha() {
-    this.storage.setLocalParametros('paginaAnterior', '/home');
-    this.navCtrl.navigateForward(['/alterar-senha']);
-  }
-
 }

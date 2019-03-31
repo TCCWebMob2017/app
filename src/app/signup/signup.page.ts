@@ -21,14 +21,10 @@ export class SignupPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public auth: AuthService,
-    //private readonly authService: AuthService,
-    //private readonly loadingCtrl: LoadingController,
-    //private readonly toastCtrl: ToastController,
-    //public formBuilder: FormBuilder,
     public usuarioService: UsuarioService,
     private storage: StorageService,
-    public alertCtrl: AlertController,
-    public toastController: ToastController
+    public toastController: ToastController,
+    public alertController: AlertController
   ) {
 
   }
@@ -98,8 +94,56 @@ export class SignupPage implements OnInit {
     toast.present();
   }
 
+  async excluirContaUsuario() {
+    const alert = await this.alertController.create({
+      header: 'Excluir conta',
+      message: 'A conta do usuário será excuída.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            //console.log('Confirm Cancel');
+          }
+        },
+        {
+          text: 'Ok',
+          handler: () => {
+            let _idUsuario = this.usuario['id'];
+
+            if (_idUsuario != null) {
+
+              this.usuarioService.excluirUsuarioConta(_idUsuario)
+                .subscribe(Response => {
+                  this.storage.clearPerfilPessoal();
+                  // this.deletePresentToast();
+                  this.irParaTelaLogin();
+                },
+                  error => {
+                    //console.log(error);
+                  });
+            }
+
+            //console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  alterarSenha() {
+    this.storage.setLocalParametros('paginaAnterior', '/signup');
+    this.navCtrl.navigateForward(['/alterar-senha']);
+  }
+
   irParaTelaHome() {
     this.navCtrl.navigateBack('/home');
+  }
+
+  irParaTelaLogin() {
+    this.navCtrl.navigateBack('/login');
   }
 
 }

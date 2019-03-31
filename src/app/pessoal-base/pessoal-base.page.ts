@@ -1,8 +1,8 @@
 import { UsuarioService } from './../services/usuario.service';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../services/storage.service';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ModalController, NavController, ToastController, AlertController } from '@ionic/angular';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NavController, ToastController, AlertController } from '@ionic/angular';
 import { UsuarioDTO } from './../models/usuario';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,39 +14,39 @@ import { ActivatedRoute } from '@angular/router';
 export class PessoalBasePage implements OnInit {
   formGroup: FormGroup;
   submitted: boolean;
-  position:  string;
+  position: string;
   minSelectableDate = '1900-01-01';
   maxSelectableDate;
   myDate;
-  public  tituloJanela            : string = "Informações pessoais";
-  public  usuario                 : UsuarioDTO;
-  public  modoCRUD                : string;
-  public  somenteLeitura          : boolean;
-  public  exibirBarraDeNavegacao  : boolean;
+  public tituloJanela: string = "Informações pessoais";
+  public usuario: UsuarioDTO;
+  public modoCRUD: string;
+  public somenteLeitura: boolean;
+  public exibirBarraDeNavegacao: boolean;
 
   constructor(
-    private navCtrl         : NavController,
-    private storage         : StorageService,
-    public  usuarioService  : UsuarioService,
-    private formBuilder     : FormBuilder,
-    private activatedRoute  : ActivatedRoute,
-    public  toastController : ToastController,
-    public  alertController : AlertController 
-    ) { 
-      this.position = "floating";
-      //this.position = "fixed";
-      this.myDate = new Date();
-      this.maxSelectableDate = this.formatDate(this.myDate);
-    }
+    private navCtrl: NavController,
+    private storage: StorageService,
+    public usuarioService: UsuarioService,
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    public toastController: ToastController,
+    public alertController: AlertController
+  ) {
+    this.position = "floating";
+    //this.position = "fixed";
+    this.myDate = new Date();
+    this.maxSelectableDate = this.formatDate(this.myDate);
+  }
 
   ngOnInit() {
 
     this.obterParametrosRecebidos();
-    this.usuario    = this.storage.getLocalUsuarioDados();
-    this.formGroup  = this.formBuilder.group({
-      nome:       ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
-      peso:       ['', [Validators.required, Validators.min(10)]],
-      altura:     ['', [Validators.required, Validators.min(10)]],
+    this.usuario = this.storage.getLocalUsuarioDados();
+    this.formGroup = this.formBuilder.group({
+      nome: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
+      peso: ['', [Validators.required, Validators.min(10)]],
+      altura: ['', [Validators.required, Validators.min(10)]],
       nascimento: ['', [Validators.required]],
       tipoSangue: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]]
       //email:      ['', [Validators.required, Validators.email]],
@@ -61,36 +61,36 @@ export class PessoalBasePage implements OnInit {
     else { this.somenteLeitura = false; }
     */
     let _parametros = this.storage.getLocalParametros();
-    this.modoCRUD               = _parametros['modoCRUD'];
-    this.somenteLeitura         = _parametros['somenteLeitura'];
+    this.modoCRUD = _parametros['modoCRUD'];
+    this.somenteLeitura = _parametros['somenteLeitura'];
     this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
   }
 
   setRegistroModoEditar() {
-    this.modoCRUD       = 'U';
+    this.modoCRUD = 'U';
     this.somenteLeitura = false;
     this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
     this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
   setRegistroModoVisualizar() {
-    this.modoCRUD       = 'R';
+    this.modoCRUD = 'R';
     this.somenteLeitura = true;
     this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
     this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
-  generoDescricao() : string {
-    if(this.usuario.perfilPessoal.sexo == 'F') {
+  generoDescricao(): string {
+    if (this.usuario.perfilPessoal.sexo == 'F') {
       return "Feminino";
     }
-    else if(this.usuario.perfilPessoal.sexo == 'M') {
+    else if (this.usuario.perfilPessoal.sexo == 'M') {
       return "Masculino";
     }
     return "";
   }
 
-  onSubmit(value : any) {
+  onSubmit(value: any) {
     this.submitted = true;
     this.moverValoresFormParaSotage(value);
     if (this.usuarioService.enviarDadosDoStorageParaApi()) {
@@ -100,28 +100,28 @@ export class PessoalBasePage implements OnInit {
   }
 
 
-  moverValoresFormParaSotage(value : any) {
+  moverValoresFormParaSotage(value: any) {
     if (this.usuario['perfilPessoal'] == null) {
-      let _perfilPessoal : any = { "id": null };
+      let _perfilPessoal: any = { "id": null };
       this.usuario['perfilPessoal'] = _perfilPessoal;
     }
-    this.usuario['perfilPessoal']['nome']           = value.nome,
-    this.usuario['perfilPessoal']['tipoPerfil']     = "PESSOAL",
-    this.usuario['perfilPessoal']['telefone']       = value.telefone,
-    this.usuario['perfilPessoal']['nascimento']     = value.nascimento,
-    this.usuario['perfilPessoal']['sexo']           = value.sexo,
-    this.usuario['perfilPessoal']['praticaEsporte'] = value.praticaEsporte,
-    this.usuario['perfilPessoal']['doadorOrgao']    = value.doadorOrgao,
-    this.usuario['perfilPessoal']['doadorSangue']   = value.doadorSangue,
-    this.usuario['perfilPessoal']['tipoSangue']     = value.tipoSangue,
-    this.usuario['perfilPessoal']['altura']         = value.altura,
-    this.usuario['perfilPessoal']['peso']           = value.peso,
-    this.usuario['perfilPessoal']['rg']             = value.rg,
-    this.usuario['perfilPessoal']['cpf']            = value.cpf
+    this.usuario['perfilPessoal']['nome'] = value.nome,
+      this.usuario['perfilPessoal']['tipoPerfil'] = "PESSOAL",
+      this.usuario['perfilPessoal']['telefone'] = value.telefone,
+      this.usuario['perfilPessoal']['nascimento'] = value.nascimento,
+      this.usuario['perfilPessoal']['sexo'] = value.sexo,
+      this.usuario['perfilPessoal']['praticaEsporte'] = value.praticaEsporte,
+      this.usuario['perfilPessoal']['doadorOrgao'] = value.doadorOrgao,
+      this.usuario['perfilPessoal']['doadorSangue'] = value.doadorSangue,
+      this.usuario['perfilPessoal']['tipoSangue'] = value.tipoSangue,
+      this.usuario['perfilPessoal']['altura'] = value.altura,
+      this.usuario['perfilPessoal']['peso'] = value.peso,
+      this.usuario['perfilPessoal']['rg'] = value.rg,
+      this.usuario['perfilPessoal']['cpf'] = value.cpf
     this.storage.setLocalUsuarioDados(this.usuario);
   }
 
-  gravarDados(value : any) {
+  gravarDados(value: any) {
     this.submitted = true;
     this.moverValoresFormParaSotage(value);
     if (this.usuarioService.enviarDadosDoStorageParaApi()) {
@@ -136,7 +136,7 @@ export class PessoalBasePage implements OnInit {
       duration: 2000
     });
     toast.present();
-  }  
+  }
 
   validation_messages = {
     'nome': [
@@ -145,8 +145,8 @@ export class PessoalBasePage implements OnInit {
     ],
     'peso': [
       { type: 'required', message: 'Peso é obrigatório.' },
-      { type: 'pattern' , message: 'Informe um peso válido.' },
-      { type: 'min'     , message: 'peso / min.' }
+      { type: 'pattern', message: 'Informe um peso válido.' },
+      { type: 'min', message: 'peso / min.' }
     ],
     'altura': [
       { type: 'required', message: 'Altura é obrigatória.' },
@@ -169,23 +169,23 @@ export class PessoalBasePage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-          //console.log('Confirm Cancel');
-          }          
-        }, 
+            //console.log('Confirm Cancel');
+          }
+        },
         {
           text: 'Ok',
           handler: () => {
             let _idUsuario = this.usuario['id'];
             if (_idUsuario != null) {
               this.usuarioService.excluirPerfilPessoal(_idUsuario)
-              .subscribe(Response => {
-                this.storage.clearPerfilPessoal();
-                this.deletePresentToast();
-                this.irParaTelaAnterior();
-              },
-              error => {
-                //console.log(error);
-              });
+                .subscribe(Response => {
+                  this.storage.clearPerfilPessoal();
+                  this.deletePresentToast();
+                  this.irParaTelaAnterior();
+                },
+                  error => {
+                    //console.log(error);
+                  });
             }
             //console.log('Confirm Ok');
           }
@@ -193,7 +193,7 @@ export class PessoalBasePage implements OnInit {
       ]
     });
     await alert.present();
-  }  
+  }
 
   async deletePresentToast() {
     const toast = await this.toastController.create({
@@ -201,7 +201,7 @@ export class PessoalBasePage implements OnInit {
       duration: 2000
     });
     toast.present();
-  } 
+  }
 
   /*
   for (let i = 0; i < (Object.keys(_perfilPessoal).length); i++) {
@@ -212,13 +212,13 @@ export class PessoalBasePage implements OnInit {
   }
   */
 
-   formatDate(date) {
+  formatDate(date) {
     let _date = new Date(date),
-        day   = '' + _date.getDate(),
-        month = '' + (_date.getMonth() + 1),
-        year  = _date.getFullYear();
+      day = '' + _date.getDate(),
+      month = '' + (_date.getMonth() + 1),
+      year = _date.getFullYear();
     if (month.length < 2) month = '0' + month;
-    if (day.length < 2)   day   = '0' + day;
+    if (day.length < 2) day = '0' + day;
     return [year, month, day].join('-');
   }
 
@@ -234,7 +234,7 @@ export class PessoalBasePage implements OnInit {
     this.irParaTelaHome();
   }
 
-  irParaProximaTela(value : any) {
+  irParaProximaTela(value: any) {
     if (this.somenteLeitura != true) {
       this.moverValoresFormParaSotage(value);
     }

@@ -3,7 +3,7 @@ A. APP
 02.[  ] Dependentes;
 03.[  ] Permissões;
 04.[  ] Em Alteração dados do usuário (não solicitar senha);
-05.[  ] Criar funcionalidade "Trocar senha";
+05.[OK] Criar funcionalidade "Trocar senha";
 06.[  ] Criar funcionalidade "Recuperar senha";
 07.[  ] Validações da tela Registrar;
 08.[  ] Informar o campo "confirmar senha" na tela "Registrar usuário";

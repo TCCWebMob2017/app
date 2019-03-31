@@ -7,22 +7,22 @@
 <ion-content padding>
 
   <form #form="ngForm" (ngSubmit)="login(form.value)" novalidate>
-  <ion-list>    
-    <ion-img src="/assets/q-life.jpg"></ion-img>
-    
-    <!--
+    <ion-list>
+      <ion-img src="/assets/q-life.jpg"></ion-img>
+
+      <!--
     <ion-card-header>
       <ion-card-subtitle>Bem vindo(a) ao</ion-card-subtitle>
       <ion-card-title>Q-life</ion-card-title>
     </ion-card-header>
     -->
-    <br>
-    <ion-item>
-      <ion-label position="stacked">E-mail</ion-label>
-      <ion-input [(ngModel)]="creds.email" type="text" name="email" ngModel required #email="ngModel"
-                 [class.invalid]="email.errors && email.dirty"></ion-input>
-    </ion-item>
-    <!--
+      <br>
+      <ion-item>
+        <ion-label position="stacked">E-mail</ion-label>
+        <ion-input [(ngModel)]="creds.email" type="text" name="email" ngModel required #email="ngModel"
+          [class.invalid]="email.errors && email.dirty"></ion-input>
+      </ion-item>
+      <!--
     <ion-item class="error-message" *ngIf="email.errors?.required && email.dirty">
       <ion-label>
         E-mail is required
@@ -30,30 +30,34 @@
     </ion-item>
     -->
 
-    <ion-item>
-      <ion-label position="stacked">Senha</ion-label>
-      <ion-input [(ngModel)]="creds.password" type="password" name="password" ngModel required #password="ngModel"
-                 [class.invalid]="password.errors && password.dirty"></ion-input>
-    </ion-item>
-    <!--
+      <ion-item>
+        <ion-label position="stacked">Senha</ion-label>
+        <ion-input [(ngModel)]="creds.password" type="password" name="password" ngModel required #password="ngModel"
+          [class.invalid]="password.errors && password.dirty"></ion-input>
+      </ion-item>
+      <!--
     <ion-item class="error-message" *ngIf="password.errors?.required && password.dirty">
       <ion-label>
         Password is required
       </ion-label>
     </ion-item>
     -->
-    <br>
-    <br>
-
-    <div padding>
-      <!-- <ion-button color="primary" expand="block" type="submit" [disabled]="!form.valid">Login</ion-button> -->
-      <ion-button color="primary" expand="block" type="submit">Entrar</ion-button>
       <br>
-      <ion-button expand="block" fill="outline" type="button" (click)="signup()">Registrar</ion-button>
       <br>
-      <!-- <ion-button expand="block" fill="outline" type="button" (click)="sobre()">Testes</ion-button> -->
-    </div>
 
-  </ion-list>
-</form>
+      <div padding>
+        <!-- <ion-button color="primary" expand="block" type="submit" [disabled]="!form.valid">Login</ion-button> -->
+        <ion-button color="primary" expand="block" type="submit">Entrar</ion-button>
+        <br>
+        <ion-button expand="block" fill="outline" type="button" (click)="signup()">Registrar</ion-button>
+        <br>
+
+        <!-- <ion-button expand="block" fill="outline" type="button" (click)="sobre()">Testes</ion-button> -->
+        <div>
+          <a routerLink="/recuperar-senha">Esqueci a senha</a>
+        </div>
+
+      </div>
+    </ion-list>
+  </form>
 </ion-content>

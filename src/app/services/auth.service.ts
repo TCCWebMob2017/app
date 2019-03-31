@@ -61,6 +61,11 @@ export class AuthService {
     return this.http.post(url, value, { observe: 'response', responseType: 'text' });
   }
 
+  forgotPassword(value: any) {
+    let url = API_CONFIG.baseUrl + "/auth/forgot";
+    return this.http.post(url, value, { observe: 'response', responseType: 'text' });
+  }
+
   logout() {
     this.storage.setLocalUser(null);
   }

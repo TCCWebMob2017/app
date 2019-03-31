@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Recuperar senha</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="solicitarNovaSenha(form.value)" novalidate>
+    <ion-list>
+      <ion-img src="/assets/q-life.jpg"></ion-img>
+      <br>
+      <ion-item>
+        <ion-label position="stacked">Informe o e-mail:</ion-label>
+        <ion-input type="email" name="email" [ngModel]="usuario?.email" ngModel required email #email="ngModel"
+          [class.invalid]="email.errors && email.dirty"></ion-input>
+      </ion-item>
+      <div>
+        <br>
+        <br>
+        <ion-button color="primary" expand="block" type="submit" [disabled]="!form.valid">Solicitar nova senha</ion-button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>

@@ -22,7 +22,8 @@ const routes: Routes = [
   { path: 'pessoal-drogas-add', loadChildren: './pessoal-drogas-add/pessoal-drogas-add.module#PessoalDrogasAddPageModule' },
   { path: 'pessoal-dependentes', loadChildren: './pessoal-dependentes/pessoal-dependentes.module#PessoalDependentesPageModule' },
   { path: 'pessoal-cirurgias', loadChildren: './pessoal-cirurgias/pessoal-cirurgias.module#PessoalCirurgiasPageModule' },
-  { path: 'alterar-senha', loadChildren: './alterar-senha/alterar-senha.module#AlterarSenhaPageModule' }
+  { path: 'alterar-senha', loadChildren: './alterar-senha/alterar-senha.module#AlterarSenhaPageModule' },
+  { path: 'recuperar-senha', loadChildren: './recuperar-senha/recuperar-senha.module#RecuperarSenhaPageModule' }
 
 
 

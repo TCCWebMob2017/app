@@ -114,8 +114,17 @@
       <div padding *ngIf="modoCRUD == 'C'">
         <ion-button color="primary" expand="block" type="submit" [disabled]="!form.valid">Registrar</ion-button>
       </div>
-
     </ion-list>
+
+    <div *ngIf="modoCRUD == 'U'">
+
+      <br>
+      <ion-button type="button" color="primary" expand="block" (click)=alterarSenha()>Alterar senha</ion-button>
+
+      <ion-button color="danger" expand="block" type="button" (click)="excluirContaUsuario()">Excluir conta
+      </ion-button>
+    </div>
+
   </form>
 
 </ion-content>
