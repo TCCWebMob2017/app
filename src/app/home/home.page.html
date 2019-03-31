@@ -3,12 +3,10 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-
+    <ion-title>Dados do usuário</ion-title>
     <ion-buttons slot="primary">
       <ion-button (click)="editarUsuarioDados()">Editar</ion-button>
     </ion-buttons>
-
-    <ion-title>Dados do usuário</ion-title>
   </ion-toolbar>
 
   <!--
@@ -36,12 +34,10 @@
   </ion-toolbar>
   -->
 </ion-header>
-
-
 <ion-content padding>
   <ion-item *ngIf="usuarioCarregado == true">
     <ion-avatar slot="start">
-      <img [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
+      <img [src]="usuario?.imageUrl || avatarBlank">
     </ion-avatar>
     <ion-label text-wrap>
       <h2>{{ usuario?.nome }}</h2>

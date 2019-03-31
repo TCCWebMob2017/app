@@ -132,6 +132,10 @@ export class SignupPage implements OnInit {
     this.navCtrl.navigateForward(['/alterar-senha']);
   }
 
+  editarFoto() {
+    this.navCtrl.navigateForward(['/usuario-foto']);
+  }
+
   irParaTelaHome() {
     this.navCtrl.navigateBack('/home');
   }

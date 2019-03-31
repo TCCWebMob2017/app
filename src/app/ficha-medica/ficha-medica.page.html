@@ -8,10 +8,8 @@
 </ion-header>
 
 <ion-content>
-	<!--<img class="circle" [src]="usuario?.perfilPessoal?.imageUrl || 'assets/img/avatar-blank.png'">-->
-
 	<ion-avatar class="avatar-center">
-		<img src="../../assets/img/avatar-blank.png">
+		<img [src]="fichaMedica?.perfilPessoal?.imageUrl || avatarBlank">
 	</ion-avatar>
 
 	<ion-item class="center">

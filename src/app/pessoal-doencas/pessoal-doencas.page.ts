@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, IonItemSliding, ActionSheetController } from '@ionic/angular';
 import { StorageService } from '../services/storage.service';
-import { ActivatedRoute } from '@angular/router';
 import { PessoalService } from '../services/pessoal.service';
 import { UsuarioService } from '../services/usuario.service';
 
@@ -13,69 +12,68 @@ import { UsuarioService } from '../services/usuario.service';
 })
 
 export class PessoalDoencasPage implements OnInit {
-  public  tituloJanela            : string = "Doenças";
-  public  nomeObjetoLista         : string = "doencas";
-  public  nomeObjeto              : string = "doenca";
-  public  listaItens              : any;
-  public  modoCRUD                : string;
-  public  somenteLeitura          : boolean;
-  public  exibirBarraDeNavegacao  : boolean;
-  public  navegacaoPaginaAnterior : string = "pessoal-medicamentos";
-  public  navegacaoProximaPagina  : string = "pessoal-alergias";
-  public  navegacaoPaginaAdd      : string = "pessoal-doencas-add";
+  public tituloJanela: string = "Doenças";
+  public nomeObjetoLista: string = "doencas";
+  public nomeObjeto: string = "doenca";
+  public listaItens: any;
+  public modoCRUD: string;
+  public somenteLeitura: boolean;
+  public exibirBarraDeNavegacao: boolean;
+  public navegacaoPaginaAnterior: string = "pessoal-medicamentos";
+  public navegacaoProximaPagina: string = "pessoal-alergias";
+  public navegacaoPaginaAdd: string = "pessoal-doencas-add";
 
-  constructor(public  navCtrl             : NavController, 
-              public  alertController     : AlertController,
-              private activatedRoute      : ActivatedRoute,
-              public  pessoalService      : PessoalService,
-              private storage             : StorageService,
-              public  usuarioService      : UsuarioService,
-              public actionSheetController: ActionSheetController) { }
+  constructor(public navCtrl: NavController,
+    public alertController: AlertController,
+    public pessoalService: PessoalService,
+    private storage: StorageService,
+    public usuarioService: UsuarioService,
+    public actionSheetController: ActionSheetController) { }
 
   ngOnInit() {
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.obterParametrosRecebidos();
     this.obterListaItens();
   }
 
-  ionViewDidLoad(){}
-  ionViewDidEnter(){}
-  ionViewWillLeave(){}
-  ionViewDidLeave(){}
-  ionViewWillUnload(){}
+  ionViewDidLoad() { }
+  ionViewDidEnter() { }
+  ionViewWillLeave() { }
+  ionViewDidLeave() { }
+  ionViewWillUnload() { }
 
   obterParametrosRecebidos() {
-    let _parametros             = this.storage.getLocalParametros();
-    this.modoCRUD               = _parametros['modoCRUD'];
-    this.somenteLeitura         = _parametros['somenteLeitura'];
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD = _parametros['modoCRUD'];
+    this.somenteLeitura = _parametros['somenteLeitura'];
     this.exibirBarraDeNavegacao = _parametros['exibirBarraDeNavegacao'];
   }
 
   obterListaItens() {
-    let _localProfile   = this.storage.getLocalUsuarioDados();
-    let _perfilPessoal  = _localProfile['perfilPessoal'];
-    this.listaItens     = _perfilPessoal[this.nomeObjetoLista];
+    let _localProfile = this.storage.getLocalUsuarioDados();
+    let _perfilPessoal = _localProfile['perfilPessoal'];
+    this.listaItens = _perfilPessoal[this.nomeObjetoLista];
   }
 
   exibirRegistro() { }
 
   setRegistroModoEditar() {
-    this.modoCRUD       = 'U';
+    this.modoCRUD = 'U';
     this.somenteLeitura = false;
     this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
     this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
   setRegistroModoVisualizar() {
-    this.modoCRUD       = 'R';
+    this.modoCRUD = 'R';
     this.somenteLeitura = true;
     this.storage.setLocalParametros('modoCRUD', this.modoCRUD);
     this.storage.setLocalParametros('somenteLeitura', this.somenteLeitura);
   }
 
-  slidingClose(slidingItem : IonItemSliding) {
+  slidingClose(slidingItem: IonItemSliding) {
     if (this.somenteLeitura == true) {
       slidingItem.close();
     }
@@ -83,7 +81,7 @@ export class PessoalDoencasPage implements OnInit {
 
 
 
-  gravarDados(voltarParaTelaAnterior : boolean) {
+  gravarDados(voltarParaTelaAnterior: boolean) {
     if (this.usuarioService.enviarDadosDoStorageParaApi() == true) {
       //this.gravaDadosPresentToast();
     }
@@ -109,35 +107,35 @@ export class PessoalDoencasPage implements OnInit {
 
   irParaProximaTela() {
     this.navCtrl.navigateForward([this.navegacaoProximaPagina]);
-  }  
-
-  async editRow(slidingItem : IonItemSliding, item : any, pos : number) {
-    await slidingItem.close();
-    if (item!= null) {
-      this.alertModificarItem(pos, item);
-    }    
   }
 
-  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number, dele : boolean){    
+  async editRow(slidingItem: IonItemSliding, item: any, pos: number) {
+    await slidingItem.close();
+    if (item != null) {
+      this.alertModificarItem(pos, item);
+    }
+  }
+
+  async deleteRow(slidingItem: IonItemSliding, event, item: any, index: number, dele: boolean) {
     if (this.somenteLeitura != true && dele == true) {
       await slidingItem.close();
-      if(index > -1){
+      if (index > -1) {
         this.confirmarExcluirRegistro(index);
       }
     }
   }
 
   // ------------------------------------------------------------------------------
-  async alertModificarItem(pos: number , obj : any) {
+  async alertModificarItem(pos: number, obj: any) {
     const alert = await this.alertController.create({
       header: 'Modificar dados',
       message: '<b>' + obj[this.nomeObjeto]['nome'] + '</b>',
       inputs: [
         //{ name: 'dosagem',          type: 'text', value: obj.dosagem,          placeholder: 'Dosagem' },
-        { name: 'observacao',       type: 'text', value: obj.observacao,       placeholder: 'Observação' }
+        { name: 'observacao', type: 'text', value: obj.observacao, placeholder: 'Observação' }
       ],
-      
-      
+
+
       buttons: [
         {
           text: 'Cancel', role: 'cancel', cssClass: 'secondary',
@@ -146,9 +144,9 @@ export class PessoalDoencasPage implements OnInit {
           }
         }, {
           text: 'Ok',
-          handler: ( data = Response ) => {
+          handler: (data = Response) => {
             //obj['dosagem']           = data['dosagem'];
-            obj['observacao']        = data['observacao'];
+            obj['observacao'] = data['observacao'];
 
 
             this.storage.modificarRegistroNaLista(pos, obj, this.nomeObjetoLista);
@@ -159,7 +157,7 @@ export class PessoalDoencasPage implements OnInit {
     await alert.present();
   }
 
-  async confirmarExcluirRegistro(index : number) {
+  async confirmarExcluirRegistro(index: number) {
     const actionSheet = await this.actionSheetController.create({
       //header: 'Confirmação',
       buttons: [{
@@ -168,7 +166,7 @@ export class PessoalDoencasPage implements OnInit {
         icon: 'trash',
         handler: () => {
           this.storage.removeRegistroDaLista(index, this.nomeObjetoLista);
-          this.obterListaItens();          
+          this.obterListaItens();
         }
       }, {
         text: 'Cancelar',
@@ -180,6 +178,6 @@ export class PessoalDoencasPage implements OnInit {
       }]
     });
     await actionSheet.present();
-  }  
+  }
 
 }

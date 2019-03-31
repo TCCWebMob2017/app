@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'pessoal-dependentes', loadChildren: './pessoal-dependentes/pessoal-dependentes.module#PessoalDependentesPageModule' },
   { path: 'pessoal-cirurgias', loadChildren: './pessoal-cirurgias/pessoal-cirurgias.module#PessoalCirurgiasPageModule' },
   { path: 'alterar-senha', loadChildren: './alterar-senha/alterar-senha.module#AlterarSenhaPageModule' },
-  { path: 'recuperar-senha', loadChildren: './recuperar-senha/recuperar-senha.module#RecuperarSenhaPageModule' }
+  { path: 'recuperar-senha', loadChildren: './recuperar-senha/recuperar-senha.module#RecuperarSenhaPageModule' },
+  { path: 'usuario-foto', loadChildren: './usuario-foto/usuario-foto.module#UsuarioFotoPageModule' }
 
 
 

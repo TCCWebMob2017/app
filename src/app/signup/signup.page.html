@@ -20,7 +20,6 @@
 
   <form #form="ngForm" (ngSubmit)="signup(form.value)" novalidate>
     <ion-list>
-
       <ion-item>
         <ion-label position="stacked">Nome</ion-label>
         <ion-input type="text" name="nome" [ngModel]="usuario?.nome" ngModel required #nome="ngModel"
@@ -125,8 +124,8 @@
 
       <br>
       <ion-button type="button" color="primary" expand="block" (click)=alterarSenha()>Alterar senha</ion-button>
-
-      <ion-button color="danger" expand="block" type="button" (click)="excluirContaUsuario()">Excluir conta
+      <ion-button type="button" color="primary" expand="block" (click)=editarFoto()>Editar foto</ion-button>
+      <ion-button type="button" color="danger" expand="block" (click)="excluirContaUsuario()">Excluir conta
       </ion-button>
     </div>
 

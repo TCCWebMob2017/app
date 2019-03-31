@@ -5,6 +5,7 @@ import { PessoalService } from './../services/pessoal.service';
 import { StorageService } from '../services/storage.service';
 import { NavController, ToastController } from '@ionic/angular';
 import { MenuUsuarioComponent } from './../component/menu-usuario/menu-usuario.component';
+import { STORAGE_KEY } from 'src/config/storagekeys.config';
 
 @Component({
   selector: 'app-pessoal',
@@ -25,6 +26,7 @@ export class PessoalPage implements OnInit {
   prontuario: any;
   usuario: any;
   public usuarioCarregado: boolean;
+  public avatarBlank: string;
 
   constructor(public navCtrl: NavController,
     public pessoalService: PessoalService,
@@ -35,7 +37,7 @@ export class PessoalPage implements OnInit {
     public popoverCtrl: PopoverController) { }
 
   ngOnInit() {
-    //this.lerUsuarioDados();
+    this.avatarBlank = STORAGE_KEY.avatarBlank;
   }
 
   ionViewWillEnter() {

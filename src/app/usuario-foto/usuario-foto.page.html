@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/signup"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar foto do usuário</ion-title>
+    <ion-buttons slot="primary" *ngIf="exibirBarraDeNavegacao != true">
+      <ion-button (click)="setRegistroModoEditar()">Editar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-avatar class="avatar-center">
+    <img [src]="usuario?.imageUrl || avatarBlank">
+  </ion-avatar>
+
+</ion-content>

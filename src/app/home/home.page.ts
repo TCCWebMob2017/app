@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
 import { StorageService } from '../services/storage.service';
 import { PessoalService } from '../services/pessoal.service';
+import { STORAGE_KEY } from 'src/config/storagekeys.config';
 
 @Component({
   selector: 'app-home',
@@ -11,19 +12,18 @@ import { PessoalService } from '../services/pessoal.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  public usuario: any;
+  public usuarioCarregado: boolean;
+  public avatarBlank: string;
+  constructor(public navCtrl: NavController,
+    public pessoalService: PessoalService,
+    public usuarioService: UsuarioService,
+    private storage: StorageService,
+    public toastController: ToastController,
+    public alertController: AlertController) { }
 
-  public  usuario           : any;
-  public  usuarioCarregado  : boolean;
-
-  constructor(public  navCtrl         : NavController,
-              public  pessoalService  : PessoalService,
-              public  usuarioService  : UsuarioService,
-              private storage         : StorageService,
-              public  toastController : ToastController,
-              public  alertController : AlertController) { }
-
-  ngOnInit() { 
-
+  ngOnInit() {
+    this.avatarBlank = STORAGE_KEY.avatarBlank;
   }
 
   ionViewWillEnter() {
@@ -38,17 +38,17 @@ export class HomePage {
 
   lerUsuarioDados() {
     let _localUser = this.storage.getLocalUser();
-    if(_localUser && _localUser.email) {
+    if (_localUser && _localUser.email) {
       this.usuario = this.storage.getLocalUsuarioDados();
       if (this.usuario == null) {
-        this.navCtrl.navigateRoot('/login'); 
+        this.navCtrl.navigateRoot('/login');
       }
       else {
         this.usuarioCarregado = true;
       }
     }
-    else { 
-      this.navCtrl.navigateRoot('/login'); 
+    else {
+      this.navCtrl.navigateRoot('/login');
     }
   }
 
@@ -56,12 +56,12 @@ export class HomePage {
     this.storage.setLocalParametros('modoCRUD', 'C');
     this.storage.setLocalParametros('somenteLeitura', false);
     this.storage.setLocalParametros('exibirBarraDeNavegacao', true);
-    this.navCtrl.navigateForward(['pessoal-base']); 
+    this.navCtrl.navigateForward(['pessoal-base']);
   }
 
   editarUsuarioDados() {
     this.storage.setLocalParametros('modoCRUD', 'U');
     this.storage.setLocalParametros('somenteLeitura', true);
-    this.navCtrl.navigateForward(['signup']); 
+    this.navCtrl.navigateForward(['signup']);
   }
 }

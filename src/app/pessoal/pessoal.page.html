@@ -41,7 +41,7 @@
 
   <ion-item *ngIf="usuarioCarregado == true">
     <ion-avatar slot="start">
-      <img [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
+      <img [src]="usuario?.perfilPessoal?.imageUrl || avatarBlank">
     </ion-avatar>
     <ion-label text-wrap>
       <h2>{{ usuario?.nome }}</h2>
