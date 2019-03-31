@@ -159,6 +159,11 @@ export class PessoalPage implements OnInit {
     this.navCtrl.navigateForward(['ficha-medica'])
   }
 
+  alterarSenha() {
+    this.storage.setLocalParametros('paginaAnterior', '/pessoal');
+    this.navCtrl.navigateForward(['/alterar-senha']);
+  }
+
   public async showPopover($ev: Event): Promise<void> {
     await this.popoverCtrl.create({
       component: MenuUsuarioComponent,
@@ -176,7 +181,7 @@ export class PessoalPage implements OnInit {
               this.navCtrl.navigateForward(['/home']);
             }
             else if (dataReturned['data'] == 'alterarSenha') {
-              this.navCtrl.navigateForward(['/home']);
+              this.alterarSenha();
             }
             else if (dataReturned['data'] == 'logOff') {
               this.navCtrl.navigateForward(['/login']);

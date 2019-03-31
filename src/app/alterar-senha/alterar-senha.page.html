@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pessoal"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Alterar senha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <form #form="ngForm" (ngSubmit)="alterarSenha(form.value)" novalidate>
+    <br>
+    <br>
+    <ion-item>
+      <ion-label position="stacked">Senha</ion-label>
+      <ion-input type="password" name="password" [ngModel]="usuario?.password" ngModel required #password="ngModel"
+        [class.invalid]="password.errors && password.dirty"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Confirmação</ion-label>
+      <ion-input type="password" name="confirm" [ngModel]="usuario?.password" ngModel required #password="ngModel"
+        [class.invalid]="password.errors && password.dirty"></ion-input>
+    </ion-item>
+    <div>
+      <br>
+      <br>
+      <ion-button type="submit" color="primary" expand="block" [disabled]="!form.valid">Alterar senha</ion-button>
+    </div>
+  </form>
+</ion-content>

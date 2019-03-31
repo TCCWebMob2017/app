@@ -13,29 +13,30 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class SignupPage implements OnInit {
 
-  usernameModel : NgModel;
-  public  usuario         : any;
-  public  modoCRUD        : string;
-  public  somenteLeitura  : boolean;
+  usernameModel: NgModel;
+  public usuario: any;
+  public modoCRUD: string;
+  public somenteLeitura: boolean;
 
-  constructor(public  navCtrl         : NavController,
-              public  auth            : AuthService,
-              //private readonly authService: AuthService,
-              //private readonly loadingCtrl: LoadingController,
-              //private readonly toastCtrl: ToastController,
-              //public formBuilder: FormBuilder,
-              public  usuarioService  : UsuarioService,
-              private storage         : StorageService,
-              public  alertCtrl       : AlertController,
-              public  toastController : ToastController
-              ) { 
+  constructor(
+    public navCtrl: NavController,
+    public auth: AuthService,
+    //private readonly authService: AuthService,
+    //private readonly loadingCtrl: LoadingController,
+    //private readonly toastCtrl: ToastController,
+    //public formBuilder: FormBuilder,
+    public usuarioService: UsuarioService,
+    private storage: StorageService,
+    public alertCtrl: AlertController,
+    public toastController: ToastController
+  ) {
 
   }
 
   ngOnInit() {
     this.lerUsuarioDados();
-    let _parametros     = this.storage.getLocalParametros();
-    this.modoCRUD       = _parametros['modoCRUD'];
+    let _parametros = this.storage.getLocalParametros();
+    this.modoCRUD = _parametros['modoCRUD'];
     this.somenteLeitura = _parametros['somenteLeitura'];
   }
 
@@ -49,43 +50,43 @@ export class SignupPage implements OnInit {
 
   async signup(value: any) {
     this.auth.signup(value)
-    .subscribe(Response => {
-      //this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
-      this.navCtrl.navigateRoot('login');
-      //console.log(Response);
-    },
-    error => {
-      console.log(error);
-    });
-  } 
+      .subscribe(Response => {
+        //this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
+        this.navCtrl.navigateRoot('login');
+        //console.log(Response);
+      },
+        error => {
+          console.log(error);
+        });
+  }
 
-  gravarDados(value : any) {
+  gravarDados(value: any) {
 
     if (this.usuario != null) {
 
-      if(value.password == '') {
+      if (value.password == '') {
         alert('Informar a senha');
         return;
       }
-      this.usuario['nome']      = value.nome;
+      this.usuario['nome'] = value.nome;
       //this.usuario['password']  = value.password;
-      this.usuario['tefefone']  = value.telefone;
-      this.usuario['rg']        = value.rg;
+      this.usuario['tefefone'] = value.telefone;
+      this.usuario['rg'] = value.rg;
       delete this.usuario['password'];
       delete this.usuario['tipos'];
 
       this.usuarioService.modificarUsuarioDados(this.usuario)
-      .subscribe(Response => {
-        this.usuario.password = "";
-        this.storage.setLocalUsuarioDados(this.usuario);
-        this.toastGravarSucesso();
-        this.irParaTelaHome();
-      },
-      error => {
-        alert(error);
-      });
+        .subscribe(Response => {
+          this.usuario.password = "";
+          this.storage.setLocalUsuarioDados(this.usuario);
+          this.toastGravarSucesso();
+          this.irParaTelaHome();
+        },
+          error => {
+            alert(error);
+          });
     }
-    
+
   }
 
   async toastGravarSucesso() {
@@ -99,6 +100,6 @@ export class SignupPage implements OnInit {
 
   irParaTelaHome() {
     this.navCtrl.navigateBack('/home');
-  }  
+  }
 
 }

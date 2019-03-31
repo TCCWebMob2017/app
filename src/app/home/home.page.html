@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    
+
     <ion-buttons slot="primary">
       <ion-button (click)="editarUsuarioDados()">Editar</ion-button>
     </ion-buttons>
@@ -43,7 +43,9 @@
     <ion-avatar slot="start">
       <img [src]="usuario?.urlAvatar || '../../assets/img/avatar-blank.png'">
     </ion-avatar>
-    <ion-label text-wrap><h2>{{ usuario?.nome }}</h2></ion-label>
+    <ion-label text-wrap>
+      <h2>{{ usuario?.nome }}</h2>
+    </ion-label>
   </ion-item>
 
   <p text-center>{{ usuario?.email }}</p>
@@ -65,20 +67,19 @@
   <div *ngIf="usuario?.perfilPessoal == null && usuarioCarregado == true">
     <br>
     <br>
-    <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>   
+    <ion-button type="button" (click)="addPerfilPessoal()">Criar Perfil Pessoal</ion-button>
   </div>
 
 
-  <ion-fab  vertical="top" 
-            horizontal="end" 
-            slot="fixed" 
-            *ngIf="usuario?.perfilPessoal == null && 
+  <ion-fab vertical="top" horizontal="end" slot="fixed" *ngIf="usuario?.perfilPessoal == null && 
             usuarioCarregado == true && usuarioCarregado == false">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
     <ion-fab-list side="bottom">
-      <ion-fab-button color="primary" (click)=addPerfilPessoal()><ion-icon name="finger-print"></ion-icon></ion-fab-button>
+      <ion-fab-button color="primary" (click)=addPerfilPessoal()>
+        <ion-icon name="finger-print"></ion-icon>
+      </ion-fab-button>
       <!--
       <ion-fab-button color="danger"><ion-icon name="business"></ion-icon></ion-fab-button>
       <ion-fab-button color="dark"><ion-icon name="medkit"></ion-icon></ion-fab-button>
@@ -90,6 +91,10 @@
       <ion-fab-button color="light"><ion-icon name="medical"></ion-icon></ion-fab-button>
     </ion-fab-list>
     -->
+
   </ion-fab>
+
+  <br>
+  <ion-button type="button" color="primary" expand="block" (click)=alterarSenha()>Alterar senha</ion-button>
 
 </ion-content>

@@ -65,4 +65,9 @@ export class HomePage {
     this.navCtrl.navigateForward(['signup']); 
   }
 
+  alterarSenha() {
+    this.storage.setLocalParametros('paginaAnterior', '/home');
+    this.navCtrl.navigateForward(['/alterar-senha']);
+  }
+
 }
