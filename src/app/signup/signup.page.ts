@@ -43,51 +43,45 @@ export class SignupPage implements OnInit {
     }
   };
 
-
   async signup(value: any) {
-    this.auth.signup(value)
-      .subscribe(Response => {
-        //this.auth.sucessfullLogin(this.creds.email, Response.headers.get('Authorization'));
-        this.navCtrl.navigateRoot('login');
-        //console.log(Response);
-      },
-        error => {
-          console.log(error);
-        });
+    if (value.password != value.password2) {
+      this.exibirToast('Confirmação da senha inválida.');
+    }
+    else {
+      delete value['password2'];
+      this.auth.signup(value)
+        .subscribe(Response => {
+          this.navCtrl.navigateRoot('login');
+        },
+          error => {
+            this.exibirToast('Erro ao criar usuário.');
+          });
+    }
   }
 
   gravarDados(value: any) {
-
     if (this.usuario != null) {
-
-      if (value.password == '') {
-        alert('Informar a senha');
-        return;
-      }
       this.usuario['nome'] = value.nome;
-      //this.usuario['password']  = value.password;
-      this.usuario['tefefone'] = value.telefone;
+      this.usuario['tefefone'] = value.tefefone;
       this.usuario['rg'] = value.rg;
       delete this.usuario['password'];
       delete this.usuario['tipos'];
-
       this.usuarioService.modificarUsuarioDados(this.usuario)
         .subscribe(Response => {
           this.usuario.password = "";
           this.storage.setLocalUsuarioDados(this.usuario);
-          this.toastGravarSucesso();
+          this.exibirToast('Dados gravados com sucesso !');
           this.irParaTelaHome();
         },
           error => {
-            alert(error);
+            // alert(error);
           });
     }
-
   }
 
-  async toastGravarSucesso() {
+  async exibirToast(mensagem: string) {
     const toast = await this.toastController.create({
-      message: 'Dados gravados com sucesso !',
+      message: mensagem,
       position: 'bottom',
       duration: 2000
     });

@@ -60,9 +60,14 @@
       </ion-item>
       -->
 
-      <ion-item>
+      <ion-item *ngIf="modoCRUD == 'C'">
         <ion-label position="stacked">Senha</ion-label>
         <ion-input type="password" name="password" [ngModel]="usuario?.password" ngModel required #password="ngModel"
+          [class.invalid]="password.errors && password.dirty"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="modoCRUD == 'C'">
+        <ion-label position="stacked">Confirmar senha</ion-label>
+        <ion-input type="password" name="password2" [ngModel]="usuario?.password" ngModel required #password="ngModel"
           [class.invalid]="password.errors && password.dirty"></ion-input>
       </ion-item>
       <!--
@@ -76,7 +81,7 @@
 
       <ion-item>
         <ion-label position="stacked">Telefone</ion-label>
-        <ion-input type="text" name="telefone" [ngModel]="usuario?.tefefone" ngModel required #telefone="ngModel"
+        <ion-input type="text" name="tefefone" [ngModel]="usuario?.tefefone" ngModel required #telefone="ngModel"
           [class.invalid]="telefone.errors && telefone.dirty"></ion-input>
       </ion-item>
 

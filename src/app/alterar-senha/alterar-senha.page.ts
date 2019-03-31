@@ -73,7 +73,7 @@ export class AlterarSenhaPage implements OnInit {
   async toastGravarSucesso() {
     const toast = await this.toastController.create({
       message: 'Senha alterada com sucesso !',
-      position: 'bottom',
+      position: 'top',
       duration: 2000
     });
     toast.present();
@@ -82,7 +82,7 @@ export class AlterarSenhaPage implements OnInit {
   async toastGravarErro(error: any) {
     const toast = await this.toastController.create({
       message: 'Senha alterada com sucesso !',
-      position: 'bottom',
+      position: 'top',
       duration: 2000
     });
     toast.present();
