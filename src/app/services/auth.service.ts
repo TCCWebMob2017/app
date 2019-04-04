@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CredenciaisDTO } from '../models/credenciais.dto';
 import { API_CONFIG } from 'src/config/api.config';
-//import { Observable, ReplaySubject } from 'rxjs';
 import { LocalUser } from '../models/local_users';
 import { StorageService } from './storage.service';
 
