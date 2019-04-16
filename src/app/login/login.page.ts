@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
         this.usuario = Response;
         this.storage.setLocalUsuarioDados(this.usuario);
         this.storage.setLocalParametros("usuarioCarregado", this.usuarioCarregado);
-        // console.log(Response);
+        console.log(Response);
         if (this.usuario['perfilPessoal'] == null) {
           this.navCtrl.navigateRoot('/home');
         }
