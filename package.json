@@ -2,6 +2,9 @@
   "name": "Q-Life",
   "version": "0.0.1",
   "author": "Ionic Framework",
+  "engines": {
+    "node": "10.18.0"
+  },
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
