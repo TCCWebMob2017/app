@@ -9,12 +9,11 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -31,9 +30,12 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.0.0",
     "@ionic/app-scripts": "2.1.4",
+    "body-parser": "^1.19.0",
     "cordova-plugin-ionic-keyboard": "2.1.3",
     "core-js": "^2.5.4",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "morgan": "^1.9.1",
     "path": "^0.12.7",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"
@@ -48,6 +50,7 @@
     "@angular/compiler-cli": "~7.2.2",
     "@angular/language-service": "~7.2.2",
     "@ionic/angular-toolkit": "~1.3.0",
+    "@ionic/lab": "2.0.18",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.12.0",
