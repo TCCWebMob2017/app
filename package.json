@@ -31,6 +31,7 @@
     "@ionic/angular": "^4.11.7",
     "@ionic/app-scripts": "3.2.4",
     "body-parser": "^1.19.0",
+    "cordova-plugin-ionic": "^5.4.6",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "core-js": "^3.6.3",
     "cors": "^2.8.5",
@@ -71,7 +72,15 @@
   "description": "An Ionic project",
   "cordova": {
     "plugins": {
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-ionic": {
+        "APP_ID": "9368a533",
+        "CHANNEL_NAME": "Master",
+        "UPDATE_METHOD": "background",
+        "MAX_STORE": "2",
+        "MIN_BACKGROUND_DURATION": "30",
+        "UPDATE_API": "https://api.ionicjs.com"
+      }
     }
   }
 }
